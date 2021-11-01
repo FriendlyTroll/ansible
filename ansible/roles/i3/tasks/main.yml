@@ -33,7 +33,7 @@
 - name: Copy laptops py3status config file
   template:
       src: xpspy3status.j2
-      dest: $HOME/.config/i3/xpsi3status.conf
+      dest: $HOME/.config/i3/i3status.conf
   when: '"XPS" in ansible_hostname'
 
 - name: Add gnome-keyring to startup
