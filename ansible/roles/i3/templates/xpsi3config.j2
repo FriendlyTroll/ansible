@@ -247,3 +247,7 @@ bindsym --release Print exec gnome-screenshot -af "/tmp/scrot_$(date +\%Y-\%m-\%
 workspace_auto_back_and_forth yes
 
 
+# turn of screen blanking
+exec --no-startup-id xset s off
+exec --no-startup-id xset -dpms
+exec --no-startup-id xset s noblank
