@@ -1,0 +1,47 @@
+---
+- name: Install i3 and other packages
+  apt:
+      name: ['i3-wm', 'lxappearance', 'feh', 'py3status', 'rofi']
+  become: True
+  become_user: root
+
+- name: Download greenclip clipboard utility for rofi
+  get_url:
+      url: https://github.com/erebe/greenclip/releases/download/v4.2/greenclip 
+      dest: $HOME/.local/bin/
+      mode: 0755
+
+- name: Copy home pc i3 config file
+  template:
+      src: i3config.j2
+      dest: $HOME/.config/i3/config
+  when: '"antisa-desktop" in ansible_hostname'
+
+- name: Copy home py3status config file
+  template:
+      src: py3status.j2
+      dest: $HOME/.config/i3/i3status.conf
+  when: '"antisa-desktop" in ansible_hostname'
+
+
+- name: Copy laptops i3 config file
+  template:
+      src: xpsi3config.j2
+      dest: $HOME/.config/i3/config
+  when: '"xps" in ansible_hostname'
+
+- name: Copy laptops py3status config file
+  template:
+      src: xpspy3status.j2
+      dest: $HOME/.config/i3/xpsi3status.conf
+  when: '"xps" in ansible_hostname'
+
+- name: Add gnome-keyring to startup
+  blockinfile:
+      path: $HOME/.bashrc
+      block: |
+          if [ -n "$DESKTOP_SESSION" ];then
+              eval $(gnome-keyring-daemon --start)
+              export SSH_AUTH_SOCK
+          fi
+

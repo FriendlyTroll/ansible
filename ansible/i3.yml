@@ -1,0 +1,7 @@
+---
+- name: Configure i3 window manager
+  hosts: localhost
+  gather_facts: True
+
+  roles:
+      - role: i3

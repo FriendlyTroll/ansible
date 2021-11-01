@@ -1,0 +1,13 @@
+order += "sysdata"
+order += "whatismyip"
+order += "volume_status"
+order += "time"
+order += "networkmanager"
+
+whatismyip {
+    mode = "status"
+}
+
+networkmanager {
+    format_device = "[\?if=general_connection [\?color=ap1_signal {ap1_bars} {ap1_signal}%]]"
+}
