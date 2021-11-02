@@ -1,7 +1,7 @@
 ---
 - name: Install i3 and other packages
   apt:
-      name: ['i3-wm', 'lxappearance', 'feh', 'py3status', 'rofi']
+      name: ['i3-wm', 'lxappearance', 'feh', 'py3status', 'rofi', 'i3lock']
   become: True
   become_user: root
 
