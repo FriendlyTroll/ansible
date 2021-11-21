@@ -1,15 +1,27 @@
 ---
 - name: Install i3 and other packages
   apt:
-      name: ['i3-wm', 'lxappearance', 'feh', 'py3status', 'rofi', 'i3lock']
+      name: ['i3-wm', 'lxappearance', 'feh', 'py3status', 'rofi', 'i3lock', 'ranger']
   become: True
   become_user: root
+  tags: pkg_install
 
 - name: Download greenclip clipboard utility for rofi
   get_url:
       url: https://github.com/erebe/greenclip/releases/download/v4.2/greenclip 
       dest: $HOME/.local/bin/
       mode: 0755
+  tags: pkg_install
+
+- name: Create the required directories for tasks
+  file:
+      path: "{{ item }}"
+      state: directory
+      mode: 0755
+  loop:
+    - $HOME/.config/i3
+    - $HOME/.config/polybar
+    - /tmp/polybar-3.5.7/build
 
 - name: Copy home pc i3 config file
   template:
@@ -17,12 +29,17 @@
       dest: $HOME/.config/i3/config
   when: '"antisa-desktop" in ansible_hostname'
 
-- name: Copy home py3status config file
-  template:
-      src: py3status.j2
-      dest: $HOME/.config/i3/i3status.conf
-  when: '"antisa-desktop" in ansible_hostname'
+  #- name: Copy home py3status config file
+  #  template:
+  #      src: py3status.j2
+  #      dest: $HOME/.config/i3/i3status.conf
+  #  when: '"antisa-desktop" in ansible_hostname'
 
+  #- name: Copy home py3status config file
+  #  template:
+  #      src: py3status.j2
+  #      dest: $HOME/.config/i3/i3status.conf
+  #  when: '"antisa-desktop" in ansible_hostname'
 
 - name: Copy laptops i3 config file
   template:
@@ -30,11 +47,57 @@
       dest: $HOME/.config/i3/config
   when: '"XPS" in ansible_hostname'
 
-- name: Copy laptops py3status config file
+  #- name: Copy laptops py3status config file
+  #  template:
+  #      src: xpspy3status.j2
+  #      dest: $HOME/.config/i3/i3status.conf
+  #  when: '"XPS" in ansible_hostname'
+  #
+- name: Install polybar dependencies
+  apt:
+      name:
+        ['build-essential', 'git', 'cmake', 'cmake-data', 'pkg-config', 'python3-sphinx', 'python3-packaging',
+        'libuv1-dev', 'libcairo2-dev', 'libxcb1-dev', 'libxcb-util0-dev', 'libxcb-randr0-dev', 'libxcb-composite0-dev',
+        'python3-xcbgen', 'xcb-proto', 'libxcb-image0-dev', 'libxcb-ewmh-dev', 'libxcb-icccm4-dev',
+        'libxcb-xkb-dev', 'libxcb-xrm-dev', 'libxcb-cursor-dev', 'libasound2-dev', 'libpulse-dev',
+        'i3-wm', 'libjsoncpp-dev', 'libmpdclient-dev', 'libcurl4-openssl-dev', 'libnl-genl-3-dev']
+  become: True
+  become_user: root
+  tags: pkg_install
+
+- name: Download polybar source files
+  get_url:
+      url: https://github.com/polybar/polybar/releases/download/3.5.7/polybar-3.5.7.tar.gz
+      dest: /tmp/
+      mode: 0755
+  register: polybar_source
+  tags: pkg_install
+
+- name: Unarchive polybar
+  unarchive:
+      dest: /tmp/
+      src: /tmp/polybar-3.5.7.tar.gz
+  when: polybar_source.changed
+  register: polybar_archive
+  tags: pkg_install
+
+- name: Compile polybar from source
+  shell: "cmake .. && make -j$(nproc) && sudo make install"
+  args:
+    chdir: /tmp/polybar-3.5.7/build
+  when: polybar_archive.changed
+  tags: pkg_install
+
+- name: Copy polybar configuration file
   template:
-      src: xpspy3status.j2
-      dest: $HOME/.config/i3/i3status.conf
-  when: '"XPS" in ansible_hostname'
+      src: polybar.j2
+      dest: $HOME/.config/polybar/config
+
+- name: Add polybar launch script file
+  copy:
+      src: launch.sh
+      dest: $HOME/.config/polybar/launch.sh
+      mode: '0755'
 
 - name: Add gnome-keyring to startup
   blockinfile:
