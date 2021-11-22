@@ -46,10 +46,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run
-# A more modern dmenu replacement is rofi:
-# bindcode $mod+40 exec "rofi -modi drun,run -show drun"
+bindsym $mod+d exec --no-startup-id "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
@@ -77,12 +74,6 @@ bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
-
-# split in horizontal orientation
-bindsym $mod+b split h
-
-# split in vertical orientation
-bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -219,6 +210,16 @@ bindsym $mod+F9 exec rofi -modi "clipboard:greenclip print" -show clipboard -run
 
 # screenshot
 bindsym --release Print exec gnome-screenshot -af "/tmp/scrot_$(date +\%Y-\%m-\%d)_$(date +\%H:\%M:\%S).png"
+
+# search google with highlighted text
+bindsym $mod+g exec firefox "https://www.google.com/search?q=$(xclip -o)"
+
+# gnome settings
+bindsym $mod+Shift+p exec gnome-control-center
+for_window [instance="gnome-control-center"] floating enable
+
+# Show mbb server name for highlighted IP
+bindsym $mod+b exec /home/antisa/Posal/what_hostname.sh
 
 workspace_auto_back_and_forth yes
 
