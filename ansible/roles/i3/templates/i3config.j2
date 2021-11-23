@@ -168,13 +168,12 @@ bindsym $mod+r mode "resize"
 
 # launch apps when entering mode with keyboard shortcut or
 # exit mode with Escape or Return
-set $mode_launcher Launch: [f]irefox [t]hunderbird [s]kype [n]autilus
+set $mode_launcher Launch: [f]irefox [t]hunderbird [n]autilus
 bindsym $mod+o mode "$mode_launcher"
 
 mode "$mode_launcher" {
     bindsym f exec firefox
     bindsym t exec thunderbird
-    bindsym s exec skypeforlinux
     bindsym n exec nautilus
 
 
@@ -202,6 +201,9 @@ client.background       #F8F8F2
 # lock screen
 bindsym Pause exec i3lock -i /usr/share/backgrounds/Focal-Fossa_WP_4096x2304_GREY.png
 
+# Turn off computer
+bindsym $mod+F4 exec shutdown now
+
 # launch rofi launcher
 bindsym $mod+x exec rofi -show run
 
@@ -224,9 +226,9 @@ bindsym $mod+b exec /home/antisa/Posal/what_hostname.sh
 workspace_auto_back_and_forth yes
 
 # turn of screen blanking
-exec --no-startup-id xset s off
-exec --no-startup-id xset -dpms
-exec --no-startup-id xset s noblank
+#exec --no-startup-id xset s off
+#exec --no-startup-id xset -dpms
+#exec --no-startup-id xset s noblank
 
 ## autostart applications
 # background
