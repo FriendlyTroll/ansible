@@ -228,10 +228,16 @@ bindsym $mod+BackSpace split toggle
 
 workspace_auto_back_and_forth yes
 
+{% if "XPS" in ansible_hostname %}
 # turn off screen blanking
 #exec --no-startup-id xset s off
 #exec --no-startup-id xset -dpms
 #exec --no-startup-id xset s noblank
+{% else %}
+exec --no-startup-id xset s off
+exec --no-startup-id xset -dpms
+exec --no-startup-id xset s noblank
+{% endif %}
 
 ## autostart applications
 # background
