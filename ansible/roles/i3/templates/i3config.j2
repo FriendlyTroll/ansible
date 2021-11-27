@@ -197,7 +197,9 @@ client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
 client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
 client.background       #F8F8F2
 
-## keyboard shortcuts
+workspace_auto_back_and_forth yes
+
+{{ "keyboard shortcuts" | comment }} 
 # lock screen
 bindsym Pause exec i3lock -i /usr/share/backgrounds/Focal-Fossa_WP_4096x2304_GREY.png
 
@@ -226,7 +228,30 @@ bindsym $mod+b exec /home/antisa/Posal/what_hostname.sh
 # Split toggle
 bindsym $mod+BackSpace split toggle
 
-workspace_auto_back_and_forth yes
+
+{{ "autostart applications" | comment }} 
+# background
+exec_always --no-startup-id feh --bg-scale /usr/share/backgrounds/hardy_wallpaper_uhd.png
+
+# launch polybar
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
+exec firefox
+
+exec --no-startup-id nautilus
+
+exec --no-startup-id thunderbird
+
+# clipboard history daemon
+exec greenclip daemon
+
+# syncthing
+exec syncthing-gtk
+
+{{ "start specified programs on specific workspaces" | comment }} 
+assign [class="Firefox"] 1
+assign [class="Org.gnome.Nautilus"] 2
+assign [class="Thunderbird"] 0
 
 {% if "XPS" in ansible_hostname %}
 # turn off screen blanking
@@ -238,24 +263,3 @@ exec --no-startup-id xset s off
 exec --no-startup-id xset -dpms
 exec --no-startup-id xset s noblank
 {% endif %}
-
-## autostart applications
-# background
-exec_always --no-startup-id feh --bg-scale /usr/share/backgrounds/hardy_wallpaper_uhd.png
-
-# launch polybar
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-
-# start specified programs and put them on workspaces
-exec firefox
-assign [class="Firefox"] 1
-
-exec nautilus
-assign [class="Org.gnome.Nautilus"] 2
-
-# clipboard history daemon
-exec greenclip daemon
-
-# syncthing
-exec syncthing-gtk
-
