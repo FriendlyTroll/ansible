@@ -265,10 +265,10 @@ exec --no-startup-id xset s noblank
 {% endif %}
 
 {{ "start specified programs on specific workspaces" | comment }} 
-assign [class="Firefox"] 1
-assign [class="Org.gnome.Nautilus"] 2
-assign [class="Thunderbird"] 10
+for_window [class="Firefox"] move workspace $ws1
+for_window [class="Org.gnome.Nautilus"] move workspace $ws2
+for_window [class="Thunderbird"] move workspace $ws10
 {% if "antisa-desktop" in ansible_hostname %}
-assign [class="dalyinski-server"] 4
+for_window [class="dalyinski-server"] move workspace $ws4
 {% endif %}
 
