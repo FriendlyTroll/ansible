@@ -200,6 +200,7 @@ client.background       #F8F8F2
 workspace_auto_back_and_forth yes
 
 {{ "keyboard shortcuts" | comment }} 
+
 # lock screen
 bindsym Pause exec i3lock -i /usr/share/backgrounds/Focal-Fossa_WP_4096x2304_GREY.png
 
@@ -230,6 +231,7 @@ bindsym $mod+BackSpace split toggle
 
 
 {{ "autostart applications" | comment }} 
+
 # background
 exec_always --no-startup-id feh --bg-scale /usr/share/backgrounds/hardy_wallpaper_uhd.png
 
@@ -247,11 +249,9 @@ exec greenclip daemon
 
 # syncthing
 exec syncthing-gtk
-
-{{ "start specified programs on specific workspaces" | comment }} 
-assign [class="Firefox"] 1
-assign [class="Org.gnome.Nautilus"] 2
-assign [class="Thunderbird"] 10
+{% if "antisa-desktop" in ansible_hostname %}
+exec dalyinski-server
+{% endif %}
 
 {% if "XPS" in ansible_hostname %}
 # turn off screen blanking
@@ -263,3 +263,12 @@ exec --no-startup-id xset s off
 exec --no-startup-id xset -dpms
 exec --no-startup-id xset s noblank
 {% endif %}
+
+{{ "start specified programs on specific workspaces" | comment }} 
+assign [class="Firefox"] 1
+assign [class="Org.gnome.Nautilus"] 2
+assign [class="Thunderbird"] 10
+{% if "antisa-desktop" in ansible_hostname %}
+assign [class="dalyinski-server"] 4
+{% endif %}
+
