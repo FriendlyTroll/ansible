@@ -1,0 +1,7 @@
+---
+- name: Configure regolith desktop
+  hosts: localhost
+  gather_facts: True
+
+  roles:
+      - role: regolith

@@ -1,0 +1,28 @@
+---
+- name: Add regolith repo
+  apt_repository:
+      repo: ppa:regolith-linux/release
+      state: present
+
+- name: Install regolith and other packages
+  apt:
+      name: ['regolith-desktop-standard']
+      update_cache: yes
+  become: True
+  become_user: root
+  tags: pkg_install
+
+- name: Create the required directories for tasks
+  file:
+      path: "{{ item }}"
+      state: directory
+      mode: 0755
+  loop:
+    - $HOME/.config/regolith
+    - $HOME/.config/regolith/i3
+
+- name: Copy home pc i3 config file
+  template:
+      src: i3config.j2
+      dest: $HOME/.config/regolith/i3/config
+  when: '"antisa-desktop" in ansible_hostname'
