@@ -674,3 +674,30 @@ set_from_resource $i3-wm.program.2 i3-wm.program.2 :
 exec --no-startup-id $i3-wm.program.2
 set_from_resource $i3-wm.program.3 i3-wm.program.3 :
 exec --no-startup-id $i3-wm.program.3
+
+{{ "moje" | comment }}
+
+workspace_auto_back_and_forth yes
+
+## shortcuts
+# clipboard
+bindsym $mod+F9 exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+
+# screenshot
+bindsym --release Print exec gnome-screenshot -af "$HOME/Pictures/screenshots/scrot_$(date +\%Y-\%m-\%d)_$(date +\%H:\%M:\%S).png"
+
+
+## startup
+exec --no-startup-id "greenclip daemon"
+exec --no-startup-id firefox
+exec --no-startup-id thunderbird
+exec --no-startup-id slack
+exec --no-startup-id gnome-terminal
+exec --no-startup-id keepassxc
+
+## assign apps to specific workspace
+assign [class=^Firefox$] 2
+#assign [class=^Gnome-terminal$] 3
+assign [class=^Thunderbird$] 10
+assign [class=^keepassxc$] 4
+

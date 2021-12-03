@@ -6,11 +6,20 @@
 
 - name: Install regolith and other packages
   apt:
-      name: ['regolith-desktop-standard']
+      name: ['regolith-desktop-standard', 'i3xrocks-volume', 'i3xrocks-memory']
       update_cache: yes
   become: True
   become_user: root
   tags: pkg_install
+
+- name: Install laptop specific packages
+  apt:
+      name: ['i3xrocks-microphone', 'i3xrocks-battery', 'i3xrocks-bluetooth']
+      update_cache: yes
+  become: True
+  become_user: root
+  tags: pkg_install
+  when: '"XPS" in ansible_hostname'
 
 - name: Create the required directories for tasks
   file:
@@ -20,9 +29,35 @@
   loop:
     - $HOME/.config/regolith
     - $HOME/.config/regolith/i3
+    - $HOME/.config/regolith/i3xrocks
+    - $HOME/.config/regolith/i3xrocks/conf.d
 
-- name: Copy home pc i3 config file
+- name: Copy templated regolith config files
   template:
-      src: i3config.j2
-      dest: $HOME/.config/regolith/i3/config
-  when: '"antisa-desktop" in ansible_hostname'
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+  loop:
+      - { src: "i3config.j2", dest: "$HOME/.config/regolith/i3/config" }
+
+- name: Copy i3xrocks desktop pc config files
+  copy:
+      src:  "{{ item }}"
+      dest: "$HOME/.config/regolith/i3xrocks/conf.d" 
+  loop:
+      - "01_setup"
+      - "10_volume"
+      - "40_cpu-usage"
+      - "50_memory"
+      - "80_rofication"
+      - "99_time"
+
+- name: Copy i3xrocks laptop pc config files
+  copy:
+      src:  "{{ item }}"
+      dest: "$HOME/.config/regolith/i3xrocks/conf.d" 
+  loop:
+      - "35_bluetooth"
+      - "85_microphone"
+      - "60_battery"
+  when: '"XPS" in ansible_hostname'
+

@@ -1,0 +1,7 @@
+# volume
+#
+# Display Volume
+[volume]
+interval=5
+label=VOL
+
