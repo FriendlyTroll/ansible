@@ -691,9 +691,12 @@ bindsym --release Print exec gnome-screenshot -af "$HOME/Pictures/screenshots/sc
 exec --no-startup-id "greenclip daemon"
 exec --no-startup-id firefox
 exec --no-startup-id thunderbird
-exec --no-startup-id slack
 exec --no-startup-id gnome-terminal
 exec --no-startup-id keepassxc
+exec --no-startup-id nautilus
+{% if "XPS" in ansible_hostname %}
+exec --no-startup-id slack
+{% endif %}
 
 ## assign apps to specific workspace
 assign [class=^Firefox$] 2
