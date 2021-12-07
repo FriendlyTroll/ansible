@@ -260,8 +260,8 @@ set_from_resource $i3-wm.binding.split_v i3-wm.binding.split_v v
 bindsym $mod+$i3-wm.binding.split_v split vertical
 
 ## Modify // Horizontal Window Orientation // <> g ##
-set_from_resource $i3-wm.binding.split_h i3-wm.binding.split_h g
-bindsym $mod+$i3-wm.binding.split_h split horizontal
+#set_from_resource $i3-wm.binding.split_h i3-wm.binding.split_h g
+#bindsym $mod+$i3-wm.binding.split_h split horizontal
 
 ## Modify // Toggle Window Orientation // <> Backspace ##
 set_from_resource $i3-wm.binding.orientation_toggle i3-wm.binding.orientation_toggle BackSpace
@@ -686,6 +686,8 @@ bindsym $mod+F9 exec rofi -modi "clipboard:greenclip print" -show clipboard -run
 # screenshot
 bindsym --release Print exec gnome-screenshot -af "$HOME/Pictures/screenshots/scrot_$(date +\%Y-\%m-\%d)_$(date +\%H:\%M:\%S).png"
 
+# Search google with selected text
+bindsym $mod+G exec sh -c 'firefox "https://www.google.com/search?q=$(xclip -o)"'
 
 ## startup
 exec --no-startup-id "greenclip daemon"
