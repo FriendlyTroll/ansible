@@ -696,6 +696,9 @@ exec --no-startup-id thunderbird
 exec --no-startup-id gnome-terminal
 exec --no-startup-id keepassxc
 exec --no-startup-id nautilus
+{% if "antisa-desktop" in ansible_hostname %}
+exec --no-startup-id dalyinski-server
+{% endif %}
 {% if "XPS" in ansible_hostname %}
 exec --no-startup-id slack
 {% endif %}
