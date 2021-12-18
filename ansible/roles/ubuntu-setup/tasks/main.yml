@@ -4,3 +4,11 @@
       name: [ubuntu-restricted-extras, imagemagick, curl, git, sshfs, vim, zenity, mpv, syncthing, syncthing-gtk, chrome-gnome-shell, keepassxc, vim-gtk3, fzf, universal-ctags, mlocate]
   become: True
   become_user: root
+
+- name: Create screenshot directories
+  file:
+      path: "{{ item }}"
+      state: directory
+      mode: 0755
+  loop:
+    - $HOME/Pictures/screenshots
