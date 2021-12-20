@@ -35,24 +35,12 @@
   #      dest: $HOME/.config/i3/i3status.conf
   #  when: '"antisa-desktop" in ansible_hostname'
 
-  #- name: Copy home py3status config file
-  #  template:
-  #      src: py3status.j2
-  #      dest: $HOME/.config/i3/i3status.conf
-  #  when: '"antisa-desktop" in ansible_hostname'
-
 - name: Copy laptops i3 config file
   template:
       src: xpsi3config.j2
       dest: $HOME/.config/i3/config
   when: '"XPS" in ansible_hostname'
 
-  #- name: Copy laptops py3status config file
-  #  template:
-  #      src: xpspy3status.j2
-  #      dest: $HOME/.config/i3/i3status.conf
-  #  when: '"XPS" in ansible_hostname'
-  #
 - name: Install polybar dependencies
   apt:
       name:
