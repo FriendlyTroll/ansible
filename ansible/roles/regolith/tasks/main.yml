@@ -6,7 +6,7 @@
 
 - name: Install regolith and other packages
   apt:
-      name: ['regolith-desktop-standard', 'i3xrocks-volume', 'i3xrocks-memory', 'pass', 'gawk', 'pwgen']
+      name: ['regolith-desktop-standard', 'i3xrocks-volume', 'i3xrocks-memory']
       update_cache: yes
   become: True
   become_user: root
@@ -31,7 +31,6 @@
     - $HOME/.config/regolith/i3
     - $HOME/.config/regolith/i3xrocks
     - $HOME/.config/regolith/i3xrocks/conf.d
-    - $HOME/.local/bin
 
 - name: Copy templated regolith config files
   template:
@@ -62,11 +61,3 @@
       - "60_battery"
   when: '"XPS" in ansible_hostname'
 
-- name: Copy rofi-pass scripts
-  copy:
-      src:  "{{ item }}"
-      dest: "$HOME/.local/bin"
-      mode: "0755"
-  loop:
-      - "rofi-pass.sh"
-      - "rofi-addpass.sh"
