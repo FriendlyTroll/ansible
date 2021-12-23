@@ -1,7 +1,7 @@
 ---
 - name: Install ubuntu packages
   apt:
-      name: [ubuntu-restricted-extras, imagemagick, curl, git, sshfs, vim, zenity, mpv, syncthing, syncthing-gtk, chrome-gnome-shell, keepassxc, vim-gtk3, fzf, universal-ctags, mlocate]
+      name: [ubuntu-restricted-extras, imagemagick, curl, git, sshfs, vim, zenity, mpv, syncthing, syncthing-gtk, chrome-gnome-shell, keepassxc, vim-gtk3, fzf, universal-ctags, mlocate, filezilla]
   become: True
   become_user: root
 
