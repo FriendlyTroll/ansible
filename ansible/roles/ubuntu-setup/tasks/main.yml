@@ -12,3 +12,6 @@
       mode: 0755
   loop:
     - $HOME/Pictures/screenshots
+
+- name: Open pgp files with seahorse
+  command: xdg-mime default org.gnome.seahorse.Application.desktop application/pgp-keys
