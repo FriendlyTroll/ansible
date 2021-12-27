@@ -125,3 +125,9 @@ PROMPT_COMMAND='history -a'
 
 # show timestamps in history
 export HISTTIMEFORMAT="%F %T "
+
+# log terminal sessions in file
+# https://unix.stackexchange.com/questions/25639/how-to-automatically-record-all-your-terminal-sessions-with-script-utility
+# to read the log use "less -R" (see this too https://superuser.com/questions/236930/how-to-clean-up-output-of-linux-script-command)
+# We test for shell's parent process not being script and then run script
+test "$(ps -ocommand= -p $PPID | awk '{print $1}')" == 'script' || (script -f $HOME/Documents/script_logs/$(date +"%d-%b-%y_%H-%M-%S")_shell.log)
