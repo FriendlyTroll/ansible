@@ -4,6 +4,7 @@
       name: [ubuntu-restricted-extras, imagemagick, curl, git, sshfs, vim, zenity, mpv, syncthing, syncthing-gtk, chrome-gnome-shell, keepassxc, vim-gtk3, fzf, universal-ctags, mlocate, filezilla, bsdutils]
   become: True
   become_user: root
+  tags: packages
 
 - name: Create custom directories
   file:
@@ -21,3 +22,11 @@
 
 - name: Open pgp files with seahorse
   command: xdg-mime default org.gnome.seahorse.Application.desktop application/pgp-keys
+
+- name: Create cronjob to zip up logs from "script" program
+  cron:
+      name: "zip script logs"
+      job: "find $HOME/Documents/script_logs -mtime +7 -exec ls -lh {} \\;"
+      hour: "13"
+      minute: "0"
+
