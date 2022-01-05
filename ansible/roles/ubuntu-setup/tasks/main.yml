@@ -26,7 +26,7 @@
 - name: Create cronjob to zip up logs from "script" program
   cron:
       name: "zip script logs"
-      job: "find $HOME/Documents/script_logs -mtime +7 -exec ls -lh {} \\;"
+      job: "find $HOME/Documents/script_logs -mtime +7 -exec bzip2 {} \\;"
       hour: "13"
       minute: "0"
 
