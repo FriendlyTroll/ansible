@@ -61,3 +61,5 @@
       - "60_battery"
   when: '"XPS" in ansible_hostname'
 
+- name: Disable Gnome default screenshot key
+  command: gsettings set org.gnome.settings-daemon.plugins.media-keys screenshot "[]"
