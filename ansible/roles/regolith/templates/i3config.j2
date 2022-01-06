@@ -702,7 +702,6 @@ bindsym $mod+Ctrl+w exec --no-startup-id /usr/bin/i3-next-workspace --move-windo
 exec --no-startup-id "greenclip daemon"
 exec --no-startup-id firefox
 exec --no-startup-id thunderbird
-exec --no-startup-id gnome-terminal
 exec --no-startup-id keepassxc
 exec --no-startup-id nautilus
 {% if "antisa-desktop" in ansible_hostname %}
@@ -710,6 +709,7 @@ exec --no-startup-id dalyinski-server
 {% endif %}
 {% if "XPS" in ansible_hostname %}
 exec --no-startup-id slack
+exec --no-startup-id gnome-terminal
 {% endif %}
 
 ## assign apps to specific workspace
