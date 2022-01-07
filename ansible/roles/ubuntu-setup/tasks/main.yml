@@ -1,7 +1,7 @@
 ---
 - name: Install ubuntu packages
   apt:
-      name: [ubuntu-restricted-extras, imagemagick, curl, git, sshfs, vim, zenity, mpv, syncthing, syncthing-gtk, chrome-gnome-shell, keepassxc, vim-gtk3, fzf, universal-ctags, mlocate, filezilla, bsdutils]
+      name: [ubuntu-restricted-extras, imagemagick, curl, git, sshfs, vim, zenity, mpv, syncthing, syncthing-gtk, chrome-gnome-shell, keepassxc, vim-gtk3, fzf, universal-ctags, mlocate, filezilla, bsdutils, python3-pip, asciinema]
   become: True
   become_user: root
   tags: packages
@@ -19,6 +19,11 @@
   template:
       src: bashrc.j2
       dest: $HOME/.bashrc
+
+- name: Copy asciinema config file
+  copy:
+      src:  "asciinema_config"
+      dest: "$HOME/.config/asciinema/config" 
 
 - name: Open pgp files with seahorse
   command: xdg-mime default org.gnome.seahorse.Application.desktop application/pgp-keys
