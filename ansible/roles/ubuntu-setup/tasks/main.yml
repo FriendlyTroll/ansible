@@ -40,6 +40,6 @@
 - name: Create cronjob to zip up logs from terminal recording program
   cron:
       name: "zip terminal logs"
-      job: "find $HOME/Documents/terminal_logs -mtime +7 -exec bzip2 {} \\;"
+      job: "find $HOME/Documents/terminal_logs -mtime +7 ! -name 'asciinema*' -exec bzip2 {} \\;"
       hour: "13"
       minute: "0"
