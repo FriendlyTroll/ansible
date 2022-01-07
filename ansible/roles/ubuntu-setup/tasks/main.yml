@@ -13,7 +13,7 @@
       mode: 0755
   loop:
     - $HOME/Pictures/screenshots
-    - $HOME/Documents/script_logs
+    - $HOME/Documents/terminal_logs
 
 - name: Copy bashrc
   template:
@@ -28,10 +28,9 @@
 - name: Open pgp files with seahorse
   command: xdg-mime default org.gnome.seahorse.Application.desktop application/pgp-keys
 
-- name: Create cronjob to zip up logs from "script" program
+- name: Create cronjob to zip up logs from terminal recording program
   cron:
-      name: "zip script logs"
-      job: "find $HOME/Documents/script_logs -mtime +7 -exec bzip2 {} \\;"
+      name: "zip terminal logs"
+      job: "find $HOME/Documents/terminal_logs -mtime +7 -exec bzip2 {} \\;"
       hour: "13"
       minute: "0"
-
