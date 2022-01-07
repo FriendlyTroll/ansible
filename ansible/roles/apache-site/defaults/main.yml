@@ -1,0 +1,5 @@
+http_host: '{{ inventory_hostname }}'
+http_conf: '{{ inventory_hostname }}.conf'
+apache_server_alias: "www.{{ http_host }}"
+ssl_domains: '{{ [http_host, apache_server_alias] | join(",") }}'
+email: 'antisa@pm.me'

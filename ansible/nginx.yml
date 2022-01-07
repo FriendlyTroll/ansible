@@ -1,0 +1,7 @@
+---
+- name: Install new default nginx site
+  hosts: moje
+  gather_facts: False
+
+  roles:
+    - role: nginx-site

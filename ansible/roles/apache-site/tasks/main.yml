@@ -1,0 +1,50 @@
+---
+- name: Install apache
+  apt:
+      name: apache2
+      state: present
+
+- name: Install apache modules for php-fpm
+  apt:
+      name: ['libapache2-mod-fcgid', 'php7.4-fpm']
+
+- name: Install certbot stuff
+  apt:
+      name: ['certbot', 'python3-certbot-apache']
+
+- name: Disable mpm_prefork module
+  community.general.apache2_module:
+      state: absent
+      name: mpm_prefork
+
+- name: Enable necessary apache modules
+  community.general.apache2_module:
+      state: present
+      name: "{{ item }}"
+  with_items:
+      - mpm_event
+      - actions
+      - fcgid
+      - proxy_fcgi
+      - alias
+      - setenvif
+      - ssl
+      - rewrite
+
+- name: Enable conf php-fpm
+  shell: /usr/sbin/a2enconf php7.4-fpm
+  notify: Restart apache
+
+- name: Set up Apache virtual host
+  template:
+      src: "apache2.conf.j2"
+      dest: "/etc/apache2/sites-available/{{ http_conf }}"
+
+- name: Enable new site
+  shell: /usr/sbin/a2ensite {{ http_conf }}
+  notify: Reload apache
+
+- name: Install letsencrypt certificate via certbot
+  shell: /usr/bin/certbot --apache --noninteractive --agree-tos -m antisa@pm.me -d {{ ssl_domains }}
+  notify: Restart apache
+

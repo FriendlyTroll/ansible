@@ -1,0 +1,10 @@
+---
+- name: Install new default Wordpress site
+  hosts: testdns
+  gather_facts: False
+
+  roles:
+    - role: php-wp
+    - role: wp-cli
+    - role: wordpress
+    - role: apache-site

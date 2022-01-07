@@ -1,0 +1,21 @@
+<VirtualHost *:80>
+    ServerName {{ http_host }}
+    {% if apache_server_alias %}
+    ServerAlias {{ apache_server_alias }}
+    {% endif %}
+    ServerAdmin webmaster@localhost
+    ErrorLog ${APACHE_LOG_DIR}/{{ http_host }}-error.log
+    CustomLog ${APACHE_LOG_DIR}/{{ http_host }}-access.log combined
+
+    DocumentRoot {{ wp_install_dir | default('/var/www/html') }}
+
+    <Directory {{ wp_install_dir | default('/var/www/html') }}>
+          Options -Indexes
+          AllowOverride All
+    </Directory>
+
+    <IfModule mod_dir.c>
+        DirectoryIndex index.php index.html index.cgi index.pl  index.xhtml index.htm
+    </IfModule>
+
+</VirtualHost>

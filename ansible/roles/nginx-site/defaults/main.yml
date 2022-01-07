@@ -1,0 +1,2 @@
+http_host: '{{ inventory_hostname }}'
+http_conf: '{{ inventory_hostname }}'
