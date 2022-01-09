@@ -45,6 +45,6 @@
   notify: Reload apache
 
 - name: Install letsencrypt certificate via certbot
-  shell: /usr/bin/certbot --apache --noninteractive --agree-tos -m antisa@pm.me -d {{ ssl_domains }}
+  shell: /usr/bin/certbot --apache --noninteractive --agree-tos -m {{ email }} -d {{ ssl_domains }}
   notify: Restart apache
 
