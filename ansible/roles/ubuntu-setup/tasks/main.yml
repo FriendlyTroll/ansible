@@ -14,6 +14,7 @@
   loop:
     - $HOME/Pictures/screenshots
     - $HOME/Documents/terminal_logs
+    - $HOME/.config/asciinema
 
 - name: Copy bashrc
   template:
