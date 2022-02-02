@@ -49,3 +49,8 @@
       job: "find $HOME/Documents/terminal_logs -mtime +7 ! -name 'asciinema*' -exec bzip2 {} \\;"
       hour: "13"
       minute: "0"
+
+- name: Copy opensubtitlesdownload script
+  template:
+      src: opensubtitles.j2
+      dest: $HOME/.local/share/nautilus/scripts/opensubtitles.py
