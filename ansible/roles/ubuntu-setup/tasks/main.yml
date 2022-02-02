@@ -20,6 +20,11 @@
       src: bashrc.j2
       dest: $HOME/.bashrc
 
+- name: Copy vimrc
+  template:
+      src: vimrc
+      dest: $HOME/.vimrc
+
 - name: Copy asciinema config file
   copy:
       src:  "asciinema_config"
