@@ -229,6 +229,11 @@ nnoremap <F4> :Lines<CR>
 
 " search whole word within files recursively with Shift+f
 nnoremap <S-s> :vimgrep // **<left><left><left><left>
+" search for filenams with F3 key (fzf-vim shortcuts)
+nnoremap <F3> :Files<CR>
+
+" search whole word within files recursively with Shift+f
+nnoremap <F4> :vimgrep // **<left><left><left><left>
 
 " switch to next buffer and close previous
 nnoremap <F12> :NERDTreeToggle<bar>bd<bar>NERDTreeToggle<bar><CR><c-w>l
