@@ -1,0 +1,66 @@
+Resize Image Nautilus Script
+===============================================================================
+This script resizes selected files to the given pixel width/height and saves
+them with the same file name in a new sub folder (e.g. "800px"). Existing files
+in resize target sub folder will not be overwritten.
+
+Usage
+-------------------------------------------------------------------------------
+  1. Select one or more image files in Nautilus (GNOME file manager)
+  2. Click right mouse button
+  3. Select sub menu "Scripts"
+  4. Select resize option, e.g. "Resize Image (800px)"
+  5. Wait for files to process
+  6. Find resized images in new sub folder of current folder, e.g. "800px"
+
+Installation
+-------------------------------------------------------------------------------
+  1. Extract files to ~/.gnome2/nautilus-resize-image/ (.gnome2 folder in your
+     home directory)
+  2. Make sure ResizeImage.sh is excutable:
+       $ chmod 755 ~/.gnome2/nautilus-resize-image/ResizeImage.sh
+  3. Create nautilus-scripts folder if it does not exist yet:
+       $ test -e ~/.gnome2/nautilus-scripts/ || mkdir ~/.gnome2/nautilus-scripts/
+  4. Create symbolic links:
+       $ cd ~/.gnome2/nautilus-scripts
+       $ ln -s ../nautilus-resize-image/ResizeImage.sh "Resize Image (800px)"
+       $ ln -s ../nautilus-resize-image/ResizeImage.sh "Resize Image (1024px)"
+  5. Done! "Resize Image (800px)" and "Resize Image (1024px)" will now appear
+     in the "Scripts" submenu when right-clicking a file or file selection
+
+Requirements/dependencies
+-------------------------------------------------------------------------------
+  * Gnome 2.x
+  * ImageMagick (convert, identify)
+  * Zenity
+  * Bash
+
+More sizes
+-------------------------------------------------------------------------------
+If you would like to add more sizes to select from in the context menu, follow
+these steps:
+
+  1. Edit ResizeImage.sh and add the desired image size at the SIZES definition
+     at the top, e.g. "SIZES=(480 800 1024)". Separate sizes with a space.
+  2. Create a new symbolic link with the new size somewhere in the name (it
+     will be matched automatically):
+       $ cd ~/.gnome2/nautilus-scripts
+       $ ln -s ../nautilus-resize-image/ResizeImage.sh "Reduce image to 480 px"
+
+Note: If you have sizes that contain the same digits, e.g. 1666 and 666,
+you need put the larger size first. So in this example: "SIZES=(1666 666)".
+
+Image quality
+-------------------------------------------------------------------------------
+The default quality for image conversion is 70%. Adjust the "QUALITY=70" line
+in ResizeImage.sh to suit your needs.
+
+Script homepage
+-------------------------------------------------------------------------------
+  * http://benn.org/software/nautilus-resize-image
+
+Version history
+-------------------------------------------------------------------------------
+1.0 (19 Aug 2009)
+  * Initial release
+
