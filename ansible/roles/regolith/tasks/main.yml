@@ -3,6 +3,9 @@
   apt_repository:
       repo: ppa:regolith-linux/release
       state: present
+  become: True
+  become_user: root
+  tags: pkg_install
 
 - name: Install regolith and other packages
   apt:
