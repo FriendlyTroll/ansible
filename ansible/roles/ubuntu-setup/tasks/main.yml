@@ -110,3 +110,23 @@
   loop:
       - "nautilus-renamer.py"
       - "nautilus-resize-image"
+
+- name: Mount backup disk at startup
+  mount:
+      path: /mnt/backup
+      state: present
+      src: UUID=f1a236ec-0809-4c61-b9c4-bee4427e728f
+      fstype: ext4
+      opts: defaults,noatime
+  become: True
+  become_user: root
+
+- name: Mount touro disk at startup
+  mount:
+      path: /mnt/touro
+      state: present
+      src: root@192.168.99.143:/media/touro
+      fstype: fuse.sshfs
+      opts: noauto,user,x-systemd.automount,defaults,_netdev,allow_other,identityfile=/root/.ssh/id_ed25519
+  become: True
+  become_user: root
