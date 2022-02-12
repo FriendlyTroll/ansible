@@ -9,7 +9,7 @@
 
 - name: Install regolith and other packages
   apt:
-      name: ['regolith-desktop-standard', 'i3xrocks-volume', 'i3xrocks-memory']
+      name: ['regolith-desktop-standard', 'i3xrocks-volume', 'i3xrocks-memory', 'regolith-look-ubuntu']
       update_cache: yes
   become: True
   become_user: root
