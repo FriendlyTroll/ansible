@@ -29,11 +29,36 @@
 
 - name: Install ubuntu packages
   apt:
-      name: [ubuntu-restricted-extras, imagemagick, curl, git, sshfs, vim, zenity, mpv, syncthing, syncthing-gtk, chrome-gnome-shell, keepassxc, vim-gtk3, fzf, universal-ctags, mlocate, filezilla, bsdutils, python3-pip, asciinema, skypeforlinux, slack-desktop]
+      name: "{{ item }}"
       update_cache: yes
   become: True
   become_user: root
   tags: packages
+  loop: 
+    - ubuntu-restricted-extras
+    - imagemagick
+    - curl
+    - git
+    - sshfs
+    - vim
+    - zenity
+    - mpv
+    - syncthing
+    - syncthing-gtk
+    - chrome-gnome-shell
+    - keepassxc
+    - vim-gtk3
+    - fzf
+    - universal-ctags
+    - mlocate
+    - filezilla
+    - bsdutils
+    - python3-pip
+    - asciinema
+    - skypeforlinux
+    - slack-desktop
+    - steam-installer
+    - steam-devices
 
 - name: Update snap packager
   command: snap refresh
