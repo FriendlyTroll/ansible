@@ -9,7 +9,11 @@
 
 - name: Install regolith and other packages
   apt:
-      name: ['regolith-desktop-standard', 'i3xrocks-volume', 'i3xrocks-memory', 'regolith-look-ubuntu']
+      name: 
+        - regolith-desktop-standard
+        - i3xrocks-volume
+        - i3xrocks-memory
+        - i3xrocks-nm-vpn
       update_cache: yes
   become: True
   become_user: root
@@ -17,7 +21,10 @@
 
 - name: Install laptop specific packages
   apt:
-      name: ['i3xrocks-microphone', 'i3xrocks-battery', 'i3xrocks-bluetooth']
+      name: 
+        - i3xrocks-microphone
+        - i3xrocks-battery
+        - i3xrocks-bluetooth
       update_cache: yes
   become: True
   become_user: root

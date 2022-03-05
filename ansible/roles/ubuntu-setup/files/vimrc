@@ -216,6 +216,19 @@ endfunction
 
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
+" fzf-vim shortcuts
+" open buffers
+nnoremap <F2> :Buffers<CR>
+
+" search for filenams with F3 key
+nnoremap <F3> :Files<CR>
+
+" search in open buffers
+nnoremap <F4> :Lines<CR>
+" /fzf-vim shortcuts
+
+" search whole word within files recursively with Shift+f
+nnoremap <S-s> :vimgrep // **<left><left><left><left>
 " search for filenams with F3 key (fzf-vim shortcuts)
 nnoremap <F3> :Files<CR>
 
