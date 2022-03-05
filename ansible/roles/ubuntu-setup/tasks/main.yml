@@ -27,6 +27,14 @@
   become: True
   become_user: root
 
+# https://protonvpn.com/support/linux-ubuntu-vpn-setup/
+- name: Install protonvpn repo
+  apt:
+      deb: https://protonvpn.com/download/protonvpn-stable-release_1.0.1-1_all.deb
+  tags: packages
+  become: True
+  become_user: root
+
 - name: Install ubuntu packages
   apt:
       name: "{{ item }}"
@@ -59,6 +67,8 @@
     - slack-desktop
     - steam-installer
     - steam-devices
+    - xclip
+    - protonvpn
 
 - name: Update snap packager
   command: snap refresh
@@ -155,11 +165,26 @@
       opts: noauto,user,x-systemd.automount,defaults,_netdev,allow_other,identityfile=/root/.ssh/id_ed25519
   become: True
   become_user: root
-<<<<<<< HEAD
-=======
 
-# https://protonvpn.com/support/linux-ubuntu-vpn-setup/
-- name: Install protonvpn repo
-  apt:
-      deb: https://protonvpn.com/download/protonvpn-stable-release_1.0.1-1_all.deb
->>>>>>> 95558d41799e961df0b5ce3ca7b615daebeed7d4
+- name: Add raspberrypis host key to the root user
+  known_hosts:
+      path: /root/.ssh/known_hosts
+      name: raspberrypi_3b+
+      key: ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJH7iLv2mwvJ7ERSnrjdADbBzLF2Xo9dxANk9Vt+nY5bNTjrXNsm96Dc9U8g087TSkfYv8sLBQ9p7XKJieA0foo=
+      state: present
+  become: True
+  become_user: root
+
+- name: Generate ssh key for root user
+  command: 
+    cmd: ssh-keygen -t ed25519  -q -f "/root/.ssh/id_ed25519" -N ""
+    creates: "/root/.ssh/id_ed25519"
+  become: True
+  become_user: root
+
+- name: Copy root user ssh keys to rpi
+  copy:
+      src: "{{ lookup('file', '/root/.ssh/id_ed25519.pub') }}" 
+      dest: /root/.ssh/authorized_keys
+  delegate_to: 192.168.99.143
+
