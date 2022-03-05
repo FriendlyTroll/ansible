@@ -27,6 +27,14 @@
   become: True
   become_user: root
 
+# https://protonvpn.com/support/linux-ubuntu-vpn-setup/
+- name: Install protonvpn repo
+  apt:
+      deb: https://protonvpn.com/download/protonvpn-stable-release_1.0.1-1_all.deb
+  tags: packages
+  become: True
+  become_user: root
+
 - name: Install ubuntu packages
   apt:
       name: "{{ item }}"
@@ -60,6 +68,7 @@
     - steam-installer
     - steam-devices
     - xclip
+    - protonvpn
 
 - name: Update snap packager
   command: snap refresh
@@ -156,15 +165,6 @@
       opts: noauto,user,x-systemd.automount,defaults,_netdev,allow_other,identityfile=/root/.ssh/id_ed25519
   become: True
   become_user: root
-
-# https://protonvpn.com/support/linux-ubuntu-vpn-setup/
-- name: Install protonvpn repo
-  apt:
-      deb: https://protonvpn.com/download/protonvpn-stable-release_1.0.1-1_all.deb
-  tags: packages
-  become: True
-  become_user: root
-
 
 - name: Add raspberrypis host key to the root user
   known_hosts:
