@@ -162,6 +162,9 @@
   apt:
       deb: https://protonvpn.com/download/protonvpn-stable-release_1.0.1-1_all.deb
   tags: packages
+  become: True
+  become_user: root
+
 
 - name: Add raspberrypis host key to the root user
   known_hosts:
