@@ -69,6 +69,7 @@
       - "35_bluetooth"
       - "85_microphone"
       - "60_battery"
+      - "98_nm-vpn"
   when: '"XPS" in ansible_hostname'
 
 - name: Disable Gnome default screenshot key
