@@ -59,6 +59,7 @@
     - slack-desktop
     - steam-installer
     - steam-devices
+    - xclip
 
 - name: Update snap packager
   command: snap refresh
