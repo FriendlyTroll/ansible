@@ -155,3 +155,8 @@
       opts: noauto,user,x-systemd.automount,defaults,_netdev,allow_other,identityfile=/root/.ssh/id_ed25519
   become: True
   become_user: root
+
+# https://protonvpn.com/support/linux-ubuntu-vpn-setup/
+- name: Install protonvpn repo
+  apt:
+      deb: https://protonvpn.com/download/protonvpn-stable-release_1.0.1-1_all.deb
