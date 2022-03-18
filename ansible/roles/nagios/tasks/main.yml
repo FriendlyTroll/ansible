@@ -1,0 +1,81 @@
+---
+- name: Install required system packages
+  apt:
+      name: ['autoconf', 'gcc', 'libc6', 'make', 'wget', 'unzip', 'apache2', 'apache2-utils', 'php', 'libgd-dev']
+  become: True
+  become_user: root
+  tags: pkg_install
+
+- name: Download nagios source package
+  get_url:
+      url: https://github.com/NagiosEnterprises/nagioscore/archive/nagios-{{ nagios_version }}.tar.gz
+      dest: /tmp/nagioscore.tar.gz
+      mode: 0755
+  tags: pkg_install
+
+- name: Unarchive source package
+  unarchive:
+      src: /tmp/nagioscore.tar.gz
+      dest: /tmp/
+
+- name: Configure nagios installation
+  command:
+    cmd: ./configure --with-httpd-conf=/etc/apache2/sites-enabled
+    chdir: /tmp/nagioscore-nagios-{{ nagios_version }}
+
+- name: Make installation
+  command:
+      cmd: make all
+      chdir: /tmp/nagioscore-nagios-{{ nagios_version }}
+
+- name: Create users and group
+  command:
+      cmd: make install-groups-users
+      chdir: /tmp/nagioscore-nagios-{{ nagios_version }}
+
+- name: Add user nagios to www-data group
+  user:
+      name: nagios
+      group: www-data
+
+- name: Install binaries command
+  command:
+      cmd: make install
+      chdir: /tmp/nagioscore-nagios-{{ nagios_version }}
+
+- name: Install service/daemon
+  command:
+      cmd: make install-daemoninit
+      chdir: /tmp/nagioscore-nagios-{{ nagios_version }}
+
+- name: Install command mode
+  command:
+      cmd: make install-commandmode
+      chdir: /tmp/nagioscore-nagios-{{ nagios_version }}
+
+- name: Install configuration files
+  command:
+      cmd: make install-config
+      chdir: /tmp/nagioscore-nagios-{{ nagios_version }}
+
+- name: Install apache config files
+  command:
+      cmd: make install-webconf
+      chdir: /tmp/nagioscore-nagios-{{ nagios_version }}
+
+- name: Configure apache modules
+  apache2_module:
+      state: present
+      name: rewrite
+- apache2_module:
+      state: present
+      name: cgi
+
+- name: Create nagiosadmin account - pwd "admin" (CHANGE THIS AFTER!)
+  file:
+      path: htpasswd.users
+      dest: /usr/local/nagios/etc/
+  notify: Restart apache, Start nagios
+
+- name: Install nagios plugins
+  include_tasks: install_plugins.yml

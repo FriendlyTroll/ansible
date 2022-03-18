@@ -1,0 +1,33 @@
+---
+- name: Install required system packages
+  apt:
+      name: ['autoconf', 'gcc', 'libc6', 'libmcrypt-dev', 'make', 'libssl-dev', 'wget', 'bc', 'gawk', 'dc', 'build-essential', 'snmp', 'libnet-snmp-perl', 'gettext']
+  become: True
+  become_user: root
+  tags: pkg_install
+
+- name: Download plugins source packages
+  get_url:
+      url: https://github.com/nagios-plugins/nagios-plugins/archive/release-{{ nagios_plugins_version }}.tar.gz
+      dest: /tmp/nagios-plugins.tar.gz
+      mode: 0755
+  tags: pkg_install
+
+- name: Unarchive source package
+  unarchive:
+      src: /tmp/nagios-plugins.tar.gz
+      dest: /tmp/
+
+- name: Compile and install
+  command:
+    cmd: ./tools/setup
+    chdir: /tmp/nagios-plugins-release-{{ nagios_plugins_version }}
+- command:
+    cmd: ./configure
+    chdir: /tmp/nagios-plugins-release-{{ nagios_plugins_version }}
+- command:
+    cmd: make
+    chdir: /tmp/nagios-plugins-release-{{ nagios_plugins_version }}
+- command:
+    cmd: make install
+    chdir: /tmp/nagios-plugins-release-{{ nagios_plugins_version }}
