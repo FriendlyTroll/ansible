@@ -113,6 +113,7 @@
       - { src: "asciinema_config", dest: "$HOME/.config/asciinema/config" }
       - { src: "vimrc", dest: "$HOME/.vimrc" }
       - { src: "mpv.conf", dest: "$HOME/.config/mpv" }
+  tags: config
 
 - name: Copy asciinema player config files
   copy:
@@ -122,6 +123,7 @@
       - "asciinema-player.css"
       - "asciinema-player.min.js"
       - "asciinema_player.html"
+  tags: config
 
 - name: Open pgp files with seahorse
   command: xdg-mime default org.gnome.seahorse.Application.desktop application/pgp-keys
