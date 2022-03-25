@@ -63,12 +63,31 @@
     - bsdutils
     - python3-pip
     - asciinema
-    - skypeforlinux
     - slack-desktop
-    - steam-installer
-    - steam-devices
+    - skypeforlinux
     - xclip
     - protonvpn
+
+- name: Install desktop specific ubuntu packages 
+  apt:
+      name:
+        - steam-devices
+        - steam-installer
+      update_cache: yes
+  become: True
+  become_user: root
+  tags: packages
+  when: '"XPS" not in ansible_hostname'
+
+- name: Install laptop specific ubuntu packages 
+  apt:
+      name:
+          - powertop
+      update_cache: yes
+  become: True
+  become_user: root
+  tags: packages
+  when: '"XPS" in ansible_hostname'
 
 - name: Update snap packager
   command: snap refresh
