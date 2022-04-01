@@ -253,3 +253,10 @@ inoremap jj <ESC>
 nmap cp :let @+ = expand("%")<cr>
 " full path
 nmap cP :let @+ = expand("%:p")<cr>
+
+" unlimited undo history
+if has('persistent_undo')      "check if your vim version supports it
+  set undofile                 "turn on the feature  
+  silent !mkdir -p ~/.vim/undo "make sure directory exists
+  set undodir=$HOME/.vim/undo  "directory where the undo files will be stored
+  endif
