@@ -255,8 +255,8 @@ nmap cp :let @+ = expand("%")<cr>
 nmap cP :let @+ = expand("%:p")<cr>
 
 " unlimited undo history
-if has('persistent_undo')      "check if your vim version supports it
-  set undofile                 "turn on the feature  
-  silent !mkdir -p ~/.vim/undo "make sure directory exists
-  set undodir=$HOME/.vim/undo  "directory where the undo files will be stored
+if has('persistent_undo')      
+  set undofile                 
+  silent !mkdir -p ~/.vim/undo 
+  set undodir=$HOME/.vim/undo 
   endif
