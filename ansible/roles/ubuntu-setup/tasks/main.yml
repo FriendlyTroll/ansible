@@ -124,6 +124,7 @@
   template:
       src: bashrc.j2
       dest: $HOME/.bashrc
+  tags: config
 
 - name: Copy HOME .config files
   copy:
@@ -214,8 +215,8 @@
   copy: 
     src: custom-shortcuts.conf
     dest: /tmp/
-  tags: conf
+  tags: config
 
 - name: Import Gnome keyboard shortcuts
   shell: dconf load / < /tmp/custom-shortcuts.conf
-  tags: conf
+  tags: config
