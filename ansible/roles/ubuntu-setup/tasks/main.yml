@@ -211,12 +211,20 @@
       dest: /root/.ssh/authorized_keys
   delegate_to: 192.168.99.143
 
-- name: Copy Gnome keyboard shortcuts file
+- name: Copy custom Gnome keyboard shortcuts file
   copy: 
     src: custom-shortcuts.conf
     dest: /tmp/
   tags: config
 
-- name: Import Gnome keyboard shortcuts
+- name: Import custom Gnome keyboard shortcuts
   shell: dconf load / < /tmp/custom-shortcuts.conf
   tags: config
+
+- name: Set other Gnome keyboard shortcuts
+  shell: dconf write /org/gnome/terminal/legacy/keybindings/prev-tab "'<Alt>Left'" && \
+         dconf write /org/gnome/terminal/legacy/keybindings/next-tab "'<Alt>Right'" && \
+         dconf write /org/gnome/terminal/legacy/keybindings/move-tab-left "'<Shift><Alt>Left'" && \
+         dconf write /org/gnome/terminal/legacy/keybindings/move-tab-right "'<Shift><Alt>Right'"
+  tags: config
+
