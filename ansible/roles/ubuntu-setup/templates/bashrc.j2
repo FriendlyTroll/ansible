@@ -130,3 +130,12 @@ export HISTTIMEFORMAT="%F %T "
 
 # log terminal sessions in file
 test "$(ps -ocommand= -p $PPID | awk '{print $1}')" == 'sh' || (asciinema rec $HOME/Documents/terminal_logs/$(date +"%d-%b-%y_%H-%M-%S").cast)
+
+# custom command for setting terminal title
+function set-title() {
+  if [[ -z "$ORIG" ]]; then
+    ORIG=$PS1
+  fi
+  TITLE="\[\e]2;$*\a\]"
+  PS1=${ORIG}${TITLE}
+}
