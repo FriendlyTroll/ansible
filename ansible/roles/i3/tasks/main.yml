@@ -1,7 +1,16 @@
 ---
 - name: Install i3 and other packages
   apt:
-      name: ['i3-wm', 'lxappearance', 'feh', 'py3status', 'rofi', 'i3lock', 'ranger', 'gucharmap']
+      name: 
+        - i3-wm 
+        - lxappearance 
+        - feh 
+        - py3status 
+        - rofi 
+        - i3lock 
+        - ranger 
+        - gucharmap
+        - kdeconnect
   become: True
   become_user: root
   tags: pkg_install

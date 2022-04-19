@@ -67,7 +67,6 @@
     - skypeforlinux
     - xclip
     - protonvpn
-    - kdeconnect
 
 - name: Install desktop specific ubuntu packages 
   apt:
