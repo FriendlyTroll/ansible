@@ -139,3 +139,7 @@ function set-title() {
   TITLE="\[\e]2;$*\a\]"
   PS1=${ORIG}${TITLE}
 }
+
+# disable stoping terminal buffer updates (Ctrl-s)
+# remaped to vim to save file
+stty -ixon

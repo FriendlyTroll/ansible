@@ -256,3 +256,6 @@ if has('persistent_undo')
   silent !mkdir -p ~/.vim/undo 
   set undodir=$HOME/.vim/undo 
   endif
+
+" save on Ctrl-s
+nmap <C-s> :w<CR>
