@@ -74,7 +74,7 @@ imap <S-Right> <Esc><Right>wi
 nmap <S-Right> w
 
 " indent/unindent with tab/shift-tab
-nmap <Tab> >>
+"nmap <Tab> >>
 nmap <S-tab> <<
 imap <S-Tab> <Esc><<i
 vmap <Tab> >gv
