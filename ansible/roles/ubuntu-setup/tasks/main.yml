@@ -159,6 +159,7 @@
   template:
       src: opensubtitles.j2
       dest: $HOME/.local/share/nautilus/scripts/opensubtitles.py
+  tags: scripts
 
 - name: Copy other useful nautilus scripts
   copy:
@@ -169,6 +170,7 @@
       - "nautilus-renamer.py"
       - "nautilus-resize-image"
       - "asciivideo.sh"
+  tags: scripts
 
 - name: Mount backup disk at startup
   mount:
