@@ -164,9 +164,11 @@
   copy:
       src:  "{{ item }}"
       dest: "$HOME/.local/share/nautilus/scripts"
+      mode: 0755
   loop:
       - "nautilus-renamer.py"
       - "nautilus-resize-image"
+      - "asciivideo.sh"
 
 - name: Mount backup disk at startup
   mount:
