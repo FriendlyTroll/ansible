@@ -159,7 +159,7 @@
 - name: Create cronjob to download wiki from my site
   cron:
       name: "download wiki from my site"
-      job: "wget --header='X-DW-Token: uoWAhgM4eOsRh9XOAso=' https://dw.exitstatus0.com/backup/dokuwiki.tar.bz2 --output-document=/home/antisa/dokuwiki.tar.bz2"
+      job: "wget --header='X-DW-Token: {{ vault_dw_token }}' https://dw.exitstatus0.com/backup/dokuwiki.tar.bz2 --output-document=/home/antisa/dokuwiki.tar.bz2"
       hour: "19"
       minute: "0"
   tags: cron
