@@ -1,0 +1,33 @@
+---
+wp_version: 5.8
+# TODO: https://wordpress.org/download/release-archive/
+# wp_sha256sum: 8543e31d7c0a1b15f73dbb20f9161845f3d2bb8de3d7aef371cf32bba41747ee
+wp_mysql_enable: true
+
+# Restore db?
+wp_mysql_site_restore_saved_db: false
+## path to backup sql file
+wp_database_backup: wpbackup.sql
+
+# Change ownership of WP directory; set root owner here on live site installations
+wp_wwwdata_owner: true
+wp_root_owner: false
+
+mysql_db_user: 'root'
+mysql_db_password: '{{ vault_wordpress_mysql_root_db_pwd }}'
+wp_install_dir: '/var/www/wordpress'
+wp_db_name: 'wp1'
+wp_db_user: 'wp'
+wp_db_password: '{{ vault_wordpress_mysql_wp_db_pwd }}'
+wp_db_host: 'localhost'
+wp_db_charset: 'utf8'
+wp_db_collate: ''
+wp_table_prefix: 'wp_'
+wp_debug: false
+
+# wordpress admin user
+wp_login_admin: 'admin4wp'
+wp_login_admin_pwd: '{{ vault_wordpress_admin_pwd }}'
+wp_login_mail: 'admin@test.com'
+
+

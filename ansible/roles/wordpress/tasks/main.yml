@@ -1,0 +1,38 @@
+---
+- name: Wordpresss | Create or restore site database
+  include: mysql.yml
+  when: wp_mysql_enable|bool
+
+- name: Wordpresss | Ensure that installation directory exists
+  file: path={{wp_install_dir|dirname}} state=directory
+
+- name: Wordpresss | Download {{wp_version}} to /tmp
+  get_url: url=http://wordpress.org/wordpress-{{wp_version}}.tar.gz force=no dest=/tmp/wordpress-{{wp_version}}.tar.gz
+
+- name: Wordpresss | Extract archive
+  unarchive: src=/tmp/wordpress-{{wp_version}}.tar.gz dest=/tmp copy=no
+
+- name: Wordpresss | Move extracted directory to {{wp_install_dir}}
+  command: /bin/mv /tmp/wordpress {{wp_install_dir}} creates={{wp_install_dir}}
+
+- name: Wordpresss | Remove wordpress-{{wp_version}}.tar.gz
+  file: path=/tmp/wordpress-{{wp_version}}.tar.gz state=absent
+
+- name: Wordpresss | Fetch random salts for wp-config.php
+  local_action: command curl https://api.wordpress.org/secret-key/1.1/salt/
+  register: 'wp_salt'
+
+- name: Wordpresss | Copy wp-config.php file
+  template: src=wp-config.php.j2 dest={{wp_install_dir}}/wp-config.php
+
+- name: Wordpresss | Make www-data owner of installation directory
+  file: path={{wp_install_dir}} owner=www-data group=root state=directory recurse=yes
+  when: wp_wwwdata_owner|bool
+
+- name: Wordpresss | Make root owner of installation directory
+  file: path={{wp_install_dir}} owner=root group=root state=directory recurse=yes
+  when: wp_root_owner|bool
+
+- name: Wordpresss | Install Wordpress with admin user
+  command: wp core install --url={{http_host}} --title={{http_host}} --admin_user={{wp_login_admin}} --admin_email={{wp_login_mail}} --admin_password={{wp_login_admin_pwd}} --path={{wp_install_dir}} --allow-root
+
