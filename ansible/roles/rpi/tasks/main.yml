@@ -1,0 +1,48 @@
+---
+- name: Install packages
+  apt:
+      name: 
+        - minidlna
+        - openvpn
+        - transmission-cli
+  tags: packages
+
+- name: Copy transmission config
+  copy:
+      src: "transmission.json"
+      dest: "/etc/transmission-daemon/settings.json"
+  notify: Restart transmission
+
+- name: Copy minidlna config
+  copy:
+      src: "minidlna.conf"
+      dest: "/etc/minidlna.conf"
+  notify: Restart minidlna
+
+- name: Copy openvpn systemd service config
+  copy:
+      src: "protonvpn-ch.service"
+      dest: "/etc/systemd/system/protonvpn-ch.service"
+
+- name: Reload systemd daemon
+  systemd:
+      daemon_reload: yes
+
+- name: Copy openvpn configs
+  copy:
+      src: "{{ item }}"
+      dest: "/root/"
+  loop:
+     - "ch.protonvpn.com.udp.ovpn"
+     - "protonvpn.login"
+  notify: 
+   - Restart openvpn
+   - Start protonvpn-ch
+
+- name: Set cronjob to restart protonvpn-ch.service
+  cron:
+      name: "restart vpn"
+      state: present
+      minute: "0"
+      hour: "0,6,12,18"
+      job: "ping -c 1 1.1.1.1 || systemctl restart protonvpn-ch.service"

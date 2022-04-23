@@ -1,0 +1,10 @@
+[Unit]
+Description=Connect to Switzerland ProtonVPN server
+
+[Service]
+Type=simple
+ExecStart=/usr/sbin/openvpn --config /root/ch.protonvpn.com.udp.ovpn
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
