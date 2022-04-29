@@ -89,6 +89,11 @@
   tags: packages
   when: '"XPS" in ansible_hostname'
 
+- name: Install zoom
+  apt:
+      deb: https://zoom.us/client/latest/zoom_amd64.deb
+  tags: packages
+
 - name: Update snap packager
   command: snap refresh
   become: True
@@ -96,11 +101,6 @@
 
 # need to install snaps one by one because of this bug
 # https://forum.snapcraft.io/t/trying-to-re-install-multiple-packages-with-snap-install-fails-with-install-refresh-information-results-from-the-store/24859
-- name: Install ubuntu snap packages - zoom
-  command: snap install zoom-client
-  become: True
-  become_user: root
-
 - name: Install ubuntu snap packages - acestreamplayer
   command: snap install acestreamplayer
   become: True
