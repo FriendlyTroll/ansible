@@ -237,6 +237,9 @@ nnoremap <F12> :NERDTreeToggle<bar>bd<bar>NERDTreeToggle<bar><CR><c-w>l
 nnoremap <F5> :NERDTreeFind<CR>
 map <leader>l :NERDTreeFind<CR>
 
+" remap go to function definition
+nnoremap  gd <C-]>
+
 " this will read so called modelines from opened files which
 " can automatically set vim options like syntax highlighting
 set modeline
