@@ -258,3 +258,8 @@ if has('persistent_undo')
 
 " save on Ctrl-s
 nmap <C-s> :w<CR>
+
+" generate tags on saving the document to jump
+" easily between functions
+set tags=tags
+autocmd BufWritePost *.py silent! !ctags -R &
