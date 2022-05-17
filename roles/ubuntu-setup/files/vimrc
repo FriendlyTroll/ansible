@@ -252,6 +252,11 @@ nmap cp :let @+ = expand("%")<cr>
 " full path
 nmap cP :let @+ = expand("%:p")<cr>
 
+" git push
+nmap <leader>p :Git push<CR>
+" git pull
+nmap <leader>P :Git pull<CR>
+
 " unlimited undo history
 if has('persistent_undo')      
   set undofile                 
