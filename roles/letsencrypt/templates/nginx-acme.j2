@@ -1,0 +1,8 @@
+server {
+    server_name {{ letsencrypt_domain }};
+    listen 80;
+
+    location /.well-known {
+        alias /var/www/le/.well-known;
+    }
+}
