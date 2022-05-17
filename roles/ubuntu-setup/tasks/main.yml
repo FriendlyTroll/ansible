@@ -234,10 +234,3 @@
   shell: dconf load / < /tmp/custom-shortcuts.conf
   tags: config
 
-- name: Set other Gnome keyboard shortcuts
-  shell: dconf write /org/gnome/terminal/legacy/keybindings/prev-tab "'<Alt>Left'" && \
-         dconf write /org/gnome/terminal/legacy/keybindings/next-tab "'<Alt>Right'" && \
-         dconf write /org/gnome/terminal/legacy/keybindings/move-tab-left "'<Shift><Alt>Left'" && \
-         dconf write /org/gnome/terminal/legacy/keybindings/move-tab-right "'<Shift><Alt>Right'"
-  tags: config
-
