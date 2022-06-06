@@ -1,0 +1,45 @@
+---
+- hosts: docker
+  vars:
+      docker_compose_version: "v2.6.0"
+
+  tasks:
+    - name: Check on which Debian we are
+      command: lsb_release -cs
+      register: debian_version
+
+    - name: Install needed pkgs
+      apt:
+          name:
+              - gpg
+          state: latest
+          update_cache: yes
+
+    - name: Add APT gpg key for Docker repo
+      apt_key:
+          url: https://download.docker.com/linux/debian/gpg
+          state: present
+      tags: docker
+      
+      
+    - name: Add docker repo
+      apt_repository:
+          repo: "deb [arch=amd64] https://download.docker.com/linux/debian {{ debian_version.stdout }} stable"
+          state: present
+      tags: docker
+      
+    - name: Install docker
+      apt:
+          name:
+              - docker-ce
+          state: latest
+          update_cache: yes
+      tags: docker
+
+    - name: Install docker compose
+      get_url:
+          url: 'https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-linux-x86_64'
+          dest: /usr/local/bin/docker-compose
+          mode: '0755'
+      tags: docker
+
