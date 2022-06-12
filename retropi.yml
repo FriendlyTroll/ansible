@@ -1,0 +1,7 @@
+---
+- name: Configure retropi
+  hosts: rpi4b
+  gather_facts: True
+
+  roles:
+      - role: retropi

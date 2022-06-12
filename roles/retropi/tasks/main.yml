@@ -1,0 +1,36 @@
+---
+# run after rpi has been flashed with retropi image from official raspberry pi imager tool
+# https://downloads.raspberrypi.org/imager/imager_latest_amd64.deb 
+#
+- name: Install packages
+  apt:
+      name: 
+        - steam-devices
+  tags: packages
+
+- name: Set timezone
+  timezone:
+      name: Europe/Zagreb
+
+# https://www.reddit.com/r/SteamController/comments/hf7o8e/raspi_retropie_steam_controller_fully_working/
+- name: Copy retroarch Steam controller config file
+  copy:
+      src: "wireless_steam_controller_config.cfg"
+      dest: "/opt/retropie/configs/all/retroarch-joypads/Wireless Steam Controller.cfg"
+      owner: pi
+      group: pi
+    
+- name: Copy Emulation Station Steam controller config file
+  copy:
+      src: "emulation_station_steam_controller_config.cfg"
+      dest: "/opt/retropie/configs/all/emulationstation/es_input.cfg"
+      owner: pi
+      group: pi
+
+- name: Download Playstation BIOS file
+  get_url:
+      url: "https://github.com/gingerbeardman/PSX/raw/master/PSXONPSP660.BIN"
+      dest: "/home/pi/RetroPie/BIOS/"
+      owner: pi
+      group: pi
+
