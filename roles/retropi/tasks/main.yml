@@ -6,6 +6,7 @@
   apt:
       name: 
         - steam-devices
+        - ecm
   tags: packages
 
 - name: Set timezone
@@ -20,10 +21,11 @@
       owner: pi
       group: pi
     
+# https://retropie.org.uk/forum/topic/26254/steam-controller/7
 - name: Copy Emulation Station Steam controller config file
   copy:
       src: "emulation_station_steam_controller_config.cfg"
-      dest: "/opt/retropie/configs/all/emulationstation/es_input.cfg"
+      dest: "/home/pi/.emulationstation/es_input.cfg"
       owner: pi
       group: pi
 
