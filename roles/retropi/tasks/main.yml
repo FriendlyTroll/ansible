@@ -36,3 +36,28 @@
       owner: pi
       group: pi
 
+# https://retropie.org.uk/forum/topic/29707/steam-link-update-no-longer-works/8
+- name: Download working steamlink version
+  get_url:
+      url: "http://media.steampowered.com/steamlink/rpi/steamlink-rpi3-1.1.86.210.tar.gz"
+      dest: "/home/pi/.local/share"
+      owner: pi
+      group: pi
+
+- name: Unzip the file
+  unarchive:
+      src: "/home/pi/.local/share/steamlink-rpi3-1.1.86.210.tar.gz"
+      dest: "/home/pi/.local/share"
+      remote_src: yes
+      owner: pi
+      group: pi
+
+- name: Rename steamlink folder
+  command: mv /home/pi/.local/share/steamlink /home/pi/.local/share/SteamLink
+
+- name: Edit steamlink launch command not to autoupdate to newest version
+  lineinfile:
+      path: /opt/retropie/ports/steamlink/steamlink_xinit.sh
+      search_string: "/usr/bin/steamlink"
+      line: /usr/bin/steamlink --skip-update
+
