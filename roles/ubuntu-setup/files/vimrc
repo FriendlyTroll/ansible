@@ -240,7 +240,8 @@ nnoremap <F4> :vimgrep // **<left><left><left><left>
 nnoremap <F12> :NERDTreeToggle<bar>bd<bar>NERDTreeToggle<bar><CR><c-w>l
 
 " show opened file in tree
-nnoremap <F5> :NERDTreeFind<CR>
+nnoremap <F5> :NERDTreeToggle<CR>
+inoremap <F5> :NERDTreeToggle<CR>
 map <leader>l :NERDTreeFind<CR>
 
 " remap go to function definition
