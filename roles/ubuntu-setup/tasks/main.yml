@@ -93,6 +93,8 @@
   apt:
       deb: https://zoom.us/client/latest/zoom_amd64.deb
   tags: packages
+  become: True
+  become_user: root
 
 - name: Update snap packager
   command: snap refresh
@@ -106,7 +108,6 @@
   become: True
   become_user: root
 
-
 - name: Create custom directories
   file:
       path: "{{ item }}"
@@ -118,6 +119,13 @@
     - $HOME/.config/mpv
     - $HOME/.config/asciinema
     - $HOME/.local/share/nautilus/scripts
+    - $HOME/Applications # for AppImages
+
+- name: Install AppImages appimage daemon for integration
+  get_url:
+      url: https://github.com/probonopd/go-appimage/releases/download/continuous/appimaged-711-x86_64.AppImage
+      dest: "$HOME/Applications/"
+      mode: 0755
 
 - name: Copy bashrc
   template:
