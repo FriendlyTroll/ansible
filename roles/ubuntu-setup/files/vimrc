@@ -241,7 +241,7 @@ nnoremap <F12> :NERDTreeToggle<bar>bd<bar>NERDTreeToggle<bar><CR><c-w>l
 
 " show opened file in tree
 nnoremap <F5> :NERDTreeToggle<CR>
-inoremap <F5> :NERDTreeToggle<CR>
+inoremap <F5> <C-o>:NERDTreeToggle<CR>
 map <leader>l :NERDTreeFind<CR>
 
 " remap go to function definition
