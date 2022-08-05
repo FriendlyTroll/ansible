@@ -215,7 +215,7 @@
   known_hosts:
       path: /root/.ssh/known_hosts
       name: raspberrypi_3b+
-      key: ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJH7iLv2mwvJ7ERSnrjdADbBzLF2Xo9dxANk9Vt+nY5bNTjrXNsm96Dc9U8g087TSkfYv8sLBQ9p7XKJieA0foo=
+      key: raspberrypi_3b+ ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJH7iLv2mwvJ7ERSnrjdADbBzLF2Xo9dxANk9Vt+nY5bNTjrXNsm96Dc9U8g087TSkfYv8sLBQ9p7XKJieA0foo= root@raspberrypi
       state: present
   become: True
   become_user: root
