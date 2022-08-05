@@ -237,3 +237,6 @@
   shell: dconf load / < /tmp/custom-shortcuts.conf
   tags: config
 
+- name: Include gaming.yml tasks
+  include_tasks: gaming.yml
+  when: gaming == True
