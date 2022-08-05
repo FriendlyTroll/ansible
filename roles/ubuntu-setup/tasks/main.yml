@@ -126,6 +126,7 @@
       url: https://github.com/probonopd/go-appimage/releases/download/continuous/appimaged-711-x86_64.AppImage
       dest: "$HOME/Applications/"
       mode: 0755
+  ignore_errors: yes
 
 - name: Copy bashrc
   template:
