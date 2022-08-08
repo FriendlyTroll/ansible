@@ -212,17 +212,6 @@ endfunction
 
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
-" fzf-vim shortcuts
-" open buffers
-nnoremap <F2> :Buffers<CR>
-
-" search for filenams with F3 key
-nnoremap <F3> :Files<CR>
-
-" search in open buffers
-nnoremap <F4> :Lines<CR>
-" /fzf-vim shortcuts
-
 " search whole word within files recursively with Shift+f
 nnoremap <S-s> :vimgrep // **<left><left><left><left>
 
@@ -230,19 +219,28 @@ nnoremap <S-s> :vimgrep // **<left><left><left><left>
 " in visual mode
 vmap <leader>f y :vimgrep // **<left><left><left><left><C-r>"
 
-" search for filenams with F3 key (fzf-vim shortcuts)
+" open buffers
+nnoremap <F2> :Buffers<CR>
+
+" search for filenames with F3 key
 nnoremap <F3> :Files<CR>
 
-" search whole word within files recursively with Shift+f
-nnoremap <F4> :vimgrep // **<left><left><left><left>
-
-" switch to next buffer and close previous
-nnoremap <F12> :NERDTreeToggle<bar>bd<bar>NERDTreeToggle<bar><CR><c-w>l
+" search in open buffers
+nnoremap <F4> :Lines<CR>
 
 " show opened file in tree
 nnoremap <F5> :NERDTreeToggle<CR>
 inoremap <F5> <C-o>:NERDTreeToggle<CR>
 map <leader>l :NERDTreeFind<CR>
+
+" open Commits
+nnoremap <F6> :Commits<CR>
+
+" open vimfugitive git window
+nnoremap <F7> :G<CR>
+
+" switch to next buffer and close previous
+nnoremap <F12> :NERDTreeToggle<bar>bd<bar>NERDTreeToggle<bar><CR><c-w>l
 
 " remap go to function definition
 nnoremap  gd <C-]>
