@@ -228,9 +228,11 @@ nnoremap <F3> :Files<CR>
 " search in open buffers
 nnoremap <F4> :Lines<CR>
 
-" show opened file in tree
+" open/close nerdtree
 nnoremap <F5> :NERDTreeToggle<CR>
 inoremap <F5> <C-o>:NERDTreeToggle<CR>
+
+" show opened file in tree
 map <leader>l :NERDTreeFind<CR>
 
 " open Commits
