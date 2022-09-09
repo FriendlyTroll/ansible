@@ -184,7 +184,10 @@ function! StartUp()
         NERDTree
     end
 endfunction
+" open NERDTree when entering vim
 autocmd VimEnter * call StartUp()
+" move to right window immediately when entering vim
+autocmd VimEnter * wincmd l
 
 " ale
 " map <C-e> <Plug>(ale_next_wrap)
