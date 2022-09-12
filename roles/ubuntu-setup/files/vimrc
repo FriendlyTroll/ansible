@@ -188,6 +188,8 @@ endfunction
 autocmd VimEnter * call StartUp()
 " move to right window immediately when entering vim
 autocmd VimEnter * wincmd l
+" preserve cursor position when changing buffers
+autocmd BufEnter * silent! normal! g`"
 
 " ale
 " map <C-e> <Plug>(ale_next_wrap)
