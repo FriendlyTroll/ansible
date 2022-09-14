@@ -151,10 +151,10 @@ function ToggleWrap()
 endfunction
 
 " move through split windows
-nmap <C-k> :wincmd k<CR>
-nmap <C-j> :wincmd j<CR>
-nmap <C-h> :wincmd h<CR>
-nmap <C-l> :wincmd l<CR>
+nmap <silent> <C-k> :wincmd k<CR>
+nmap <silent> <C-j> :wincmd j<CR>
+nmap <silent> <C-h> :wincmd h<CR>
+nmap <silent> <C-l> :wincmd l<CR>
 
 " move through buffers
 nmap <leader>[ :bp!<CR>
@@ -187,7 +187,7 @@ endfunction
 " open NERDTree when entering vim
 autocmd VimEnter * call StartUp()
 " move to right window immediately when entering vim
-autocmd VimEnter * wincmd l
+autocmd VimEnter * silent! wincmd l
 " preserve cursor position when changing buffers
 autocmd BufEnter * silent! normal! g`"
 
