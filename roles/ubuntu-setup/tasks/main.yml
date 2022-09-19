@@ -63,6 +63,7 @@
         - xclip
         - protonvpn
         - whois
+        - smplayer
       update_cache: yes
   become: True
   become_user: root
