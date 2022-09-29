@@ -1,6 +1,6 @@
 ---
 - name: Install new default Wordpress site
-  hosts: testdns
+  hosts: wordpress
   gather_facts: False
 
   roles:
