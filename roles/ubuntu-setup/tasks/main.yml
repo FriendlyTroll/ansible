@@ -201,6 +201,7 @@
       opts: defaults,noatime
   become: True
   become_user: root
+  tags: mounts
 
 - name: Mount touro disk at startup
   mount:
@@ -211,6 +212,18 @@
       opts: noauto,user,x-systemd.automount,defaults,_netdev,allow_other,identityfile=/root/.ssh/id_ed25519
   become: True
   become_user: root
+  tags: mounts
+
+- name: Mount Western digital disk at startup
+  mount:
+      path: /mnt/wd4tb
+      state: present
+      src: UUID=033b3425-8b5c-4a58-b69a-108cfed2614b
+      fstype: ext4
+      opts: defaults,noatime
+  become: True
+  become_user: root
+  tags: mounts
 
 - name: Add raspberrypis host key to the root user
   known_hosts:
