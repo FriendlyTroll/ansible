@@ -1,12 +1,12 @@
 ---
 - name: Copy PCSX2 gamepad configurations
   copy:
-      src: pcsx2_pad.ini
+      src: "gaming/pcsx2_pad.ini"
       dest: $HOME/.config/PCSX2/inis/PAD.ini
 
 - name: Copy steam rom manager configuration
   copy:
-      src: steam-rom-manager.json
+      src: "gaming/steam-rom-manager.json"
       dest: $HOME/.config/steam-rom-manager/userData/userConfigurations.json
 
 - name: Get RPCS3 Appimage
@@ -15,5 +15,13 @@
       dest: "$HOME/Applications/"
 
 - name: Copy Wireless Steam controller config for Retroarch
-      copy: SC_Wireless_es.config
+  copy: 
+      src: "gaming/SC_Wireless_es.config"
       dest: /opt/retropie/configs/all/retroarch-joypads/
+
+- name: Copy Emulation Station Steam controller config file
+  copy:
+      src: "gaming/emulation_station_steam_controller_config.cfg"
+      dest: "$HOME/.emulationstation/es_input.cfg"
+      owner: antisa
+      group: antisa
