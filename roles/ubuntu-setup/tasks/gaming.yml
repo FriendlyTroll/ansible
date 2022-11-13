@@ -11,5 +11,9 @@
 
 - name: Get RPCS3 Appimage
   get_url:
-      url: https://github.com/RPCS3/rpcs3-binaries-linux/releases/download/build-b9f2b1e7c6b4d1a37d8a9ec3e599d799c3f874be/rpcs3-v0.0.23-13843-b9f2b1e7_linux64.AppImage
+      url: https://github.com/RPCS3/rpcs3-binaries-linux/releases/download/build-324b1039cf18828910521c813352e0ecacad8b96/rpcs3-v0.0.25-14373-324b1039_linux64.AppImage
       dest: "$HOME/Applications/"
+
+- name: Copy Wireless Steam controller config for Retroarch
+      copy: SC_Wireless_es.config
+      dest: /opt/retropie/configs/all/retroarch-joypads/
