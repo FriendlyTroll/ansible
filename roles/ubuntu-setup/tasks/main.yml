@@ -254,3 +254,25 @@
 - name: Include gaming.yml tasks
   include_tasks: gaming.yml
   when: gaming == True
+
+- name: Download Anki flashcards
+  get_url:
+      url: https://github.com/ankitects/anki/releases/download/{{ anki_version }}/anki-{{ anki_version }}-linux-qt6.tar.zst
+      dest: /tmp/
+      mode: 0755
+  tags: anki
+
+- name: Unarchive Anki flashcards
+  unarchive:
+    src: /tmp/anki-{{ anki_version }}-linux-qt6.tar.zst
+    dest: /tmp/
+    extra_opts:
+      - --use-compress-program=unzstd
+  tags: anki
+
+- name: Install Anki flashcards
+  command:
+    chdir: /tmp/anki-{{ anki_version }}-linux-qt6
+    cmd: sudo bash install.sh
+  become_user: root
+  tags: anki
