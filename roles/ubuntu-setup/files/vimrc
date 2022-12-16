@@ -281,3 +281,7 @@ nmap <C-s> :w<CR>
 " easily between functions
 set tags=tags
 autocmd BufWritePost *.py silent! !ctags -R &
+
+" - down / up / left / right
+let g:fzf_layout = { 'down': '50%' }
+
