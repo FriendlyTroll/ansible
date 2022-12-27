@@ -27,6 +27,8 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'tommcdo/vim-fubitive'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 call plug#end()
 
 filetype plugin indent on
