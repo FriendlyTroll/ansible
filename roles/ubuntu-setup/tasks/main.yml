@@ -123,11 +123,10 @@
     - $HOME/Applications # for AppImages
 
 - name: Install AppImages appimage daemon for integration
-  get_url:
-      url: https://github.com/probonopd/go-appimage/releases/download/continuous/appimaged-711-x86_64.AppImage
-      dest: "$HOME/Applications/"
-      mode: 0755
-  ignore_errors: yes
+  shell:
+      cmd: wget -c https://github.com/$(wget -q https://github.com/probonopd/go-appimage/releases/expanded_assets/continuous -O - | grep "appimaged-.*-x86_64.AppImage" | head -n 1 | cut -d '"' -f 2) -P ~/Applications/ && chmod --recursive +x ~/Applications/
+      warn: false
+  tags: appimage
 
 - name: Copy bashrc
   template:
