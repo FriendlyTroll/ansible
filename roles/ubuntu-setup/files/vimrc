@@ -29,6 +29,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'tommcdo/vim-fubitive'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+Plug 'davidhalter/jedi-vim'
 call plug#end()
 
 filetype plugin indent on
