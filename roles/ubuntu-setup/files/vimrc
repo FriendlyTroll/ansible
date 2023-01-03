@@ -211,14 +211,6 @@ imap <C-v> <ESC>"+pa
 let &t_SI .= "\<Esc>[?2004h"
 let &t_EI .= "\<Esc>[?2004l"
 
-function! XTermPasteBegin()
-    set pastetoggle=<Esc>[201~
-    set paste
-    return ""
-endfunction
-
-inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
-
 " search whole word within files recursively with Shift+f
 nnoremap <S-s> :vimgrep // **<left><left><left><left>
 
