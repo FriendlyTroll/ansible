@@ -161,9 +161,10 @@ nmap <silent> <C-h> :wincmd h<CR>
 nmap <silent> <C-l> :wincmd l<CR>
 
 " move through buffers
-nmap <leader>[ :bp!<CR>
-nmap <leader>] :bn!<CR>
+nmap b<space> :bp!<CR>
+nmap <space> :bn!<CR>
 nmap <leader>x :bd<CR>
+
 
 " restore place in file from previous session
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
