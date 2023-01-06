@@ -282,3 +282,11 @@ autocmd BufWritePost *.py silent! !ctags -R &
 " - down / up / left / right
 let g:fzf_layout = { 'down': '50%' }
 
+" decrypt ansible vault
+autocmd BufNewFile,BufRead *
+  \ if getline(1) =~ '$ANSIBLE_VAULT;.*;AES256'     |
+  \   execute '%! ansible-vault decrypt --output -' |
+  \ endif
+
+
+
