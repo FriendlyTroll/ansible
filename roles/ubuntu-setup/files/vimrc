@@ -201,11 +201,17 @@ autocmd VimEnter * silent! wincmd l
 " tags
 map <leader>t :TagbarToggle<CR>
 
+" Ctrl bindings
 " copy, cut and paste
 vmap <C-c> "+y
 vmap <C-x> "+c
 vmap <C-v> c<ESC>"+p
 imap <C-v> <ESC>"+pa
+" change window sizes
+nmap <C-Up> :resize +10<CR>
+nmap <C-Down> :resize -10<CR>
+nmap <C-Left> :vertical resize -10<CR>
+nmap <C-Right> :vertical resize +10<CR>
 
 " disable autoindent when pasting text
 " source: https://coderwall.com/p/if9mda/automatically-set-paste-mode-in-vim-when-pasting-in-insert-mode
