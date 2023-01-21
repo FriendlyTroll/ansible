@@ -3,28 +3,28 @@
   apt_key:
       url: https://repo.skype.com/data/SKYPE-GPG-KEY
       state: present
-  become: True
+  become: true
   become_user: root
 
 - name: Install skype repo
   apt_repository:
       repo: deb [arch=amd64] https://repo.skype.com/deb stable main
       state: present
-  become: True
+  become: true
   become_user: root
 
 - name: Add slack apt key
   apt_key:
       url: https://packagecloud.io/slacktechnologies/slack/gpgkey
       state: present
-  become: True
+  become: true
   become_user: root
 
 - name: Install slack repo
   apt_repository:
       repo: deb https://packagecloud.io/slacktechnologies/slack/debian/ jessie main
       state: present
-  become: True
+  become: true
   become_user: root
 
 # https://protonvpn.com/support/linux-ubuntu-vpn-setup/
@@ -32,60 +32,68 @@
   apt:
       deb: https://protonvpn.com/download/protonvpn-stable-release_1.0.1-1_all.deb
   tags: packages
-  become: True
+  become: true
   become_user: root
 
 - name: Install ubuntu packages
   apt:
-      name: 
-        - ubuntu-restricted-extras
-        - imagemagick
-        - curl
-        - git
-        - sshfs
-        - vim
-        - zenity
-        - mpv
-        - syncthing
-        - syncthing-gtk
-        - chrome-gnome-shell
-        - keepassxc
-        - vim-gtk3
-        - fzf
-        - universal-ctags
-        - mlocate
-        - filezilla
-        - bsdutils
-        - python3-pip
-        - asciinema
-        - slack-desktop
-        - skypeforlinux
-        - xclip
-        - protonvpn
-        - whois
-        - smplayer
+      name:
+          - ubuntu-restricted-extras
+          - imagemagick
+          - curl
+          - git
+          - sshfs
+          - vim
+          - zenity
+          - mpv
+          - syncthing
+          - syncthing-gtk
+          - chrome-gnome-shell
+          - keepassxc
+          - vim-gtk3
+          - fzf
+          - universal-ctags
+          - mlocate
+          - filezilla
+          - bsdutils
+          - python3-pip
+          - asciinema
+          - slack-desktop
+          - skypeforlinux
+          - xclip
+          - protonvpn
+          - whois
+          - smplayer
       update_cache: yes
-  become: True
+  become: true
   become_user: root
   tags: packages
 
-- name: Install desktop specific ubuntu packages 
+- name: Install python specific packages
   apt:
       name:
-        - steam-devices
-        - steam-installer
+          - flake8
+      update_cache: true
+  become_user: root
+  tags: packages
+
+- name: Install desktop specific ubuntu packages
+  apt:
+      name:
+          - steam-devices
+          - steam-installer
       update_cache: yes
-  become: True
+  become: true
   become_user: root
   tags: packages
   when: '"XPS" not in ansible_hostname'
 
-- name: Install laptop specific ubuntu packages 
+- name: Install laptop specific ubuntu packages
   apt:
       name:
           - powertop
       update_cache: yes
-  become: True
+  become: true
   become_user: root
   tags: packages
   when: '"XPS" in ansible_hostname'
@@ -94,19 +102,19 @@
   apt:
       deb: https://zoom.us/client/latest/zoom_amd64.deb
   tags: packages
-  become: True
+  become: true
   become_user: root
 
 - name: Update snap packager
   command: snap refresh
-  become: True
+  become: true
   become_user: root
 
 # need to install snaps one by one because of this bug
 # https://forum.snapcraft.io/t/trying-to-re-install-multiple-packages-with-snap-install-fails-with-install-refresh-information-results-from-the-store/24859
 - name: Install ubuntu snap packages - acestreamplayer
   command: snap install acestreamplayer
-  become: True
+  become: true
   become_user: root
 
 - name: Create custom directories
@@ -115,12 +123,12 @@
       state: directory
       mode: 0755
   loop:
-    - $HOME/Pictures/screenshots
-    - $HOME/Documents/terminal_logs
-    - $HOME/.config/mpv
-    - $HOME/.config/asciinema
-    - $HOME/.local/share/nautilus/scripts
-    - $HOME/Applications # for AppImages
+      - $HOME/Pictures/screenshots
+      - $HOME/Documents/terminal_logs
+      - $HOME/.config/mpv
+      - $HOME/.config/asciinema
+      - $HOME/.local/share/nautilus/scripts
+      - $HOME/Applications  # for AppImages
 
 - name: Install AppImages appimage daemon for integration
   shell:
@@ -182,7 +190,7 @@
 
 - name: Copy other useful nautilus scripts
   copy:
-      src:  "{{ item }}"
+      src: "{{ item }}"
       dest: "$HOME/.local/share/nautilus/scripts"
       mode: 0755
   loop:
@@ -198,7 +206,7 @@
       src: UUID=f1a236ec-0809-4c61-b9c4-bee4427e728f
       fstype: ext4
       opts: defaults,noatime
-  become: True
+  become: true
   become_user: root
   tags: mounts
 
@@ -209,7 +217,7 @@
       src: root@192.168.99.143:/media/touro
       fstype: fuse.sshfs
       opts: noauto,user,x-systemd.automount,defaults,_netdev,allow_other,identityfile=/root/.ssh/id_ed25519
-  become: True
+  become: true
   become_user: root
   tags: mounts
 
@@ -220,7 +228,7 @@
       src: UUID=033b3425-8b5c-4a58-b69a-108cfed2614b
       fstype: ext4
       opts: defaults,noatime
-  become: True
+  become: true
   become_user: root
   tags: mounts
 
@@ -230,18 +238,18 @@
       name: raspberrypi_3b+
       key: raspberrypi_3b+ ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJH7iLv2mwvJ7ERSnrjdADbBzLF2Xo9dxANk9Vt+nY5bNTjrXNsm96Dc9U8g087TSkfYv8sLBQ9p7XKJieA0foo= root@raspberrypi
       state: present
-  become: True
+  become: true
   become_user: root
 
 - name: Generate ssh key for root user
-  command: 
+  command:
     cmd: ssh-keygen -t ed25519  -q -f "/root/.ssh/id_ed25519" -N ""
     creates: "/root/.ssh/id_ed25519"
-  become: True
+  become: true
   become_user: root
 
 - name: Copy custom Gnome keyboard shortcuts file
-  copy: 
+  copy:
     src: custom-shortcuts.conf
     dest: /tmp/
   tags: config
