@@ -297,6 +297,11 @@ autocmd BufNewFile,BufRead *
 " encrypt ansible vault
 nnoremap <leader>ae :%! ansible-vault encrypt --output -<CR>
 
+let g:ale_fixers = {
+\   'yaml': [
+\       'yamlfix',
+\   ],
+\}
 
 
 autocmd FileType python map <buffer> <F9> :w<CR>:!clear;python "%"<CR>
