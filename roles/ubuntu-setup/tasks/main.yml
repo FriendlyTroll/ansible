@@ -65,6 +65,7 @@
           - whois
           - smplayer
           - yamllint
+          - flameshot
       update_cache: yes
   become: true
   become_user: root
