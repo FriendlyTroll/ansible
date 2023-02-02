@@ -30,7 +30,7 @@
 # https://protonvpn.com/support/linux-ubuntu-vpn-setup/
 - name: Install protonvpn repo
   apt:
-      deb: https://protonvpn.com/download/protonvpn-stable-release_1.0.1-1_all.deb
+      deb: https://repo.protonvpn.com/debian/dists/stable/main/binary-all/protonvpn-stable-release_1.0.3_all.deb
   tags: packages
   become: true
   become_user: root
