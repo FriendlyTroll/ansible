@@ -17,7 +17,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'preservim/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'dense-analysis/ale'
 Plug 'majutsushi/tagbar'
 Plug 'vim-scripts/indentpython.vim'
 Plug 'lepture/vim-jinja'
@@ -29,12 +28,13 @@ Plug 'junegunn/fzf.vim'
 Plug 'tommcdo/vim-fubitive'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-Plug 'davidhalter/jedi-vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 filetype plugin indent on
 syntax on
+set hidden
 
 if need_to_install_plugins == 1
     echo "Installing plugins..."
@@ -43,6 +43,43 @@ if need_to_install_plugins == 1
     q
 endif
 
+" ##############
+" # coc config #
+" ##############
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" Symbol renaming
+nmap <leader>rn <Plug>(coc-rename)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+let g:coc_disable_startup_warning = 1
+let g:coc_filetype_map = {
+  \ 'yaml.ansible': 'ansible',
+  \ }
+
+" Make <C-m> to accept selected completion item or notify coc.nvim to format
+inoremap <silent><expr> <C-m> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" ################
+" # / coc config #
+" ################
 " always show the status bar
 set laststatus=2
 
@@ -194,10 +231,6 @@ autocmd VimEnter * call StartUp()
 " move to right window immediately when entering vim
 autocmd VimEnter * silent! wincmd l
 
-" ale
-" map <C-e> <Plug>(ale_next_wrap)
-" map <C-r> <Plug>(ale_previous_wrap)
-
 " tags
 map <leader>t :TagbarToggle<CR>
 
@@ -296,13 +329,6 @@ autocmd BufNewFile,BufRead *
 
 " encrypt ansible vault
 nnoremap <leader>ae :%! ansible-vault encrypt --output -<CR>
-
-let g:ale_fixers = {
-\   'yaml': [
-\       'yamlfix',
-\   ],
-\}
-
 
 autocmd FileType python map <buffer> <F9> :w<CR>:!clear;python "%"<CR>
 autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:!clear;python "%"<CR>
