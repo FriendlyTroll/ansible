@@ -321,7 +321,7 @@ autocmd BufWritePost *.py silent! !ctags -R &
 " - down / up / left / right
 let g:fzf_layout = { 'down': '50%' }
 
-" decrypt ansible vault
+" automatically decrypt ansible vault when reading it
 autocmd BufNewFile,BufRead *
   \ if getline(1) =~ '$ANSIBLE_VAULT;.*;AES256'     |
   \   silent execute '%! ansible-vault decrypt --output -' |
