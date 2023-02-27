@@ -285,3 +285,8 @@
     cmd: sudo bash install.sh
   become_user: root
   tags: anki
+
+- name: Install nodesource repo (for coc.vim plugin)
+  shell: curl -sL install-node.vercel.app/lts | bash
+  become_user: root
+
