@@ -32,16 +32,57 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
-filetype plugin indent on
-syntax on
-set hidden
-
 if need_to_install_plugins == 1
     echo "Installing plugins..."
     silent! PlugInstall
     echo "Done!"
     q
 endif
+
+filetype plugin indent on
+syntax on
+
+" color scheme
+colorscheme onedark
+
+set hidden
+
+" mouse
+set mouse=a
+
+" code folding
+set foldmethod=indent
+set foldlevel=99
+
+" this will read so called modelines from opened files which
+" can automatically set vim options like syntax highlighting
+set modeline
+
+" always show the status bar
+set laststatus=2
+
+" enable 256 colors
+set t_Co=256
+set t_ut=
+
+" turn on line numbering
+set number relativenumber
+
+" sane text files
+set fileformat=unix
+set encoding=utf-8
+set fileencoding=utf-8
+
+" sane editing
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+
+" color the column 80
+"set colorcolumn=80
+
+set expandtab
+set viminfo='25,\"50,n~/.viminfo
 
 " ##############
 " # coc config #
@@ -80,68 +121,6 @@ inoremap <silent><expr> <C-m> coc#pum#visible() ? coc#pum#confirm()
 " ################
 " # / coc config #
 " ################
-" always show the status bar
-set laststatus=2
-
-" enable 256 colors
-set t_Co=256
-set t_ut=
-
-" turn on line numbering
-set number relativenumber
-
-" sane text files
-set fileformat=unix
-set encoding=utf-8
-set fileencoding=utf-8
-
-" sane editing
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-
-" color the column 80
-"set colorcolumn=80
-
-set expandtab
-set viminfo='25,\"50,n~/.viminfo
-autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
-autocmd FileType css setlocal tabstop=2 shiftwidth=2 softtabstop=2
-autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
-
-" word movement
-imap <S-Left> <Esc>bi
-nmap <S-Left> b
-imap <S-Right> <Esc><Right>wi
-nmap <S-Right> w
-
-" indent/unindent with tab/shift-tab
-"nmap <Tab> >>
-nmap <S-tab> <<
-imap <S-Tab> <Esc><<i
-vmap <Tab> >gv
-vmap <S-Tab> <gv
-
-" mouse
-set mouse=a
-let g:is_mouse_enabled = 1
-noremap <silent> <Leader>m :call ToggleMouse()<CR>
-function ToggleMouse()
-    if g:is_mouse_enabled == 1
-        echo "Mouse OFF"
-        set mouse=
-        let g:is_mouse_enabled = 0
-    else
-        echo "Mouse ON"
-        set mouse=a
-        let g:is_mouse_enabled = 1
-    endif
-endfunction
-
-" color scheme
-colorscheme onedark
-filetype on
-filetype plugin indent on
 
 " lightline
 set noshowmode
@@ -154,28 +133,12 @@ let g:lightline = { 'colorscheme': 'onedark',
                   \ 'gitbranch': 'FugitiveHead' },
                   \ }
 
-" move through split windows
-nmap <silent> <C-k> :wincmd k<CR>
-nmap <silent> <C-j> :wincmd j<CR>
-nmap <silent> <C-h> :wincmd h<CR>
-nmap <silent> <C-l> :wincmd l<CR>
-
-" move through buffers
-nmap b<space> :bp!<CR>
-nmap <space> :bn!<CR>
-nmap <leader>x :bd<CR>
-
-
-" restore place in file from previous session
-autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 " file browser
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 let NERDTreeMinimalUI = 1
 let g:nerdtree_open = 0
-map <leader>n :call NERDTreeToggle()<CR>
 function NERDTreeToggle()
-    NERDTreeTabsToggle
     if g:nerdtree_open == 1
         let g:nerdtree_open = 0
     else
@@ -189,10 +152,29 @@ function! StartUp()
         NERDTree
     end
 endfunction
-" open NERDTree when entering vim
-autocmd VimEnter * call StartUp()
-" move to right window immediately when entering vim
-autocmd VimEnter * silent! wincmd l
+
+" ##################
+" # custom key map #
+" ##################
+" indent/unindent with tab/shift-tab
+"nmap <Tab> >>
+nmap <S-tab> <<
+imap <S-Tab> <Esc><<i
+vmap <Tab> >gv
+vmap <S-Tab> <gv
+
+map <leader>n :call NERDTreeToggle()<CR>
+
+" move through split windows
+nmap <silent> <C-k> :wincmd k<CR>
+nmap <silent> <C-j> :wincmd j<CR>
+nmap <silent> <C-h> :wincmd h<CR>
+nmap <silent> <C-l> :wincmd l<CR>
+
+" move through buffers
+nmap b<space> :bp!<CR>
+nmap <space> :bn!<CR>
+nmap <leader>x :bd<CR>
 
 " tags
 map <leader>t :TagbarToggle<CR>
@@ -203,16 +185,12 @@ vmap <C-c> "+y
 vmap <C-x> "+c
 vmap <C-v> c<ESC>"+p
 imap <C-v> <ESC>"+pa
+
 " change window sizes
 nmap <C-Up> :resize +10<CR>
 nmap <C-Down> :resize -10<CR>
 nmap <C-Left> :vertical resize -10<CR>
 nmap <C-Right> :vertical resize +10<CR>
-
-" disable autoindent when pasting text
-" source: https://coderwall.com/p/if9mda/automatically-set-paste-mode-in-vim-when-pasting-in-insert-mode
-let &t_SI .= "\<Esc>[?2004h"
-let &t_EI .= "\<Esc>[?2004l"
 
 " search whole word within files recursively with Shift+f
 nnoremap <S-s> :vimgrep // ** **/.*<left><left><left><left><left><left><left><left><left><left>
@@ -221,37 +199,8 @@ nnoremap <S-s> :vimgrep // ** **/.*<left><left><left><left><left><left><left><le
 " in visual mode
 vmap <leader>f y :vimgrep // **<left><left><left><left><C-r>"
 
-" open buffers
-nnoremap <F2> :Buffers<CR>
-
-" search for filenames with F3 key
-nnoremap <F3> :Files<CR>
-
-" search in open buffers
-nnoremap <F4> :Lines<CR>
-
-" open/close nerdtree
-nnoremap <F5> :NERDTreeToggle<CR>
-inoremap <F5> <C-o>:NERDTreeToggle<CR>
-
 " show opened file in tree
 map <leader>l :NERDTreeFind<CR>
-
-" open Commits
-nnoremap <F6> :Commits<CR>
-
-" open vimfugitive git window
-nnoremap <F7> :G<CR>
-
-" switch to next buffer and close previous
-nnoremap <F12> :NERDTreeToggle<bar>bd<bar>NERDTreeToggle<bar><CR><c-w>l
-
-" remap go to function definition
-nnoremap  gd <C-]>
-
-" this will read so called modelines from opened files which
-" can automatically set vim options like syntax highlighting
-set modeline
 
 " exit insert mode when typing jj quickly
 inoremap jj <ESC>
@@ -266,6 +215,53 @@ nmap <leader>p :Git push<CR>
 " git pull
 nmap <leader>P :Git pull<CR>
 
+" save on Ctrl-s
+nmap <C-s> :w<CR>
+
+" encrypt ansible vault (see below autocmd for decryption)
+nnoremap <leader>ae :%! ansible-vault encrypt --output -<CR>
+" ##################
+" #/custom key map #
+" ##################
+
+" disable autoindent when pasting text
+" source: https://coderwall.com/p/if9mda/automatically-set-paste-mode-in-vim-when-pasting-in-insert-mode
+let &t_SI .= "\<Esc>[?2004h"
+let &t_EI .= "\<Esc>[?2004l"
+
+
+" ##############
+" # F keys map #
+" ##############
+" fzf plugins
+" open command history
+nnoremap <F1> :History:<CR>
+
+" open buffers
+nnoremap <F2> :Buffers<CR>
+
+" search for filenames with F3 key
+nnoremap <F3> :Files<CR>
+
+" search in open buffers
+nnoremap <F4> :Lines<CR>
+
+" open/close nerdtree
+nnoremap <F5> :NERDTreeToggle<CR>
+inoremap <F5> <C-o>:NERDTreeToggle<CR>
+
+" open Commits
+nnoremap <F6> :Commits<CR>
+
+" open vimfugitive git window
+nnoremap <F7> :G<CR>
+
+" switch to next buffer and close previous
+nnoremap <F12> :NERDTreeToggle<bar>bd<bar>NERDTreeToggle<bar><CR><c-w>l
+" ##############
+" #/F keys map #
+" ##############
+
 " unlimited undo history
 if has('persistent_undo')      
   set undofile                 
@@ -273,25 +269,35 @@ if has('persistent_undo')
   set undodir=$HOME/.vim/undo 
   endif
 
-" save on Ctrl-s
-nmap <C-s> :w<CR>
-
-" generate tags on saving the document to jump
-" easily between functions
-set tags=tags
-autocmd BufWritePost *.py silent! !ctags -R &
-
 " - down / up / left / right
 let g:fzf_layout = { 'down': '50%' }
 
+
+" ################
+" # autocommands #
+" ################
 " automatically decrypt ansible vault when reading it
+" see above mapping to encrypt
 autocmd BufNewFile,BufRead *
   \ if getline(1) =~ '$ANSIBLE_VAULT;.*;AES256'     |
   \   silent execute '%! ansible-vault decrypt --output -' |
   \ endif
 
-" encrypt ansible vault
-nnoremap <leader>ae :%! ansible-vault encrypt --output -<CR>
-
 autocmd FileType python map <buffer> <F9> :w<CR>:!clear;python "%"<CR>
 autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:!clear;python "%"<CR>
+
+" open NERDTree when entering vim
+autocmd VimEnter * call StartUp()
+" move to right window immediately when entering vim
+autocmd VimEnter * silent! wincmd l
+
+" restore place in file from previous session
+autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType css setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
+
+" ################
+" #/autocommands #
+" ################
