@@ -15,7 +15,6 @@ Plug 'joshdick/onedark.vim'
 Plug 'ap/vim-buftabline'
 Plug 'airblade/vim-gitgutter'
 Plug 'preservim/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'majutsushi/tagbar'
 Plug 'vim-scripts/indentpython.vim'
@@ -30,6 +29,7 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ryanoasis/vim-devicons'
+Plug 'pearofducks/ansible-vim'
 call plug#end()
 
 if need_to_install_plugins == 1
@@ -197,7 +197,7 @@ nnoremap <S-s> :vimgrep // ** **/.*<left><left><left><left><left><left><left><le
 
 " search for word in entire project when selected
 " in visual mode
-vmap <leader>f y :vimgrep // **<left><left><left><left><C-r>"
+vmap <leader>f y :vimgrep // **<left><left><left><left><C-r>"<CR>
 
 " show opened file in tree
 map <leader>l :NERDTreeFind<CR>
