@@ -251,9 +251,9 @@
   become_user: root
 
 - name: Copy custom Gnome keyboard shortcuts file
-  copy:
-    src: custom-shortcuts.conf
-    dest: /tmp/
+  template:
+    src: custom-shortcuts.conf.j2
+    dest: /tmp/custom-shortcuts.conf
   tags: config
 
 - name: Import custom Gnome keyboard shortcuts
