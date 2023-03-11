@@ -30,7 +30,7 @@ exclude-list=['/home/antisa/.local/share/Trash', '/home/antisa/.steam', '/home/a
 {% if "XPS" in ansible_hostname %}
 [org/gnome/deja-dup/local]
 folder='backups'
-{% elif %}
+{% else %}
 [org/gnome/deja-dup/local]
 folder='/mnt/backup/dejadup_backup'
 {% endif %}
