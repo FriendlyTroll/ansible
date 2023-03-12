@@ -131,6 +131,7 @@
       - $HOME/.config/asciinema
       - $HOME/.local/share/nautilus/scripts
       - $HOME/Applications  # for AppImages
+      - $HOME/.local/share/fonts
 
 - name: Install AppImages appimage daemon for integration
   shell:
@@ -289,4 +290,8 @@
 - name: Install nodesource repo (for coc.vim plugin)
   shell: curl -sL install-node.vercel.app/lts | bash
   become_user: root
+
+- name: Install NerdFonts
+  shell: curl -fLo "Droid Sans Mono for Powerline Nerd Font Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf
+  chdir: $HOME/.local/share/fonts
 
