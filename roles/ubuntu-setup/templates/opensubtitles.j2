@@ -55,8 +55,8 @@ if sys.version_info > (3, 0):
 # Be careful about your password security, it will be stored right here in plain text...
 # You can also change opensubtitles.org language, it will be used for error codes and stuff.
 # Can be overridden at run time with '-u' and '-p' arguments.
-osd_username = 'bestboygrip'
-osd_password = 'Kks7J4c_'
+osd_username = {{ vault_opensubtitles_username }}
+osd_password = {{ vault_opensubtitles_password }}
 osd_language = 'en'
 
 # ==== Language settings =======================================================
