@@ -220,6 +220,14 @@ nmap <C-s> :w<CR>
 
 " encrypt ansible vault (see below autocmd for decryption)
 nnoremap <leader>ae :%! ansible-vault encrypt --output -<CR>
+
+" quickfix window maps
+nnoremap [q   :cprevious<CR>
+nnoremap ]q   :cnext<CR>
+nnoremap [Q   :cfirst<CR>
+nnoremap ]Q   :clast<CR>
+nnoremap qc   :cclose<CR>
+
 " ##################
 " #/custom key map #
 " ##################
