@@ -132,6 +132,8 @@
       - $HOME/.local/share/nautilus/scripts
       - $HOME/Applications  # for AppImages
       - $HOME/.local/share/fonts
+      - $HOME/.local/my_global_githooks
+  tags: git
 
 - name: Install AppImages appimage daemon for integration
   shell:
@@ -295,3 +297,15 @@
   shell: curl -fLo "Droid Sans Mono for Powerline Nerd Font Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf
   chdir: $HOME/.local/share/fonts
 
+- name: Set global git hooks directory
+  shell: git config --global core.hooksPath $HOME/.local/my_global_githooks
+  tags: git
+
+- name: Copy git precommit script
+  copy:
+      src: "{{ item }}"
+      dest: "$HOME/.local/my_global_githooks/pre-commit"
+      mode: 0755
+  loop:
+    - "ansible-check-vault-encrypted.sh"
+  tags: scripts,git
