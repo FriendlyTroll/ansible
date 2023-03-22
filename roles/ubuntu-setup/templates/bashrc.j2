@@ -117,14 +117,6 @@ if ! shopt -oq posix; then
 fi
 
 #### MOJE #####
-{% if "XPS" in ansible_hostname %}
-# moj Ansible config
-export ANSIBLE_CONFIG=~/Posal/moj_ansible.cfg
-{% endif %}
-
-# set virtual env variable so the python-mode vim plugin can automatically use it
-export VIRTUAL_ENV='venv'
-
 # Save each command right after it has been executed to prevent losing history in case of crash or when session terminates improperly
 PROMPT_COMMAND='history -a'
 
