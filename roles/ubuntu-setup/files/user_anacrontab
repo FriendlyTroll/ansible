@@ -1,0 +1,12 @@
+# /etc/anacrontab: configuration file for anacron
+ 
+# See anacron(8) and anacrontab(5) for details.
+ 
+SHELL=/bin/bash
+PATH=/home/antisa/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+ 
+# this will run test.sh script once each day
+# period  delay  job-identifier  command
+#1         10     testjob         test.sh
+1         10     borgbackup         borgbackup.sh  > /tmp/borgbackup.log 2>&1
+

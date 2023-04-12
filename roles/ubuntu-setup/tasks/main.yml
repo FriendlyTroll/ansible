@@ -66,6 +66,7 @@
           - smplayer
           - yamllint
           - flameshot
+          - borgbackup
       update_cache: yes
   become: true
   become_user: root
@@ -133,7 +134,9 @@
       - $HOME/Applications  # for AppImages
       - $HOME/.local/share/fonts
       - $HOME/.local/my_global_githooks
-  tags: git
+      - $HOME/.anacron/etc
+      - $HOME/.anacron/spool
+  tags: git, dirs
 
 - name: Install AppImages appimage daemon for integration
   shell:
@@ -308,3 +311,24 @@
   loop:
     - "ansible-check-vault-encrypted.sh"
   tags: scripts,git
+
+- name: Copy borgbackup script
+  template:
+      src: borgbackup.sh.j2
+      dest: $HOME/.local/bin/borgbackup.sh
+      mode: 0700
+  tags: config, backup
+
+- name: Copy user anacrontab file
+  copy:
+    src: user_anacrontab
+    dest: "$HOME/.anacron/etc/anacrontab"
+  tags: config, backup
+
+- name: Add user anacron to crontab
+  cron:
+    name: "run antisa user anacrontab"
+    job: "/usr/sbin/anacron -s -t $HOME/.anacron/etc/anacrontab -S $HOME/.anacron/spool"
+    special_time: hourly
+    user: antisa
+  tags: config, backup, cron
