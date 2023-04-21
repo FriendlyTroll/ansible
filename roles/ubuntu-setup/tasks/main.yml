@@ -160,6 +160,7 @@
       - { src: "vimrc", dest: "$HOME/.vimrc" }
       - { src: "mpv.conf", dest: "$HOME/.config/mpv" }
       - { src: "slack.desktop", dest: "$HOME/.local/share/applications/" }
+      - { src: "tmux.conf", dest: "$HOME/.tmux.conf" }
   tags: config
 
 - name: Copy asciinema player config files
