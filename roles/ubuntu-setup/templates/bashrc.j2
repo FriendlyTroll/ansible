@@ -124,7 +124,7 @@ PROMPT_COMMAND='history -a'
 export HISTTIMEFORMAT="%F %T "
 
 # log terminal sessions in file
-test "$(ps -ocommand= -p $PPID | awk '{print $1}')" == 'sh' || (asciinema rec $HOME/Documents/terminal_logs/$(date +"%F_%H-%M-%S").cast)
+#test "$(ps -ocommand= -p $PPID | awk '{print $1}')" == 'sh' || (asciinema rec $HOME/Documents/terminal_logs/$(date +"%F_%H-%M-%S").cast)
 
 # custom command for setting terminal title
 function set-title() {
@@ -139,9 +139,22 @@ function set-title() {
 # remaped to vim to save file
 stty -ixon
 
-alias cda='cd /home/antisa/Posal/ansbile-2.0/'
-alias cdv='cd /home/antisa/vagrant_playground/debian-bullseye'
-alias cdb='cd /home/antisa/Posal/bgb.ansible/'
-alias cdi='cd /home/antisa/Posal/ansible-i18n/'
+alias mbb='$HOME/.local/bin/tmux-script-mbb.sh'
+alias bgb='$HOME/.local/bin/tmux-script-bgb.sh'
+alias int='$HOME/.local/bin/tmux-script-int.sh'
 
+alias cdv='cd /home/antisa/vagrant_playground/debian-bullseye'
 alias ape='source venv/bin/activate'
+alias arec='asciinema rec $HOME/Documents/terminal_logs/$(date +"%F_%H-%M-%S").cast'
+
+# set tmux's window title
+settitle() {
+  printf "\033k$1\033\\"
+}
+
+ssh() {
+     tmux rename-window "$*"
+     command ssh "$@"
+     bash
+}
+
