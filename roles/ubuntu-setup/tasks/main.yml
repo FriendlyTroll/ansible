@@ -1,31 +1,8 @@
 ---
-- name: Add skype apt key
-  apt_key:
-      url: https://repo.skype.com/data/SKYPE-GPG-KEY
-      state: present
-  become: true
-  become_user: root
-
-- name: Install skype repo
-  apt_repository:
-      repo: deb [arch=amd64] https://repo.skype.com/deb stable main
-      state: present
-  become: true
-  become_user: root
-
-- name: Add slack apt key
-  apt_key:
-      url: https://packagecloud.io/slacktechnologies/slack/gpgkey
-      state: present
-  become: true
-  become_user: root
-
-- name: Install slack repo
-  apt_repository:
-      repo: deb https://packagecloud.io/slacktechnologies/slack/debian/ jessie main
-      state: present
-  become: true
-  become_user: root
+- name: Check on which Ubuntu we are
+  command: lsb_release -cs
+  register: ubuntu_version
+  tags: docker
 
 # https://protonvpn.com/support/linux-ubuntu-vpn-setup/
 - name: Install protonvpn repo
@@ -58,8 +35,6 @@
           - bsdutils
           - python3-pip
           - asciinema
-          - slack-desktop
-          - skypeforlinux
           - xclip
           - protonvpn
           - whois
@@ -68,6 +43,8 @@
           - flameshot
           - borgbackup
           - tmux
+          - gnome-shell-extension-manager
+          - flatpak
       update_cache: yes
   become: true
   become_user: root
@@ -78,6 +55,7 @@
       name:
           - flake8
       update_cache: true
+  become: true
   become_user: root
   tags: python-packages
 
@@ -121,13 +99,18 @@
   become: true
   become_user: root
 
+- name: Install snap packages
+  snap:
+    name:
+      - skype
+      - slack
+
 - name: Create custom directories
   file:
       path: "{{ item }}"
       state: directory
       mode: 0755
   loop:
-      - $HOME/Pictures/screenshots
       - $HOME/Documents/terminal_logs
       - $HOME/.config/mpv
       - $HOME/.config/asciinema
@@ -142,7 +125,6 @@
 - name: Install AppImages appimage daemon for integration
   shell:
       cmd: wget -c https://github.com/$(wget -q https://github.com/probonopd/go-appimage/releases/expanded_assets/continuous -O - | grep "appimaged-.*-x86_64.AppImage" | head -n 1 | cut -d '"' -f 2) -P ~/Applications/ && chmod --recursive +x ~/Applications/
-      warn: false
   tags: appimage
 
 - name: Copy bashrc
@@ -270,7 +252,7 @@
 
 - name: Include gaming.yml tasks
   include_tasks: gaming.yml
-  when: gaming == True
+  when: gaming is defined
 
 - name: Download Anki flashcards
   get_url:
@@ -291,11 +273,16 @@
   command:
     chdir: /tmp/anki-{{ anki_version }}-linux-qt6
     cmd: sudo bash install.sh
+  become: true
   become_user: root
   tags: anki
 
 - name: Install nodesource repo (for coc.vim plugin)
-  shell: curl -sL install-node.vercel.app/lts | bash
+  expect:
+    command: /bin/bash -c "curl -sL https://install-node.vercel.app/lts | bash"
+    responses:
+      'Install Node.js*' : 'y'
+  become: true
   become_user: root
 
 - name: Install NerdFonts
@@ -341,3 +328,35 @@
     dest: "$HOME/.local/bin/"
     mode: 0755
   tags: config, scripts
+
+- block:
+  - name: Add APT gpg key for Docker repo
+    apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+    
+  - name: Add docker repo
+    apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ubuntu_version.stdout }} stable"
+        state: present
+    
+  - name: Install docker
+    apt:
+        name:
+            - docker-ce
+            - docker-ce-cli 
+            - containerd.io
+            - docker-buildx-plugin
+            - docker-compose-plugin
+        state: latest
+        update_cache: yes
+
+  - name: Add user to docker group
+    user:
+      name: antisa
+      groups: docker
+      append: yes
+
+  become: true
+  become_user: root
+  tags: docker

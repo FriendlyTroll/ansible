@@ -1,6 +1,6 @@
 ---
 # https://apps.ankiweb.net/
-anki_version: 2.1.54
+anki_version: 2.1.61
 
 borg_repo: /mnt/wd4tb/borg_backup
 borg_key_export_path: /home/antisa
