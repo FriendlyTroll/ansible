@@ -164,7 +164,7 @@ imap <S-Tab> <Esc><<i
 vmap <Tab> >gv
 vmap <S-Tab> <gv
 
-map <leader>n :call NERDTreeToggle()<CR>
+map <leader>n :NERDTreeToggle()<CR>
 
 " move through split windows
 nmap <silent> <C-k> :wincmd k<CR>
