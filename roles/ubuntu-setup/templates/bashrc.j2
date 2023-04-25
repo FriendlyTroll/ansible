@@ -123,6 +123,15 @@ PROMPT_COMMAND='history -a'
 # show timestamps in history
 export HISTTIMEFORMAT="%F %T "
 
+# set borg variables
+{% if "XPS" in ansible_hostname %}
+export BORG_REPO=$HOME/borg_backup
+export BORG_PASSPHRASE={{ vault_borg_passphrase_work }}
+{% else %}
+export BORG_REPO=/mnt/wd4tb/borg_backup
+export BORG_PASSPHRASE={{ vault_borg_passphrase_home }}
+{% endif %}
+
 # log terminal sessions in file
 #test "$(ps -ocommand= -p $PPID | awk '{print $1}')" == 'sh' || (asciinema rec $HOME/Documents/terminal_logs/$(date +"%F_%H-%M-%S").cast)
 
@@ -145,7 +154,11 @@ alias int='$HOME/.local/bin/tmux-script-int.sh'
 
 alias cdv='cd /home/antisa/vagrant_playground/debian-bullseye'
 alias ape='source venv/bin/activate'
-alias arec='asciinema rec $HOME/Documents/terminal_logs/$(date +"%F_%H-%M-%S").cast'
+alias rec='asciinema rec $HOME/Documents/terminal_logs/$(date +"%F_%H-%M-%S").cast'
+
+borgmountbackup () {
+  borg mount "$BORG_REPO$@"
+}
 
 # set tmux's window title
 settitle() {

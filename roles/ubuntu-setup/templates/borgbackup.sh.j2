@@ -1,3 +1,10 @@
+{% if "XPS" in ansible_hostname %}
+  {% set borg_repo=borg_repo_work %}
+  {% set borg_pwd=vault_borg_passphrase_work %}
+{% else %}
+  {% set borg_repo=borg_repo_home %}
+  {% set borg_pwd=vault_borg_passphrase_work %}
+{% endif -%}
 #!/bin/bash
 
 # adapted from here
@@ -24,7 +31,7 @@
 # Setting this, so the repo does not need to be given on the commandline:
 export BORG_REPO={{ borg_repo }}
 # Setting this, so you won't be asked for your repository passphrase:
-export BORG_PASSPHRASE={{ vault_borg_passphrase }}
+export BORG_PASSPHRASE={{ borg_pwd }}
 # Setting this, to have access to the key for login into server
 #export SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
 # Setting this for notify-osd below
