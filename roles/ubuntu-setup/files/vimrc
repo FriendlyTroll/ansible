@@ -211,6 +211,9 @@ nmap cp :let @+ = expand("%")<cr>
 " full path
 nmap cP :let @+ = expand("%:p")<cr>
 
+" delete all buffers except current
+nmap <leader>bo :%bd\|e#<CR>
+
 " git push
 nmap <leader>p :Git push<CR>
 " git pull
