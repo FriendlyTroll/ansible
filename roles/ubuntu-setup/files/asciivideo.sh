@@ -17,6 +17,7 @@ then
         asciiname=$(awk -F[\'\'] '/Ascii/ {print $2}' asciinema_player.html | tr -d "/" | cut -f1 -d".") 
         # set correct string in asciinema html file
         sed -i "s/$asciiname/$newf/" /home/antisa/Documents/terminal_logs/asciinema_player.html
+        sleep 1
         # run python built in webbrowser and open in firefox
         python3 -m http.server
         sleep 1
