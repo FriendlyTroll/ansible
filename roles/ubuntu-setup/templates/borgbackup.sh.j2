@@ -71,7 +71,7 @@ trap 'echo $( date ) Backup interrupted >&2; exit 2' INT TERM
 
 backup_exit=$?
 
-/usr/bin/notify-send --icon=org.gnome.DejaDup "Pruning repository"
+# /usr/bin/notify-send --icon=org.gnome.DejaDup "Pruning repository"
 
 # Use the `prune` subcommand to maintain 7 daily, 4 weekly and 2 monthly and yearly
 # archives of THIS machine. The '{hostname}-' prefix is very important to
@@ -90,7 +90,7 @@ backup_exit=$?
 prune_exit=$?
 
 # actually free repo disk space by compacting segments
-/usr/bin/notify-send --icon=org.gnome.DejaDup "Compacting repository"
+# /usr/bin/notify-send --icon=org.gnome.DejaDup "Compacting repository"
 /usr/bin/borg compact $BORG_REPO
 
 compact_exit=$?
