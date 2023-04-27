@@ -212,7 +212,7 @@ nmap cp :let @+ = expand("%")<cr>
 nmap cP :let @+ = expand("%:p")<cr>
 
 " delete all buffers except current
-nmap <leader>bo :%bd\|e#<CR>
+nmap <leader>bo :%bd\|e#\|bd#<CR>
 
 " git push
 nmap <leader>p :Git push<CR>
