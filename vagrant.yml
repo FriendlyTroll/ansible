@@ -2,19 +2,17 @@
 - name: Vagrant setup
   hosts: all
   become: true
-  vars:
-      docker_compose_version: v2.2.3
 
   #    ansible_python_interpreter: /usr/bin/python3
   tasks:
-    - name: Add my ssh key
+    - name: Add my ssh keys
       authorized_key:
           user: root
           state: present
           key: "{{ item }}"
       loop:
-        # - "{{ lookup('file', '/home/antisa/.ssh/id_ed25519.pub') }}"
-        - "{{ lookup('url', 'https://raw.githubusercontent.com/FriendlyTroll/ansible/master/my-public-ssh.keys') }}"
+        - "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+        - "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_ed25519.pub') }}"
       tags: ssh
 
     - name: Check on which Debian we are
@@ -67,15 +65,12 @@
       apt:
           name:
               - docker-ce
+              - docker-ce-cli 
+              - containerd.io
+              - docker-buildx-plugin
+              - docker-compose-plugin
           state: latest
           update_cache: yes
-      tags: docker
-
-    - name: Install docker compose
-      get_url:
-          url: 'https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-linux-x86_64'
-          dest: /usr/local/bin/docker-compose
-          mode: '0755'
       tags: docker
 
     - name: Create docker networks
@@ -85,6 +80,7 @@
           - frontend-services-dev
           - backend-services-dev
           - backend-services-live
+      tags: docker
 
     - name: Set timezone
       timezone:
