@@ -351,10 +351,10 @@
         state: latest
         update_cache: yes
 
-  - name: Add user to docker group
+  - name: Add user to additional groups
     user:
       name: antisa
-      groups: docker
+      groups: docker,vboxusers
       append: yes
 
   become: true
