@@ -154,7 +154,7 @@ alias int='$HOME/.local/bin/tmux-script-int.sh'
 
 alias cdv='cd /home/antisa/vagrant_playground/debian-bullseye'
 alias ape='source venv/bin/activate'
-alias rec='asciinema rec $HOME/Documents/terminal_logs/$(date +"%F_%H-%M-%S").cast'
+alias rec='asciinema rec $HOME/Documents/terminal_logs/$(date +"%F_%H-%M-%S").cast -c "tmux"'
 
 borgmountbackup () {
   borg mount "$BORG_REPO$@"
