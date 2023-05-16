@@ -88,6 +88,14 @@ set viminfo='25,\"50,n~/.viminfo
 " ##############
 " # coc config #
 " ##############
+" Use <c-space> to trigger completion
+" c-space produces @ character in insert so we map this
+" see https://stackoverflow.com/questions/23189568/control-space-vim-key-binding-in-normal-mode-does-not-work
+inoremap <silent><expr> <c-@> coc#refresh()
+
+" Highlight the symbol and its references when holding the cursor
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -111,6 +119,9 @@ function! ShowDocumentation()
     call feedkeys('K', 'in')
   endif
 endfunction
+
+" coc-nvim extensions auto-Installin
+let g:coc_global_extensions = ['coc-pyright', 'coc-jedi', '@yaegassy/coc-ansible']
 let g:coc_disable_startup_warning = 1
 let g:coc_filetype_map = {
   \ 'yaml.ansible': 'ansible',
@@ -119,6 +130,10 @@ let g:coc_filetype_map = {
 " Make <C-m> to accept selected completion item or notify coc.nvim to format
 inoremap <silent><expr> <C-m> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+
+" Add `:OR` command for organize imports of the current buffer
+command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
 " ################
 " # / coc config #
 " ################
@@ -283,7 +298,6 @@ if has('persistent_undo')
 
 " - down / up / left / right
 let g:fzf_layout = { 'down': '50%' }
-
 
 " ################
 " # autocommands #
