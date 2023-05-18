@@ -157,7 +157,9 @@ alias ape='source venv/bin/activate'
 alias rec='asciinema rec $HOME/Documents/terminal_logs/$(date +"%F_%H-%M-%S").cast -c "tmux"'
 
 borgmountbackup () {
-  borg mount "$BORG_REPO$@"
+  TEMP_DIR=$(mktemp --directory --suffix _borg_backup)
+  borg mount "$BORG_REPO::$@" $TEMP_DIR
+  xdg-open $TEMP_DIR
 }
 
 # set tmux's window title
