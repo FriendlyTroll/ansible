@@ -31,6 +31,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'pearofducks/ansible-vim'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'easymotion/vim-easymotion'
 call plug#end()
 
 if need_to_install_plugins == 1
@@ -43,8 +44,28 @@ endif
 filetype plugin indent on
 syntax on
 
+
+" ##########
+" # colors #
+" ##########
 " color scheme
 colorscheme onedark
+" buftabline custom highlight
+" this has to be applied after colorscheme
+highlight TabLineSel term=bold ctermfg=236 ctermbg=39
+highlight PmenuSel ctermfg=145 ctermbg=237
+
+" enable 256 colors
+set t_Co=256
+set t_ut=
+
+" color the column 80
+"set colorcolumn=80
+
+" ###########
+" # /colors #
+" ###########
+
 
 set hidden
 
@@ -62,10 +83,6 @@ set modeline
 " always show the status bar
 set laststatus=2
 
-" enable 256 colors
-set t_Co=256
-set t_ut=
-
 " turn on line numbering
 set number relativenumber
 
@@ -79,11 +96,9 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 
-" color the column 80
-"set colorcolumn=80
-
 set expandtab
 set viminfo='25,\"50,n~/.viminfo
+
 
 " ##############
 " # coc config #
@@ -138,6 +153,7 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 " # / coc config #
 " ################
 
+
 " lightline
 set noshowmode
 let g:lightline = { 'colorscheme': 'onedark',
@@ -169,6 +185,7 @@ function! StartUp()
     end
 endfunction
 
+
 " ##################
 " # custom key map #
 " ##################
@@ -188,9 +205,17 @@ nmap <silent> <C-h> :wincmd h<CR>
 nmap <silent> <C-l> :wincmd l<CR>
 
 " move through buffers
-nmap b<space> :bp!<CR>
-nmap <space> :bn!<CR>
+nnoremap <C-N> :bnext<CR>
+nnoremap <C-P> :bprev<CR>
 nmap <leader>x :bd<CR>
+
+" <Leader>f{char} to move to {char}
+map <Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader>f <Plug>(easymotion-overwin-f)
+
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 " tags
 map <leader>t :TagbarToggle<CR>
@@ -246,10 +271,10 @@ nnoremap ]q   :cnext<CR>
 nnoremap [Q   :cfirst<CR>
 nnoremap ]Q   :clast<CR>
 nnoremap qc   :cclose<CR>
-
 " ##################
 " #/custom key map #
 " ##################
+
 
 " disable autoindent when pasting text
 " source: https://coderwall.com/p/if9mda/automatically-set-paste-mode-in-vim-when-pasting-in-insert-mode
@@ -289,6 +314,7 @@ nnoremap <F12> :bp\|bd #<CR>
 " #/F keys map #
 " ##############
 
+
 " unlimited undo history
 if has('persistent_undo')      
   set undofile                 
@@ -298,6 +324,7 @@ if has('persistent_undo')
 
 " - down / up / left / right
 let g:fzf_layout = { 'down': '50%' }
+
 
 " ################
 " # autocommands #
