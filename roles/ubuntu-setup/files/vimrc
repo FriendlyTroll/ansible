@@ -41,6 +41,10 @@ if need_to_install_plugins == 1
     q
 endif
 
+" set space as leader key
+nnoremap <SPACE> <Nop>
+let mapleader=" "
+
 filetype plugin indent on
 syntax on
 
@@ -103,6 +107,11 @@ set viminfo='25,\"50,n~/.viminfo
 " ##############
 " # coc config #
 " ##############
+" change highlight color of selected item
+" link to other group example
+" highlight link CocMenuSel TabLineSel
+highlight CocMenuSel ctermfg=000 ctermbg=208
+
 " Use <c-space> to trigger completion
 " c-space produces @ character in insert so we map this
 " see https://stackoverflow.com/questions/23189568/control-space-vim-key-binding-in-normal-mode-does-not-work
@@ -198,24 +207,13 @@ vmap <S-Tab> <gv
 
 map <leader>n :NERDTreeToggle()<CR>
 
-" move through split windows
-nmap <silent> <C-k> :wincmd k<CR>
-nmap <silent> <C-j> :wincmd j<CR>
-nmap <silent> <C-h> :wincmd h<CR>
-nmap <silent> <C-l> :wincmd l<CR>
-
-" move through buffers
-nnoremap <C-N> :bnext<CR>
-nnoremap <C-P> :bprev<CR>
-nmap <leader>x :bd<CR>
-
 " <Leader>f{char} to move to {char}
-map <Leader>f <Plug>(easymotion-bd-f)
-nmap <Leader>f <Plug>(easymotion-overwin-f)
+map <leader>f <Plug>(easymotion-bd-f)
+nmap <leader>f <Plug>(easymotion-overwin-f)
 
 " Move to word
-map  <Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
+map  <leader>w <Plug>(easymotion-bd-w)
+nmap <leader>w <Plug>(easymotion-overwin-w)
 
 " tags
 map <leader>t :TagbarToggle<CR>
@@ -232,6 +230,17 @@ nmap <C-Up> :resize +10<CR>
 nmap <C-Down> :resize -10<CR>
 nmap <C-Left> :vertical resize -10<CR>
 nmap <C-Right> :vertical resize +10<CR>
+
+" move through split windows
+nmap <silent> <C-k> :wincmd k<CR>
+nmap <silent> <C-j> :wincmd j<CR>
+nmap <silent> <C-h> :wincmd h<CR>
+nmap <silent> <C-l> :wincmd l<CR>
+
+" move through buffers
+nnoremap <C-N> :bnext<CR>
+nnoremap <C-P> :bprev<CR>
+nmap <leader>x :bd<CR>
 
 " search whole word within files recursively with Shift+f
 nnoremap <S-s> :vimgrep // ** **/.*<left><left><left><left><left><left><left><left><left><left>
@@ -352,6 +361,12 @@ autocmd FileType css setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType jinja2 setlocal commentstring={#\ %s\ #}
 
+" autosave after exiting insert mode
+augroup autosave
+    autocmd!
+    autocmd BufRead * if &filetype == "" | setlocal ft=text | endif
+    autocmd FileType * autocmd TextChanged,InsertLeave <buffer> if &readonly == 0 | silent write | endif
+augroup END
 " ################
 " #/autocommands #
 " ################
