@@ -1,7 +1,7 @@
 #!/bin/bash
 # called by alias from .bashrc
 SESSION_NAME=int
-CHANGE_TO_DIR=/home/antisa/Posal/ansible-i18n/
+CHANGE_TO_DIR=/home/antisa/Posal/ansible/
 WINDOW_1=ansible-int
 
 tmux new-session -d -s ${SESSION_NAME} -n ${WINDOW_1} -c ${CHANGE_TO_DIR}
