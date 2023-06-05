@@ -4,6 +4,34 @@
   register: ubuntu_version
   tags: docker
 
+- name: Add skype apt key
+  apt_key:
+      url: https://repo.skype.com/data/SKYPE-GPG-KEY
+      state: present
+  become: true
+  become_user: root
+
+- name: Install skype repo
+  apt_repository:
+      repo: deb [arch=amd64] https://repo.skype.com/deb stable main
+      state: present
+  become: true
+  become_user: root
+
+- name: Add slack apt key
+  apt_key:
+      url: https://packagecloud.io/slacktechnologies/slack/gpgkey
+      state: present
+  become: true
+  become_user: root
+
+- name: Install slack repo
+  apt_repository:
+      repo: deb https://packagecloud.io/slacktechnologies/slack/debian/ jessie main
+      state: present
+  become: true
+  become_user: root
+
 # https://protonvpn.com/support/linux-ubuntu-vpn-setup/
 - name: Install protonvpn repo
   apt:
@@ -35,6 +63,8 @@
           - bsdutils
           - python3-pip
           - asciinema
+          - slack-desktop
+          - skypeforlinux
           - xclip
           - protonvpn
           - whois
@@ -43,8 +73,6 @@
           - flameshot
           - borgbackup
           - tmux
-          - gnome-shell-extension-manager
-          - flatpak
       update_cache: yes
   become: true
   become_user: root
@@ -99,12 +127,6 @@
   become: true
   become_user: root
   when: '"XPS" in ansible_hostname'
-
-- name: Install snap packages
-  snap:
-    name:
-      - skype
-      - slack
 
 - name: Create custom directories
   file:
