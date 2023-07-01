@@ -1,0 +1,9 @@
+- name: Install Docker, Terraform, Helm, kubectl, aws-cli
+  hosts: aws
+  gather_facts: True
+  vars:
+    # https://developer.hashicorp.com/terraform/downloads
+    - terraform_version: 1.3.5
+
+  roles:
+      - role: devops-tools
