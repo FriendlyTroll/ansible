@@ -1,0 +1,10 @@
+- name: Install netdata monitoring dashboard
+  hosts: vagrantvm1
+  gather_facts: True
+  vars:
+    # You can define multiple email addresses like this: alarms@example.com systems@example.com
+    notifications_recipients: antisa@pm.me 
+
+  roles:
+    - msmtp
+    - netdata

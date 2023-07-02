@@ -1,0 +1,20 @@
+# Generics
+defaults
+auth           on
+tls            on
+# following is different from ssmtp:
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+# user specific log location, otherwise use /var/log/msmtp.log, however,
+# this will create an access violation if you are user pi, and have not changes the access rights
+logfile        ~/.msmtp.log
+
+account        {{ provider }}
+host           {{ host }}
+port           {{ port }}
+
+from           {{ from_mail }}
+user           {{ mail_user }}
+password       {{ password }}
+
+# Default
+account default : {{ provider }}

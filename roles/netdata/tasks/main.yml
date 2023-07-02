@@ -1,0 +1,10 @@
+---
+- name: Run netdata install script
+  ansible.builtin.command:
+    cmd: /bin/bash -c "wget -O /tmp/netdata-kickstart.sh https://my-netdata.io/kickstart.sh && sh /tmp/netdata-kickstart.sh --no-updates --stable-channel --non-interactive"
+
+- ansible.builtin.include_tasks: debian.yml
+  when: ansible_distribution == "Debian"
+
+- ansible.builtin.include_tasks: ubuntu.yml
+  when: ansible_distribution == "Ubuntu"

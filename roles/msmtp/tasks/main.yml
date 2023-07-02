@@ -1,0 +1,12 @@
+---
+- name: Install msmtp and other packages
+  apt:
+      name:
+        - msmtp
+        - msmtp-mta
+        - mailutils
+
+- name: Create config file
+  ansible.builtin.template:
+    src: msmtprc.j2
+    dest: /etc/msmtprc

@@ -1,0 +1,16 @@
+---
+- name: Copy notifications config file and setup email (Ubuntu)
+  ansible.builtin.copy:
+    remote_src: yes
+    src:  /opt/netdata/usr/lib/netdata/conf.d/health_alarm_notify.conf
+    dest: /opt/netdata/etc/netdata/health_alarm_notify.conf
+  tags: notifications
+
+
+- name: Update email recipient (Ubuntu)
+  ansible.builtin.lineinfile:
+    path: /opt/netdata/etc/netdata/health_alarm_notify.conf
+    regexp: 'DEFAULT_RECIPIENT_EMAIL="root"'
+    value: 'DEFAULT_RECIPIENT_EMAIL="{{ notifications_recipients }}"'
+    state: present
+  tags: notifications
