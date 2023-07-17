@@ -1,0 +1,20 @@
+---
+- name: restart nginx
+  service: name=nginx state=restarted
+  when: (skip_handlers | default("false")) == "false"
+
+- name: reload nginx
+  service: name=nginx state=reloaded
+  when: (skip_handlers | default("false")) == "false"
+
+- name: restart shorewall
+  service: name=shorewall state=restarted
+  when: (skip_handlers | default("false")) == "false"
+
+- name: restart fail2ban
+  service: name=fail2ban state=restarted
+  when: (skip_handlers | default("false")) == "false"
+
+- name: restart netdata
+  service: name=netdata state=restarted
+  when: (skip_handlers | default("false")) == "false"
