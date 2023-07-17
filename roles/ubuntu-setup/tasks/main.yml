@@ -73,6 +73,7 @@
           - flameshot
           - borgbackup
           - tmux
+          - silversearcher-ag
       update_cache: yes
   become: true
   become_user: root

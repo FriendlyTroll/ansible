@@ -237,7 +237,7 @@ imap <S-Tab> <Esc><<i
 vmap <Tab> >gv
 vmap <S-Tab> <gv
 
-map <leader>n :NERDTreeToggle()<CR>
+map <leader>n :NERDTreeToggle<CR>
 
 " <Leader>f{char} to move to {char}
 map <leader>f <Plug>(easymotion-bd-f)
@@ -339,12 +339,13 @@ nnoremap <F3> :Files<CR>
 " search in open buffers
 nnoremap <F4> :Lines<CR>
 
-" open/close nerdtree
-nnoremap <F5> :NERDTreeToggle<CR>
-inoremap <F5> <C-o>:NERDTreeToggle<CR>
+" search word in all files with silversearcher
+nnoremap <F5> :Ag<CR>
 
 " open Commits
 nnoremap <F6> :Commits<CR>
+
+" / fzf plugins
 
 " open vimfugitive git window
 nnoremap <F7> :G<CR>
