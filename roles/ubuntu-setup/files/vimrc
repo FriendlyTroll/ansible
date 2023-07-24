@@ -53,10 +53,12 @@ syntax on
 " ##########
 " color scheme
 colorscheme onedark
-" buftabline custom highlight
 " this has to be applied after colorscheme
-highlight TabLineSel term=bold ctermfg=236 ctermbg=39
-highlight PmenuSel ctermfg=145 ctermbg=237
+" buftabline custom highlight
+highlight link BufTabLineActive Cursor
+highlight link BufTabLineActive Search
+" pop menu highlighted item color
+highlight link PmenuSel WildMenu
 
 " enable 256 colors
 set t_Co=256
@@ -109,7 +111,7 @@ set viminfo='25,\"50,n~/.viminfo
 " change highlight color of selected item
 " link to other group example
 " highlight link CocMenuSel TabLineSel
-highlight CocMenuSel ctermfg=000 ctermbg=208
+highlight CocMenuSel ctermfg=235 ctermbg=39
 
 " Use <c-space> to trigger completion
 " c-space produces @ character in insert so we map this
