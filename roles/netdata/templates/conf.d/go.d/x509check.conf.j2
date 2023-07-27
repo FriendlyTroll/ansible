@@ -1,0 +1,7 @@
+update_every: 120
+autodetection_retry: 0
+
+jobs:
+  - name: {{ ssl_site_check }} cert check
+    source: https://{{ ssl_site_check }}:443
+

@@ -1,5 +1,5 @@
 - name: Install netdata monitoring dashboard
-  hosts: vagrantvm1
+  hosts: netdata
   gather_facts: True
   vars:
     # You can define multiple email addresses like this: alarms@example.com systems@example.com
