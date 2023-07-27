@@ -65,6 +65,7 @@ trap 'echo $( date ) Backup interrupted >&2; exit 2' INT TERM
     --exclude '/home/*/.config/*/Cache'    \
     --exclude '/home/*/.gvfs'    \
     --exclude '/home/*/.steam'    \
+    --exclude '/home/*/VirtualBox VMs'    \
                                     \
     ::'{hostname}-{now}'            \
     /home/antisa                    \
