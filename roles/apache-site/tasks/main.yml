@@ -48,3 +48,15 @@
   shell: /usr/bin/certbot --apache --noninteractive --agree-tos -m {{ email }} -d {{ ssl_domains }}
   notify: Restart apache
 
+- name: Check for netdata installation
+  import_role:
+    name: common
+    tasks_from: netdata.yml
+  tags: netdata
+
+- name: Include netdata configuration
+  import_tasks: netdata.yml
+  when: netdata_installed.rc == 0 
+  tags: netdata
+    
+

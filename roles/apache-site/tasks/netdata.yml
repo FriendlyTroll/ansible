@@ -1,0 +1,11 @@
+---
+- name: Add apache2.service unit monitoring
+  blockinfile:
+    path: '{{ netdata_path | default("") }}/etc/netdata/go.d/systemdunits.conf'
+    block: |
+      jobs:
+        - name: apache
+          include: 
+            - 'apache2.service'
+    state: present
+  notify: restart netdata
