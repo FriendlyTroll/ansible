@@ -1,0 +1,11 @@
+---
+- name: Set netdata path depending on OS
+  set_fact:
+    netdata_path: /opt/netdata 
+  when: ansible_distribution == "Ubuntu"
+
+- name: Check for netdata installation
+  command: systemctl status netdata
+  register: netdata_installed
+  tags: netdata
+    
