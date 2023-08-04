@@ -89,6 +89,11 @@
   become_user: root
   tags: python-packages
 
+- name: Install python pip packages
+  pip:
+    name: tldr
+  tags: pip-packages
+
 - name: Install desktop specific ubuntu packages
   apt:
       name:
