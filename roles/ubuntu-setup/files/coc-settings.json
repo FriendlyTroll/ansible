@@ -1,0 +1,7 @@
+{
+  "jedi.enable": true,
+  "jedi.startupMessage": false,
+  "suggest.enablePreselect": false,
+  "ansible.ansible.useFullyQualifiedCollectionNames": false
+}
+
