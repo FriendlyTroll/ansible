@@ -4,5 +4,5 @@ host: smtp.gmail.com
 port: 587
 from_mail: testfromvm
 mail_user: anmaret@gmail.com
-password: '{{ msmtp_usermail_password }}'
+password: '{{ vault_msmtp_usermail_password }}'
 
