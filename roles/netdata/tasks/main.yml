@@ -7,13 +7,26 @@
   set_fact:
     netdata_path: /opt/netdata 
   when: ansible_distribution == "Ubuntu"
-  tags: always
+  tags: always, netdata-path
 
 - name: Copy customized netdata.conf file
   template:
     src: netdata.conf.j2
     dest: '{{ netdata_path | default("") }}/etc/netdata/netdata.conf'
   notify: restart netdata
+  tags: config
+
+- name: Copy go.d.conf config file
+  copy:
+    src: go.d.conf
+    dest: '{{ netdata_path | default("") }}/etc/netdata/go.d.conf'
+  notify: restart netdata
+  tags: config
+
+- name: Create systemdunits config file
+  file:
+    path: '{{ netdata_path | default("") }}/etc/netdata/go.d/systemdunits.conf'
+    state: touch
   tags: config
 
 - name: Copy notifications config file
