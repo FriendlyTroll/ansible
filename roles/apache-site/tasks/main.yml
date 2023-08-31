@@ -47,6 +47,7 @@
 - name: Install letsencrypt certificate via certbot
   shell: /usr/bin/certbot --apache --noninteractive --agree-tos -m {{ email }} -d {{ ssl_domains }}
   notify: restart apache
+  tags: letsencrypt, le
 
 - name: Check for netdata installation
   import_role:
