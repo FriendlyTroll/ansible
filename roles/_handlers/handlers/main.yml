@@ -7,6 +7,14 @@
   service: name=nginx state=reloaded
   when: (skip_handlers | default("false")) == "false"
 
+- name: restart apache
+  service: name=apache2 state=restarted
+  when: (skip_handlers | default("false")) == "false"
+
+- name: reload apache
+  service: name=apache2 state=reloaded
+  when: (skip_handlers | default("false")) == "false"
+
 - name: restart shorewall
   service: name=shorewall state=restarted
   when: (skip_handlers | default("false")) == "false"

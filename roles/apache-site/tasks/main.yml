@@ -33,7 +33,7 @@
 
 - name: Enable conf php-fpm
   shell: /usr/sbin/a2enconf php7.4-fpm
-  notify: Restart apache
+  notify: restart apache
 
 - name: Set up Apache virtual host
   template:
@@ -42,11 +42,11 @@
 
 - name: Enable new site
   shell: /usr/sbin/a2ensite {{ http_conf }}
-  notify: Reload apache
+  notify: reload apache
 
 - name: Install letsencrypt certificate via certbot
   shell: /usr/bin/certbot --apache --noninteractive --agree-tos -m {{ email }} -d {{ ssl_domains }}
-  notify: Restart apache
+  notify: restart apache
 
 - name: Check for netdata installation
   import_role:
