@@ -276,9 +276,6 @@ nnoremap <C-N> :bnext<CR>
 nnoremap <C-P> :bprev<CR>
 nmap <leader>x :bd<CR>
 
-" search whole word within files recursively with Shift+f
-nnoremap <S-s> :vimgrep // ** **/.*<left><left><left><left><left><left><left><left><left><left>
-
 " search for word in entire project when selected
 " in visual mode
 vmap <leader>f y :vimgrep // **<left><left><left><left><C-r>"<CR>
