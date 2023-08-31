@@ -1,5 +1,5 @@
 - name: Install msmtp mail client
-  hosts: vagrantvm1
+  hosts: msmtp
   gather_facts: false
   roles:
     - msmtp
