@@ -1,0 +1,6 @@
+---
+dokuwiki_web_path: /var/www
+dokuwiki_zip_filename: dokuwiki.tgz
+dokuwiki_backup_filename: dokuwiki.tar.bz2
+
+dns: dw.exitstatus0.com

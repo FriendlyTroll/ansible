@@ -1,0 +1,5 @@
+- name: Install dokuwiki
+  hosts: dokuwiki
+  gather_facts: True
+  roles:
+    - dokuwiki

@@ -1,0 +1,63 @@
+---
+- name: Check for netdata installation
+  command: systemctl status netdata
+  register: netdata_installed
+  ignore_errors: true
+    
+- name: Include netdata configuration
+  include_tasks: netdata.yml
+  when: netdata_installed.rc == 0 
+
+- name: Download dokuwiki tgz file
+  get_url:
+    url: https://download.dokuwiki.org/out/dokuwiki-f0dfe7ddc34950edab994539ae4568b1.tgz
+    dest: /tmp/{{ dokuwiki_zip_filename }}
+  when: not restore_from_backup|default(false)
+
+- name: Create dokuwiki web directory
+  file:
+    path: "{{ dokuwiki_web_path }}"
+    state: directory
+
+- name: Unpack dokuwiki to web directory
+  unarchive:
+    src: /tmp/{{ dokuwiki_zip_filename }}
+    dest: "{{ dokuwiki_web_path }}"
+    remote_src: yes
+  when: not restore_from_backup|default(false)
+
+- name: Restore dokuwiki from backup
+  unarchive:
+    src: /tmp/{{ dokuwiki_backup_filename }}
+    dest: "{{ dokuwiki_web_path }}"
+  when: restore_from_backup|default(false)
+
+- name: Check which webserver is running
+  shell: "lsof -i :80 | grep LISTEN | cut -d ' ' -f 1"
+  register: webserver
+
+- name: Copy webserver configuration     
+  template:
+    src: "{{ item }}.j2"
+    dest: /etc/apache2/sites-enabled/{{ item }}
+    force: no
+    lstrip_blocks: yes
+  loop:
+    - dokuwiki.conf
+    - dokuwiki-le-ssl.conf
+  when: webserver.stdout_lines|first == "apache2"
+
+- name: Create backup directory
+  file:
+    path: "{{ dokuwiki_web_path }}/backup"
+    state: directory
+  tags: cron
+
+- name: Setup backup cronjob
+  cron:
+    name: backup dokuwiki directory
+    job: /bin/tar cjf /var/www/backup/dokuwiki.tar.bz2 --directory /var/www/ dokuwiki 
+    hour: "2"
+    minute: "0"
+  tags: cron
+

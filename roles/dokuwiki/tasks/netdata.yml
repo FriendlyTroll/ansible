@@ -1,0 +1,21 @@
+---
+- name: Set netdata path depending on OS
+  set_fact:
+    netdata_path: /opt/netdata 
+  when: ansible_distribution == "Ubuntu"
+
+- name: Copy netdata apache log parser config file
+  ansible.builtin.copy:
+    remote_src: yes
+    src:  '{{ netdata_path | default("") }}/usr/lib/netdata/conf.d/go.d/web_log.conf'
+    dest: '{{ netdata_path | default("") }}/etc/netdata/go.d/web_log.conf'
+  notify: restart netdata
+
+- name: Update netdata web_log file
+  blockinfile:
+    path: '{{ netdata_path | default("") }}/etc/netdata/go.d/web_log.conf'
+    block: |2
+        - name: dokuwiki
+          path: /var/log/apache2/dokuwiki-access.log
+    state: present
+  notify: restart netdata

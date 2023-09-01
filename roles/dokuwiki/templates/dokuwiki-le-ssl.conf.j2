@@ -1,0 +1,26 @@
+<IfModule mod_ssl.c>
+<VirtualHost *:443>
+    ServerName {{ dns }}
+    DocumentRoot {{ dokuwiki_web_path }}/dokuwiki 
+    <Directory {{ dokuwiki_web_path }}/dokuwiki>
+        Options +FollowSymLinks
+        Require all granted
+        AllowOverride all
+    </Directory>
+
+    SetEnvIf X-DW-Token {{ vault_x_dw_token }} dw-token
+    Alias /backup /var/www/backup
+    <Directory /var/www/backup/>
+        Require env dw-token
+    </Directory>
+
+    ServerAdmin webmaster@localhost
+
+    ErrorLog ${APACHE_LOG_DIR}/dokuwiki-error.log
+    CustomLog ${APACHE_LOG_DIR}/dokuwiki-access.log combined
+
+</VirtualHost>
+</IfModule>
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
+
