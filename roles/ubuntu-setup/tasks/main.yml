@@ -91,7 +91,9 @@
 
 - name: Install python pip packages
   pip:
-    name: tldr
+    name: 
+      - tldr
+      - ansible
   tags: pip-packages
 
 - name: Install desktop specific ubuntu packages
