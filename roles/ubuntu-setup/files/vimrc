@@ -299,9 +299,6 @@ nmap <leader>p :Git push<CR>
 " git pull
 nmap <leader>P :Git pull<CR>
 
-" save on Ctrl-s
-nmap <C-s> :w<CR>
-
 " encrypt ansible vault (see below autocmd for decryption)
 nnoremap <leader>ae :%! ansible-vault encrypt --output -<CR>
 
