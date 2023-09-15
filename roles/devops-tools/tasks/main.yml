@@ -22,5 +22,18 @@
   tags: terraform
 
 - name: Install additional ansible plugins
-  ansible-galaxy collection install community.docker
-  ansible-galaxy collection install community.mysql
+  community.general.ansible_galaxy_install:
+    type: collection
+    name:
+      - community.docker
+      - community.mysql
+
+- name: Install kubectl snap
+  command: snap install kubectl --classic
+  become: true
+  become_user: root
+
+- name: Install helm snap
+  command: snap install helm --classic
+  become: true
+  become_user: root
