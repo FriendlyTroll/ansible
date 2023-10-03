@@ -19,20 +19,20 @@
     path: /etc/apt/keyrings
     state: directory
     mode: 0755
-  tags: ubuntu
+  tags: ubuntu, docker
 
 - name: Add APT gpg key for Docker repo
   apt_key:
       url: https://download.docker.com/linux/ubuntu/gpg
       keyring: /etc/apt/keyrings/docker.gpg
       state: present
-  tags: ubuntu
+  tags: ubuntu, docker
   
 - name: Add docker repo
   apt_repository:
       repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu {{ ubuntu_version.stdout }} stable"
       state: present
-  tags: ubuntu
+  tags: ubuntu, docker
   
 - name: Install docker
   apt:
@@ -43,4 +43,4 @@
           - containerd.io
           - docker-compose-plugin
       state: latest
-  tags: ubuntu
+  tags: ubuntu, docker
