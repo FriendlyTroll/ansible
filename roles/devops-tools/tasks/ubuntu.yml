@@ -1,46 +1,50 @@
-- name: Install needed pkgs
-  apt:
-      name:
-          - gnupg
-          - ca-certificates
-          - curl
-          - lsb-release
-      state: latest
-      update_cache: yes
-  tags: ubuntu
+- block:
+  - name: Install needed pkgs
+    apt:
+        name:
+            - gnupg
+            - ca-certificates
+            - curl
+            - lsb-release
+        state: latest
+        update_cache: yes
+    tags: ubuntu
 
-- name: Check on which Ubuntu we are
-  command: lsb_release -cs
-  register: ubuntu_version
-  tags: ubuntu
-
-- name: Create keyrings directory
-  file:
-    path: /etc/apt/keyrings
-    state: directory
-    mode: 0755
-  tags: ubuntu, docker
-
-- name: Add APT gpg key for Docker repo
-  apt_key:
-      url: https://download.docker.com/linux/ubuntu/gpg
-      keyring: /etc/apt/keyrings/docker.gpg
-      state: present
-  tags: ubuntu, docker
+  - name: Check on which Ubuntu we are
+    command: lsb_release -cs
+    register: ubuntu_version
+    tags: ubuntu
   
-- name: Add docker repo
-  apt_repository:
-      repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu {{ ubuntu_version.stdout }} stable"
-      state: present
-  tags: ubuntu, docker
+  - name: Create keyrings directory
+    file:
+      path: /etc/apt/keyrings
+      state: directory
+      mode: 0755
+    tags: ubuntu, docker
   
-- name: Install docker
-  apt:
-      update_cache: yes
-      name:
-          - docker-ce
-          - docker-ce-cli
-          - containerd.io
-          - docker-compose-plugin
-      state: latest
-  tags: ubuntu, docker
+  - name: Add APT gpg key for Docker repo
+    apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        keyring: /etc/apt/keyrings/docker.gpg
+        state: present
+    tags: ubuntu, docker
+    
+  - name: Add docker repo
+    apt_repository:
+        repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu {{ ubuntu_version.stdout }} stable"
+        state: present
+    tags: ubuntu
+    
+  - name: Install docker
+    apt:
+        update_cache: yes
+        name:
+            - docker-ce
+            - docker-ce-cli
+            - containerd.io
+            - docker-compose-plugin
+        state: latest
+    tags: ubuntu, docker
+
+  become: true
+  become_user: root

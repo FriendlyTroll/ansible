@@ -1,5 +1,5 @@
-- name: Install Docker, Terraform, Helm, kubectl, aws-cli
-  hosts: aws
+- name: Install Docker, Terraform, Helm, kubectl, aws-cli etc.
+  hosts: localhost
   gather_facts: True
   vars:
     # https://developer.hashicorp.com/terraform/downloads
