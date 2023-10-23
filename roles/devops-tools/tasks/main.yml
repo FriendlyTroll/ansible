@@ -57,3 +57,11 @@
   become_user: root
   tags: aws, eks
 
+- name: Install aws config files
+  template:
+    src: "aws/{{ item }}.j2"
+    dest: "$HOME/.aws/{{ item }}"
+  loop:
+    - config
+    - credentials
+  tags: aws, config
