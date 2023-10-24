@@ -209,8 +209,8 @@
 
 - name: Copy opensubtitlesdownload script
   template:
-      src: opensubtitles.j2
-      dest: $HOME/.local/share/nautilus/scripts/opensubtitles.py
+      src: OpenSubtitlesDownload.j2
+      dest: $HOME/.local/share/nautilus/scripts/OpenSubtitlesDownload.py
   tags: scripts
 
 - name: Copy other useful nautilus scripts
@@ -339,6 +339,9 @@
     - "ansible-check-vault-encrypted.sh"
   tags: scripts,git
 
+- name: Add global gitignore patterns
+  # see /home/antisa/Documents/Fush/caelor/hubspot/ansible/.git/info/exclude
+
 - name: Copy borgbackup script
   template:
       src: borgbackup.sh.j2
@@ -402,3 +405,5 @@
 - name: Add tmux plugin manager
   command: git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
   tags: tmux
+
+
