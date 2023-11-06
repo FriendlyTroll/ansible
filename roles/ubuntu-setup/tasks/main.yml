@@ -176,6 +176,7 @@
       - { src: "slack.desktop", dest: "$HOME/.local/share/applications/" }
       - { src: "tmux.conf", dest: "$HOME/.tmux.conf" }
       - { src: "coc-settings.json", dest: "$HOME/.vim/coc-settings.json" }
+      - { src: "gitignore", dest: "$HOME/.gitignore" }
   tags: config
 
 - name: Copy asciinema player config files
@@ -328,6 +329,10 @@
 
 - name: Set global git hooks directory
   shell: git config --global core.hooksPath $HOME/.local/my_global_githooks
+  tags: git
+
+- name: Set global git ignore file
+  shell: git config --global core.excludesfile $HOME/.gitignore
   tags: git
 
 - name: Copy git precommit script
