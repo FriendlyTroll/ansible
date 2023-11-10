@@ -1,0 +1,75 @@
+---
+- name: Debian 11 tasks
+  include: debian11.yml
+  when: ansible_distribution == 'Debian' and ansible_distribution_major_version == '11'
+  
+- name: Debian 12 tasks
+  include: debian12.yml
+  when: ansible_distribution == 'Debian' and ansible_distribution_major_version == '12'
+
+- name: Create home
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0750
+  with_items:
+    - "{{ confluence_home }}"
+
+- name: Download confluence {{ confluence_version }}
+  get_url:
+    url: "{{ confluence_versions[confluence_version]['url'] }}"
+    dest: "/root/" 
+  tags: dl
+
+- name: Unzip confluence
+  unarchive:
+    remote_src: yes
+    src: "/root/atlassian-confluence-{{ confluence_version }}.tar.gz" 
+    dest: "{{ confluence_home }}/" 
+  tags: dl
+
+- name: Create confluence user
+  user:
+    name: "{{ confluence_owner }}"
+    shell: /bin/bash
+
+- name: chown confluence home
+  file:
+    dest: "{{ confluence_home }}"
+    owner: "{{ confluence_owner }}"
+    group: "{{ confluence_group }}"
+    recurse: yes
+
+- name: Update home path in properties file
+  lineinfile:
+    path: "{{ confluence_home }}/atlassian-confluence-{{ confluence_version }}/confluence/WEB-INF/classes/confluence-init.properties"
+    regexp: "# confluence.home="
+    line: "confluence.home={{ confluence_home }}"
+
+- name: Download mysql driver
+  unarchive:
+    remote_src: yes
+    src: "{{ mysql_driver_url }}"
+    dest: "{{ confluence_home }}/atlassian-confluence-{{ confluence_version }}/confluence/WEB-INF/lib"
+    owner: "{{ confluence_owner }}"
+    group: "{{ confluence_group }}"
+  tags: driver
+
+- name: Copy mysql driver to correct location
+  copy:
+    remote_src: yes
+    src:  "{{ confluence_home }}/atlassian-confluence-{{ confluence_version }}/confluence/WEB-INF/lib/{{ mysql_connector }}/{{ mysql_connector}}.jar"
+    dest:  "{{ confluence_home }}/atlassian-confluence-{{ confluence_version }}/confluence/WEB-INF/lib"
+
+- include: service.yml
+  tags: systemd
+
+- name: Update jdbc DB connection info
+  xml:
+    path: "{{ confluence_home }}/confluence.cfg.xml"
+    xpath: /confluence-configuration/properties/property[@name="hibernate.connection.url"]
+    value: "{{ confluence_database_jdbc_url }}"
+  notify:
+    - confluence-systemctl-restart
+  tags: db
+

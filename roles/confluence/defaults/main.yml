@@ -1,0 +1,20 @@
+---
+confluence_version: 8.5.3
+confluence_versions:
+  8.5.3:
+    url: https://product-downloads.atlassian.com/software/confluence/downloads/atlassian-confluence-8.5.3.tar.gz
+      
+confluence_home: /opt/confluence
+confluence_owner: "confluence"
+confluence_group: "confluence"
+
+confluence_database_username: confluence
+confluence_database_password: supersecure
+confluence_database_host: localhost
+confluence_database_port: "3306"
+confluence_database_name: confluence_newdb
+confluence_database_jdbc_url: jdbc:mysql://{{ confluence_database_host}}:{{ confluence_database_port }}/{{ confluence_database_name }}?sessionVariables=tx_isolation='READ-COMMITTED'
+
+mysql_connector: mysql-connector-j-8.2.0
+mysql_driver_url: https://cdn.mysql.com//Downloads/Connector-J/{{ mysql_connector }}.tar.gz
+

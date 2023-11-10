@@ -26,3 +26,21 @@
 - name: restart netdata
   service: name=netdata state=restarted
   when: (skip_handlers | default("false")) == "false"
+
+- name: systemctl-daemon-reload
+  systemd:
+    daemon_reload: true
+  changed_when: false
+  ignore_errors: true
+
+- name: confluence-systemctl-restart
+  service:
+    name: "confluence"
+    state: "restarted"
+    enabled: true
+  loop: "{{ ansible_play_hosts }}"
+  delegate_to: "{{ item }}"
+  run_once: true
+  changed_when: false
+  ignore_errors: true
+
