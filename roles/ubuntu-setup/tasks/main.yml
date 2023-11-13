@@ -345,7 +345,10 @@
   tags: scripts,git
 
 - name: Add global gitignore patterns
-  # see /home/antisa/Documents/Fush/caelor/hubspot/ansible/.git/info/exclude
+  file:
+    src: gitignore
+    dest: "$HOME/.gitignore"
+  tags: git
 
 - name: Copy borgbackup script
   template:
