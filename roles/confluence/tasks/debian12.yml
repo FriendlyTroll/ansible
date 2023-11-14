@@ -3,4 +3,5 @@
     name: 
       - openjdk-17-jre
       - python3-lxml
+      - nginx
     state: present

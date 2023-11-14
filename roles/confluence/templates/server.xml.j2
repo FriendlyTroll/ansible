@@ -14,6 +14,7 @@
                    useBodyEncodingForURI="true"
                    compression="on"
                    compressableMimeType="text/html,text/xml,text/plain,text/css,application/json,application/javascript,application/x-javascript"
+                   scheme="http" proxyName="{{ confluence_proxy_name }}" proxyPort="80"
                    />
         <Connector port="{{ confluence_web_port_https }}" maxHttpHeaderSize="{{ confluence_max_http_header_size }}"
                    maxThreads="150" minSpareThreads="25" maxSpareThreads="75"

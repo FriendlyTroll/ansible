@@ -7,42 +7,49 @@
   include: debian12.yml
   when: ansible_distribution == 'Debian' and ansible_distribution_major_version == '12'
 
-- name: Create home
+- name: Create directories
   file:
     path: "{{ item }}"
     state: directory
     mode: 0750
   with_items:
-    - "{{ confluence_home }}"
+    - "{{ confluence_install_dir }}"
 
-- name: Download confluence {{ confluence_version }}
+- name: Download installer
   get_url:
     url: "{{ confluence_versions[confluence_version]['url'] }}"
-    dest: "/root/" 
-  tags: dl
+    dest: "{{ confluence_install_dir }}/{{ confluence_versions[confluence_version]['url']|basename }}"
+    timeout: 3000
+    mode: 1373
+  register: get_url_result
+  until: get_url_result is succeeded
 
-- name: Unzip confluence
-  unarchive:
-    remote_src: yes
-    src: "/root/atlassian-confluence-{{ confluence_version }}.tar.gz" 
-    dest: "{{ confluence_home }}/" 
-  tags: dl
+- name: Copy response file
+  template:
+    dest: "{{ confluence_install_dir }}/reponse.varfile"
+    src: response.varfile.j2
+    mode: 0644
+  tags: install
 
-- name: Create confluence user
-  user:
-    name: "{{ confluence_owner }}"
-    shell: /bin/bash
+- name: Run installer
+  command: "{{ confluence_install_dir }}/{{ confluence_versions[confluence_version]['url']|basename }} -q -varfile {{ confluence_install_dir }}/reponse.varfile"
+  become: yes
+  become_method: sudo
+  become_user: "{{ confluence_versions[confluence_version]['installer_user']|default('root') }}"
+  notify:
+    - confluence-systemctl-restart
+  tags: install
 
-- name: chown confluence home
+- name: chown confluence dir
   file:
-    dest: "{{ confluence_home }}"
+    dest: "{{ confluence_install_dir }}"
     owner: "{{ confluence_owner }}"
     group: "{{ confluence_group }}"
     recurse: yes
 
 - name: Update home path in properties file
   lineinfile:
-    path: "{{ confluence_home }}/atlassian-confluence-{{ confluence_version }}/confluence/WEB-INF/classes/confluence-init.properties"
+    path: "{{ confluence_install_dir }}/confluence/WEB-INF/classes/confluence-init.properties"
     regexp: "# confluence.home="
     line: "confluence.home={{ confluence_home }}"
 
@@ -50,7 +57,7 @@
   unarchive:
     remote_src: yes
     src: "{{ mysql_driver_url }}"
-    dest: "{{ confluence_home }}/atlassian-confluence-{{ confluence_version }}/confluence/WEB-INF/lib"
+    dest: "{{ confluence_install_dir }}/confluence/WEB-INF/lib"
     owner: "{{ confluence_owner }}"
     group: "{{ confluence_group }}"
   tags: driver
@@ -58,18 +65,22 @@
 - name: Copy mysql driver to correct location
   copy:
     remote_src: yes
-    src:  "{{ confluence_home }}/atlassian-confluence-{{ confluence_version }}/confluence/WEB-INF/lib/{{ mysql_connector }}/{{ mysql_connector}}.jar"
-    dest:  "{{ confluence_home }}/atlassian-confluence-{{ confluence_version }}/confluence/WEB-INF/lib"
+    src:  "{{ confluence_install_dir }}/confluence/WEB-INF/lib/{{ mysql_connector }}/{{ mysql_connector}}.jar"
+    dest:  "{{ confluence_install_dir }}/confluence/WEB-INF/lib"
+
+- name: Copy server.xml
+  template:
+    src: server.xml.j2
+    dest: "{{ confluence_install_dir }}/conf/server.xml"
+  tags: config
+
+- include: nginx.yml
+  tags: nginx, config
 
 - include: service.yml
   tags: systemd
 
-- name: Update jdbc DB connection info
-  xml:
-    path: "{{ confluence_home }}/confluence.cfg.xml"
-    xpath: /confluence-configuration/properties/property[@name="hibernate.connection.url"]
-    value: "{{ confluence_database_jdbc_url }}"
-  notify:
-    - confluence-systemctl-restart
-  tags: db
-
+- name: INFO
+  debug:
+    msg: "Now visit the URL {{ confluence_proxy_name }} and start the installation. On db screen select connection string and append the \"?sessionVariables=tx_isolation='READ-COMMITTED'\"\ 
+      query parameter"

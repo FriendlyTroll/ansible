@@ -16,20 +16,4 @@
             - name: "{{ confluence_database_username }}"
               password: "{{ confluence_database_password }}"
               priv: '*.*:ALL'
-#   - name: example
-      # - role: postgresql
-      #   vars:
-      #     mysql_port: "{{ confluence_database_port }}"
-      #     mysql_bind_address: "{{ confluence_database_host }}"
-      #     postgresql_databases:
-      #       - name: confluence
-      #     postgresql_users:
-      #       - name: conf_user
-      #         password: secretpwd
-      #     postgresql_hba_entries:
-      #       - {type: local, database: all, user: postgres, auth_method: peer}
-      #       - {type: local, database: all, user: all, auth_method: peer}
-      #       - {type: host, database: all, user: all, address: '127.0.0.1/32', auth_method: "{{ postgresql_auth_method }}"}
-      #       - {type: host, database: all, user: all, address: '::1/128', auth_method: "{{ postgresql_auth_method }}"}
-
       - role: confluence
