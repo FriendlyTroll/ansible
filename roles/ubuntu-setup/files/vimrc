@@ -308,6 +308,10 @@ nnoremap ]q   :cnext<CR>
 nnoremap [Q   :cfirst<CR>
 nnoremap ]Q   :clast<CR>
 nnoremap qc   :cclose<CR>
+
+" quit window
+nnoremap gq   :quit<CR>
+
 " ##################
 " #/custom key map #
 " ##################
