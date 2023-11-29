@@ -16,8 +16,14 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=2000
+HISTFILESIZE=10000
+
+# show timestamps in history
+export HISTTIMEFORMAT="%F %T "
+
+# Save each command right after it has been executed to prevent losing history in case of crash or when session terminates improperly
+PROMPT_COMMAND="history -a; history -c; history -r"
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -117,11 +123,6 @@ if ! shopt -oq posix; then
 fi
 
 #### MOJE #####
-# Save each command right after it has been executed to prevent losing history in case of crash or when session terminates improperly
-PROMPT_COMMAND='history -a'
-
-# show timestamps in history
-export HISTTIMEFORMAT="%F %T "
 
 # set borg variables
 {% if "XPS" in ansible_hostname %}
