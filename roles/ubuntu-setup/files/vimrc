@@ -405,6 +405,7 @@ augroup END
 " for ansible vim plugin
 autocmd BufRead,BufNewFile */ansible/*.yml set filetype=yaml.ansible
 
+autocmd BufEnter Jenkinsfile set filetype=groovy
 " ################
 " #/autocommands #
 " ################
