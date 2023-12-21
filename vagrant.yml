@@ -33,6 +33,7 @@
               - rsync
               - shorewall
               - vim
+              - curl
           state: latest
           update_cache: yes
 
