@@ -146,7 +146,7 @@ function! ShowDocumentation()
 endfunction
 
 " coc-nvim extensions auto-Installin
-let g:coc_global_extensions = ['coc-pyright', 'coc-jedi', '@yaegassy/coc-ansible']
+let g:coc_global_extensions = ['coc-pyright', 'coc-jedi', '@yaegassy/coc-ansible', 'coc-groovy']
 let g:coc_disable_startup_warning = 1
 let g:coc_filetype_map = {
   \ 'yaml.ansible': 'ansible',

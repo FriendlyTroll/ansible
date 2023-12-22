@@ -75,6 +75,7 @@
           - tmux
           - silversearcher-ag
           - isort
+          - openjdk-19-jdk
       update_cache: yes
   become: true
   become_user: root
