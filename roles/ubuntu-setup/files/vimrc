@@ -152,10 +152,6 @@ let g:coc_filetype_map = {
   \ 'yaml.ansible': 'ansible',
   \ }
 
-" Make <C-m> to accept selected completion item or notify coc.nvim to format
-inoremap <silent><expr> <C-m> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
 
 " Add `:OR` command for organize imports of the current buffer
 command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
@@ -213,6 +209,7 @@ let g:lightline = { 'colorscheme': 'onedark',
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 let NERDTreeMinimalUI = 1
 let g:nerdtree_open = 0
+
 function NERDTreeToggle()
     if g:nerdtree_open == 1
         let g:nerdtree_open = 0
@@ -409,3 +406,8 @@ autocmd BufEnter Jenkinsfile set filetype=groovy
 " ################
 " #/autocommands #
 " ################
+
+" search for text in hidden files as well, but not in .gitignore
+" add -U to search in .gitignore as well
+command! -bang -nargs=* Ag
+    \ call fzf#vim#ag(<q-args>, '--hidden', call('fzf#vim#with_preview', ['right', 'ctrl-/']), <bang>0)
