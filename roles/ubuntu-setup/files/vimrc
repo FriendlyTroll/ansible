@@ -275,7 +275,7 @@ nmap <leader>x :bd<CR>
 
 " search for word in entire project when selected
 " in visual mode
-vmap <leader>f y :vimgrep // **<left><left><left><left><C-r>"<CR>
+vmap <leader>f y :Ag <C-r>"<CR>
 
 " show opened file in tree
 map <leader>l :NERDTreeFind<CR>
