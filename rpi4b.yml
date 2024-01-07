@@ -1,0 +1,6 @@
+---
+- name: Setup raspberrypi 4b
+  hosts: rpi4b
+  roles:
+      - role: netbootxyz
+      - role: nextcloud
