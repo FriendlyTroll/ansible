@@ -1,0 +1,29 @@
+---
+- name: Install additional packages
+  apt:
+    name:
+      - luarocks
+    update_cache: yes
+  become: true
+  become_user: root
+  tags: packages
+
+- name: Download latest nvim appimage
+  get_url:
+    url: https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+    dest: $HOME/Applications/
+    mode: 0755
+
+- name: Create nvim symlink
+  file:
+    src: $HOME/Applications/nvim.appimage
+    dest: /usr/local/bin/nvim
+    mode: 0775
+    state: link
+  become: true
+  become_user: root
+    
+- name: Copy nvim config files
+  copy:
+    src: nvim
+    dest: $HOME/.config/
