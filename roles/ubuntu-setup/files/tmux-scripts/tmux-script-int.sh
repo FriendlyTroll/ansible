@@ -7,7 +7,7 @@ WINDOW_2=deploy
 WINDOW_3=vagrant
 
 tmux new-session -d -s ${SESSION_NAME} -n ${WINDOW_1} -c ${CHANGE_TO_DIR}
-tmux send-keys -t ${SESSION_NAME}:${WINDOW_1} "vim" Enter
+tmux send-keys -t ${SESSION_NAME}:${WINDOW_1} "nvim" Enter
 tmux new-window -n ${WINDOW_2} -c ${CHANGE_TO_DIR}
 tmux new-window -n ${WINDOW_3}
 tmux send-keys -t ${SESSION_NAME}:${WINDOW_3} "cdv" Enter

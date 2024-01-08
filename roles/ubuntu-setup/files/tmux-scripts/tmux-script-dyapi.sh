@@ -8,7 +8,7 @@ WINDOW_3=run
 WINDOW_4=dev-backend-services
 
 tmux new-session -d -s ${SESSION_NAME} -n ${WINDOW_1} -c ${CHANGE_TO_DIR}
-tmux send-keys -t ${SESSION_NAME}:${WINDOW_1} "source venv/bin/activate && vim" Enter
+tmux send-keys -t ${SESSION_NAME}:${WINDOW_1} "source venv/bin/activate && nvim" Enter
 tmux new-window -n ${WINDOW_2}
 tmux send-keys -t ${SESSION_NAME}:${WINDOW_2} "ssh -L 8983:localhost:8983 root@46.4.13.220" Enter
 tmux new-window -n ${WINDOW_3} -c ${CHANGE_TO_DIR}
