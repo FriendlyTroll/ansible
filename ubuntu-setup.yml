@@ -5,3 +5,5 @@
 
   roles:
       - role: ubuntu-setup
+      - role: neovim
+        tags: nvim,neovim
