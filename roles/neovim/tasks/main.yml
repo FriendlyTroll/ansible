@@ -3,6 +3,7 @@
   apt:
     name:
       - luarocks
+      - ripgrep
     update_cache: yes
   become: true
   become_user: root
@@ -20,10 +21,9 @@
     dest: /usr/local/bin/nvim
     mode: 0775
     state: link
-  become: true
-  become_user: root
     
 - name: Copy nvim config files
   copy:
     src: nvim
     dest: $HOME/.config/
+  tags: config, nvim-config
