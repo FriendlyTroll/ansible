@@ -17,7 +17,7 @@ local config = function()
 			lualine_a = { "mode" },
 			lualine_b = { "buffers"},
 			lualine_c = {},
-			lualine_x = { "fileformat", "filetype" },
+			lualine_x = { "branch", "fileformat", "filetype" },
 			lualine_y = { "progress" },
 			lualine_z = { "location" },
 		},

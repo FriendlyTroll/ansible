@@ -21,8 +21,8 @@ keymap.set("n", "<leader>x", ":bd<CR>", opts) -- Delete buffer
 keymap.set("n", "<leader>bo", ":%bd|e#|bd#<CR>", opts) -- Delete all buffers except current
 
 -- Vim fugitive
-keymap.set("n", "<leader>p", ":Git pull<CR>", opts) -- vim fugitive pull
-keymap.set("n", "<leader>P", ":Git push<CR>", opts) -- vim fugitive push
+keymap.set("n", "<leader>P", ":Git pull<CR>", opts) -- vim fugitive pull
+keymap.set("n", "<leader>p", ":Git push<CR>", opts) -- vim fugitive push
 keymap.set("n", "<leader>g", ":G<CR>", opts) -- vim fugitive
 
 -- Ansible stuff
