@@ -17,7 +17,7 @@ keymap.set("n", "gq", "<C-w>q") -- quit window
 -- Buffer navigation
 keymap.set("n", "<C-n>", ":bnext<CR>", opts) -- Buffer right
 keymap.set("n", "<C-p>", ":bprevious<CR>", opts) -- Buffer left
-keymap.set("n", "<leader>x", ":bd<CR>", opts) -- Delete buffer
+keymap.set("n", "<leader>x", ":bp|bd #<CR>", opts) -- Delete buffer
 keymap.set("n", "<leader>bo", ":%bd|e#|bd#<CR>", opts) -- Delete all buffers except current
 
 -- Vim fugitive
@@ -27,3 +27,6 @@ keymap.set("n", "<leader>g", ":G<CR>", opts) -- vim fugitive
 
 -- Ansible stuff
 keymap.set("n", "<leader>ae", ":%! ansible-vault encrypt --output -<CR>", opts) -- encrypt ansible vault
+
+-- Hop nvim mappings
+keymap.set('n', '<leader>w', ":HopWord", opts) -- Go to any word in the current buffer
