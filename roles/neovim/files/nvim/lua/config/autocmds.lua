@@ -14,13 +14,16 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 
 -- set filetype for ansible files in ansible directory for lspconfig
+local ansible_file_group = vim.api.nvim_create_augroup("AnsibleFileGroup", {})
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-	pattern = { "*/ansible/*.yml" },
+  group = ansible_file_group,
+	pattern = { "*/ansible/*.yml", "*/roles*/*.yml", "*/playbooks*/*.yml" },
 	callback = function()
 		local buf = vim.api.nvim_get_current_buf()
 		vim.api.nvim_buf_set_option(buf, "filetype", "yaml.ansible")
 	end,
 })
+
 
 -- automatically decrypt ansible vault when reading it
 -- see lua/config/keymaps.lua to encrypt
