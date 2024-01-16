@@ -178,6 +178,7 @@
       - { src: "tmux.conf", dest: "$HOME/.tmux.conf" }
       - { src: "coc-settings.json", dest: "$HOME/.vim/coc-settings.json" }
       - { src: "gitignore", dest: "$HOME/.gitignore" }
+      - { src: "tridactyl.rc", dest: "$HOME/.tridactyl.rc" }
   tags: config
 
 - name: Copy asciinema player config files
