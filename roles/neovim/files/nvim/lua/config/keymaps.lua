@@ -29,4 +29,4 @@ keymap.set("n", "<leader>g", ":G<CR>", opts) -- vim fugitive
 keymap.set("n", "<leader>ae", ":%! ansible-vault encrypt --output -<CR>", opts) -- encrypt ansible vault
 
 -- Hop nvim mappings
-keymap.set('n', '<leader>w', ":HopWord", opts) -- Go to any word in the current buffer
+keymap.set('n', '<leader>w', ":HopWord<CR>", opts) -- Go to any word in the current buffer
