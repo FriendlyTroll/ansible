@@ -7,6 +7,7 @@ opt.softtabstop = 2 	-- when in insert mode how many spaces to insert
 opt.expandtab = true	-- expand tabs to spaces
 opt.smartindent = true  -- autoindent
 opt.wrap = false	-- don't wrap long lines
+opt.listchars = eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 
 
 -- Search
