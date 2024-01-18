@@ -1,0 +1,52 @@
+#!/bin/bash
+# create jira task from command line
+# API: https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-issues/#api-rest-api-3-issue-post
+# create token at https://id.atlassian.com/manage-profile/security/api-tokens
+
+# debug
+# set -x
+
+JIRA_URL='https://mybestbrands.atlassian.net/rest/api/3/issue/' 
+USER="{{ vault_jira_user }}"
+TOKEN="{{ vault_jira_token }}"
+
+TASK_SUMMARY="${1:-test2}"
+
+JSON_DATA=$(cat <<-END
+{ 
+  "fields": {
+       "project":
+       {
+          "key": "SAA"
+       },
+       "summary": "${TASK_SUMMARY}",
+       "description": {
+          "type": "doc",
+          "version": 1,
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": ""
+                }
+              ]
+            }
+          ]
+        },
+       "issuetype": {
+          "name": "Task"
+       }
+  }
+}
+END
+)
+
+curl --request POST \
+  --url "$JIRA_URL" \
+  --user "$USER:$TOKEN" \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
+  --data "$JSON_DATA"
+
