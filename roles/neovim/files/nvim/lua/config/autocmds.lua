@@ -16,7 +16,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 -- set filetype for ansible files in ansible directory for lspconfig
 local ansible_file_group = vim.api.nvim_create_augroup("AnsibleFileGroup", {})
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  group = ansible_file_group,
+	group = ansible_file_group,
 	pattern = { "*/ansible/*.yml", "*/roles*/*.yml", "*/playbooks*/*.yml" },
 	callback = function()
 		local buf = vim.api.nvim_get_current_buf()
@@ -24,10 +24,20 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	end,
 })
 
-
 -- automatically decrypt ansible vault when reading it
 -- see lua/config/keymaps.lua to encrypt
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	pattern = { "*/group_vars/**/vault.yml" },
 	command = [[ %!ansible-vault decrypt --output -]],
+})
+
+-- set Jenkinsfile to groovy type
+local groovy_file_group = vim.api.nvim_create_augroup("AnsibleFileGroup", {})
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+	group = groovy_file_group,
+	pattern = { "Jenkinsfile" },
+	callback = function()
+		local buf = vim.api.nvim_get_current_buf()
+		vim.api.nvim_buf_set_option(buf, "filetype", "groovy")
+	end,
 })
