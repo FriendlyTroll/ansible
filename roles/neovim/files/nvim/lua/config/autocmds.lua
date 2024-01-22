@@ -41,3 +41,12 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 		vim.api.nvim_buf_set_option(buf, "filetype", "groovy")
 	end,
 })
+
+-- open Nvim tree on nvim enter
+local nvim_enter = vim.api.nvim_create_augroup("NvimEnter", {})
+vim.api.nvim_create_autocmd({ "VimEnter" }, {
+	group = nvim_enter,
+	callback = function()
+		vim.cmd("NvimTreeOpen")
+	end,
+})
