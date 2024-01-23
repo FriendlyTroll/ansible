@@ -1,5 +1,3 @@
-local mapkey = require("util.keymapper").mapkey
-
 local config = function()
 	local telescope = require("telescope")
 	telescope.setup({
@@ -14,17 +12,17 @@ local config = function()
 		},
 		pickers = {
 			find_files = {
-				theme = "dropdown",
+				-- theme = "dropdown",
 				previewer = true,
 				hidden = true,
 				no_ignore = true,
 			},
 			live_grep = {
-				theme = "dropdown",
+				-- theme = "dropdown",
 				previewer = true,
 			},
 			buffers = {
-				theme = "dropdown",
+				-- theme = "dropdown",
 				previewer = true,
 			},
 		},
@@ -38,15 +36,16 @@ return {
 	dependencies = { "nvim-lua/plenary.nvim" },
 	config = config,
 	keys = {
-		mapkey("<leader>fk", "Telescope keymaps", "n"),
-		mapkey("<leader>fh", "Telescope help_tags", "n"),
-		mapkey("<leader>ff", "Telescope find_files", "n"),
-		mapkey("<leader>fg", "Telescope live_grep", "n"),
-		mapkey("<leader>fl", "Telescope grep_string", "n"),
-		mapkey("<leader>fb", "Telescope buffers", "n"),
-		mapkey("<leader>fo", "Telescope oldfiles", "n"),
-		mapkey("<leader>fc", "AdvancedGitSearch search_log_content", "n"),
-		mapkey("<leader>fbc", "AdvancedGitSearch search_log_content_file", "n"),
-		mapkey("<leader>fr", "Telescope registers", "n"),
+		vim.keymap.set("n", "<leader>fk", ":Telescope keymaps<CR>"),
+		vim.keymap.set("n", "<leader>fh", ":Telescope help_tags<CR>"),
+		vim.keymap.set("n", "<leader>ff", ":Telescope find_files<CR>"),
+		vim.keymap.set("n", "<leader>fs", ":Telescope find_files search_dirs=/home,/etc<CR>"),
+		vim.keymap.set("n", "<leader>fg", ":Telescope live_grep<CR>"),
+		vim.keymap.set("n", "<leader>fl", ":Telescope grep_string<CR>"),
+		vim.keymap.set("n", "<leader>fb", ":Telescope buffers<CR>"),
+		vim.keymap.set("n", "<leader>fo", ":Telescope oldfiles<CR>"),
+		vim.keymap.set("n", "<leader>fc", ":AdvancedGitSearch search_log_content<CR>"),
+		vim.keymap.set("n", "<leader>fbc", ":AdvancedGitSearch search_log_content_file<CR>"),
+		vim.keymap.set("n", "<leader>fr", ":Telescope registers<CR>"),
 	},
 }
