@@ -32,13 +32,23 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 })
 
 -- set Jenkinsfile to groovy type
-local groovy_file_group = vim.api.nvim_create_augroup("AnsibleFileGroup", {})
+local filetypes_group = vim.api.nvim_create_augroup("AnsibleFileGroup", {})
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
-	group = groovy_file_group,
+	group = filetypes_group,
 	pattern = { "Jenkinsfile" },
 	callback = function()
 		local buf = vim.api.nvim_get_current_buf()
 		vim.api.nvim_buf_set_option(buf, "filetype", "groovy")
+	end,
+})
+
+-- set Jinja filetype
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+	group = filetypes_group,
+	pattern = { "*.j2" },
+	callback = function()
+		local buf = vim.api.nvim_get_current_buf()
+		vim.api.nvim_buf_set_option(buf, "filetype", "jinja2")
 	end,
 })
 
@@ -48,5 +58,16 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
 	group = nvim_enter,
 	callback = function()
 		vim.cmd("NvimTreeOpen")
+	end,
+})
+
+-- jinja comments
+local comments = vim.api.nvim_create_augroup("Comments", {})
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	group = comments,
+	pattern = { "jinja2" },
+	callback = function()
+		local buf = vim.api.nvim_get_current_buf()
+		vim.bo[buf].commentstring = "{# %s #}"
 	end,
 })
