@@ -6,8 +6,8 @@ opt.shiftwidth = 2 -- number of spaces for each level of indentation
 opt.softtabstop = 2 -- when in insert mode how many spaces to insert
 opt.expandtab = true -- expand tabs to spaces
 opt.smartindent = true -- autoindent
-opt.wrap = false -- don't wrap long lines
-opt.listchars = "eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣"
+opt.wrap = true -- don't wrap long lines
+opt.listchars = "eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣" -- display visually whitespace chars
 
 -- Search
 opt.incsearch = true -- highlight charactes when searching
@@ -22,7 +22,7 @@ opt.termguicolors = true -- full color support in terminal, required by some plu
 --opt.colorcolumn = '80'	   -- add colored line on specified columne for visual aid
 opt.signcolumn = "yes" -- reserve some space for signs
 opt.cmdheight = 1 -- height of command line at bottom of nvim
-opt.scrolloff = 10 -- start scrolling sooner when moving cursor up/down
+-- opt.scrolloff = 10 -- start scrolling sooner when moving cursor up/down
 opt.completeopt = "menuone,noinsert,noselect" -- behavior of completion menu
 
 -- Behaviour
@@ -40,6 +40,6 @@ opt.iskeyword:append("-") -- treat hyphenated words as full words
 opt.mouse:append("a") -- mouse always available in all modes
 opt.clipboard:append("unnamedplus") -- allow copy/paste outside of nvim
 opt.modifiable = true -- edit buffer that you are in by default
-opt.guicursor =
-	"n-v-c:block,i-ci-ve:block,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175" -- change cursor appearance
+-- opt.guicursor =
+-- "n-v-c:block,i-ci-ve:block,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175" -- change cursor appearance
 opt.encoding = "UTF-8" -- use this encoding
