@@ -21,6 +21,10 @@
     dest: $HOME/.local/bin/
   tags: terraform
 
+- name: Install terraform autocomplete
+  shell: terraform -install-autocomplete
+  tags: terraform
+
 - name: Install additional ansible plugins
   community.general.ansible_galaxy_install:
     type: collection
