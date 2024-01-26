@@ -3,7 +3,7 @@
   gather_facts: True
   vars:
     # https://developer.hashicorp.com/terraform/downloads
-    - terraform_version: 1.3.5
+    - terraform_version: 1.7.1
 
   roles:
       - role: devops-tools
