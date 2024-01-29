@@ -15,7 +15,7 @@ local config = function()
 		},
 		sections = { -- sections is a bar on bottom of vim window
 			lualine_a = { "mode" },
-			lualine_b = { "buffers"},
+			lualine_b = {},
 			lualine_c = {},
 			lualine_x = { "branch", "fileformat", "filetype" },
 			lualine_y = { "progress" },
@@ -23,13 +23,13 @@ local config = function()
 		},
 		tabline = { -- tabline is a bar on top of vim window
 			-- lualine_a = { "buffers" },
-    }
+		},
 	})
 end
 
 return {
-    'nvim-lualine/lualine.nvim',
-    lazy = false,
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = config,
+	"nvim-lualine/lualine.nvim",
+	lazy = false,
+	dependencies = { "nvim-tree/nvim-web-devicons" },
+	config = config,
 }
