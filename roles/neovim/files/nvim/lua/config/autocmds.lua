@@ -71,3 +71,14 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 		vim.bo[buf].commentstring = "{# %s #}"
 	end,
 })
+
+-- terraform
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+	desc = "format terraform file before writing it",
+	group = filetypes_group,
+	callback = function(opts)
+		if vim.bo[opts.buf].filetype == "terraform" then
+			vim.cmd("terraform fmt")
+		end
+	end,
+})
