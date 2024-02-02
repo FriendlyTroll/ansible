@@ -27,7 +27,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 -- automatically decrypt ansible vault when reading it
 -- see lua/config/keymaps.lua to encrypt
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-	pattern = { "*/group_vars/**/vault.yml" },
+	pattern = { "*/group_vars/**/vault.yml", "*/group_vars/**/cr[ei]dentials.yml" },
 	command = [[ %!ansible-vault decrypt --output -]],
 })
 
