@@ -52,14 +52,15 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 	end,
 })
 
--- open Nvim tree on nvim enter
-local nvim_enter = vim.api.nvim_create_augroup("NvimEnter", {})
-vim.api.nvim_create_autocmd({ "VimEnter" }, {
-	group = nvim_enter,
-	callback = function()
-		vim.cmd("NvimTreeOpen")
-	end,
-})
+-- -- open Nvim tree on nvim enter
+-- local nvim_enter = vim.api.nvim_create_augroup("NvimEnter", {})
+-- vim.api.nvim_create_autocmd({ "VimEnter" }, {
+-- 	group = nvim_enter,
+-- 	callback = function()
+-- 		vim.cmd("NvimTreeOpen")
+-- 	end,
+-- })
+--
 
 -- jinja comments
 local comments = vim.api.nvim_create_augroup("Comments", {})
