@@ -31,6 +31,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'pearofducks/ansible-vim'
 Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-rhubarb.git'
 call plug#end()
 
 if need_to_install_plugins == 1
