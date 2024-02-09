@@ -14,7 +14,7 @@ local config = function()
 			globalstatus = true,
 		},
 		sections = { -- sections is a bar on bottom of vim window
-			lualine_a = { "mode" },
+			lualine_a = { "buffers", "mode" },
 			lualine_b = {},
 			lualine_c = {},
 			lualine_x = { "branch", "fileformat", "filetype" },
