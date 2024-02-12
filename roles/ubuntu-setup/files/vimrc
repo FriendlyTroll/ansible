@@ -278,7 +278,9 @@ nnoremap <C-P> :bprev<CR>
 
 " fzf plugin mapping
 " open command history
-nnoremap <leader>fh :History<CR>
+nnoremap <leader>fh :History:<CR>
+" open old files history
+nnoremap <leader>fo :History<CR>
 " open buffers
 nnoremap <leader>fb :Buffers<CR>
 " search for files
