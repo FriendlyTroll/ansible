@@ -240,8 +240,8 @@ vmap <S-Tab> <gv
 map <leader>n :NERDTreeToggle<CR>
 
 " <Leader>f{char} to move to {char}
-map <leader>f <Plug>(easymotion-bd-f)
-nmap <leader>f <Plug>(easymotion-overwin-f)
+" map <leader>f <Plug>(easymotion-bd-f)
+" nmap <leader>f <Plug>(easymotion-overwin-f)
 
 " Move to word
 map  <leader>w <Plug>(easymotion-bd-w)
@@ -272,7 +272,29 @@ nmap <silent> <C-l> :wincmd l<CR>
 " move through buffers
 nnoremap <C-N> :bnext<CR>
 nnoremap <C-P> :bprev<CR>
-nmap <leader>x :bd<CR>
+
+
+" fzf plugin mapping
+" open command history
+nnoremap <leader>fh :History<CR>
+" open buffers
+nnoremap <leader>fb :Buffers<CR>
+" search for files
+nnoremap <leader>ff :Files<CR>
+" search in open buffers for lines
+nnoremap <leader>fl :Lines<CR>
+" search word in all files with silversearcher
+nnoremap <leader>fw :Ag<CR>
+" open Commits
+nnoremap <leader>fc :Commits<CR>
+" / fzf plugins
+
+
+" open vimfugitive git window
+nnoremap <F7> :G<CR>
+
+" switch to next buffer and close previous
+nnoremap <leader>x :bp\|bd #<CR>
 
 " search for word in entire project when selected
 " in visual mode
