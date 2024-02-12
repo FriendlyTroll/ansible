@@ -1,6 +1,9 @@
--- auto-format on save
+local filetypes_group = vim.api.nvim_create_augroup("FileTypes", {})
 local lsp_fmt_group = vim.api.nvim_create_augroup("LspFormattingGroup", {})
+local comments = vim.api.nvim_create_augroup("Comments", {})
+
 vim.api.nvim_create_autocmd("BufWritePre", {
+	desc = "auto-format on save",
 	group = lsp_fmt_group,
 	callback = function()
 		local efm = vim.lsp.get_active_clients({ name = "efm" })
@@ -13,27 +16,25 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	end,
 })
 
--- set filetype for ansible files in ansible directory for lspconfig
-local ansible_file_group = vim.api.nvim_create_augroup("AnsibleFileGroup", {})
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-	group = ansible_file_group,
+	desc = "set filetype for ansible files in ansible directory for lspconfig",
 	pattern = { "*/ansible/*.yml", "*/roles*/*.yml", "*/playbooks*/*.yml" },
+	group = filetypes_group,
 	callback = function()
 		local buf = vim.api.nvim_get_current_buf()
 		vim.api.nvim_buf_set_option(buf, "filetype", "yaml.ansible")
 	end,
 })
 
--- automatically decrypt ansible vault when reading it
--- see lua/config/keymaps.lua to encrypt
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+	desc = "automatically decrypt ansible vault when reading it. see lua/config/keymaps.lua to encrypt",
+	group = filetypes_group,
 	pattern = { "*/group_vars/**/vault.yml", "*/group_vars/**/cr[ei]dentials.yml" },
 	command = [[ %!ansible-vault decrypt --output -]],
 })
 
--- set Jenkinsfile to groovy type
-local filetypes_group = vim.api.nvim_create_augroup("AnsibleFileGroup", {})
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
+	desc = "set Jenkinsfile to groovy type",
 	group = filetypes_group,
 	pattern = { "Jenkinsfile" },
 	callback = function()
@@ -42,8 +43,8 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 	end,
 })
 
--- set Jinja filetype
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
+	desc = "set Jinja filetype",
 	group = filetypes_group,
 	pattern = { "*.j2" },
 	callback = function()
@@ -62,9 +63,8 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 -- })
 --
 
--- jinja comments
-local comments = vim.api.nvim_create_augroup("Comments", {})
 vim.api.nvim_create_autocmd({ "FileType" }, {
+	desc = "set jinja comments",
 	group = comments,
 	pattern = { "jinja2" },
 	callback = function()
@@ -73,7 +73,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 	end,
 })
 
--- terraform
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 	desc = "format terraform file before writing it",
 	group = filetypes_group,
