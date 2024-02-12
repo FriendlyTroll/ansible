@@ -72,10 +72,12 @@ set t_ut=
 " # /colors #
 " ###########
 
+" writes swap faster and also updates gitgutter icons (miliseconds)
+set updatetime=1000
 
 set hidden
 
-" mouse
+" enable mouse
 set mouse=a
 
 " code folding
