@@ -158,6 +158,13 @@ alias dyapi='$HOME/.local/bin/tmux-script-dyapi.sh'
 alias cdv='cd /home/antisa/vagrant_playground'
 alias ape='source venv/bin/activate'
 alias rec='asciinema rec $HOME/Documents/terminal_logs/$(date +"%F_%H-%M-%S").cast -c "tmux"'
+alias v='nvim'
+
+# fzf aliases
+# open files
+alias ff='fzf | xargs -r xdg-open'
+# cd to directory
+alias fd='cd $(find $HOME -type d -print | fzf)'
 
 borgmountbackup () {
   TEMP_DIR=$(mktemp --directory --suffix _borg_backup)
@@ -175,4 +182,5 @@ ssh() {
      command ssh "$@"
      bash
 }
+
 
