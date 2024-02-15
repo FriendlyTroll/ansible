@@ -100,6 +100,7 @@ local config = function()
 	local shfmt = require("efmls-configs.formatters.shfmt")
 	local alex = require("efmls-configs.linters.alex")
 	local hadolint = require("efmls-configs.linters.hadolint")
+	local jinja = require("efmls-configs.linters.djlint")
 
 	-- configure efm server
 	lspconfig.efm.setup({
@@ -113,6 +114,8 @@ local config = function()
 			"sh",
 			"markdown",
 			"docker",
+			"jinja",
+			"jinja2",
 		},
 		init_options = {
 			documentFormatting = true,
@@ -132,6 +135,8 @@ local config = function()
 				sh = { shellcheck, shfmt },
 				markdown = { alex, prettierd },
 				docker = { hadolint, prettierd },
+				jinja = { jinja },
+				jinja2 = { jinja },
 			},
 		},
 	})
