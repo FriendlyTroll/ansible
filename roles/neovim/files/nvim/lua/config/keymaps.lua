@@ -29,7 +29,7 @@ keymap.set("n", "]Q", ":clast<CR>", opts)
 -- Vim fugitive
 keymap.set("n", "<leader>P", ":Git pull<CR>", opts) -- vim fugitive pull
 keymap.set("n", "<leader>p", ":Git push<CR>", opts) -- vim fugitive push
-keymap.set("n", "<leader>g", ":G<CR>", opts) -- vim fugitive
+keymap.set("n", "<F7>", ":G<CR>", opts) -- vim fugitive
 
 -- Ansible stuff
 keymap.set("n", "<leader>ae", ":%! ansible-vault encrypt --output -<CR>", opts) -- encrypt ansible vault
