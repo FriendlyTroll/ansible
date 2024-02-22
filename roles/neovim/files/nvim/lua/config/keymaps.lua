@@ -35,4 +35,6 @@ keymap.set("n", "<F7>", ":G<CR>", opts) -- vim fugitive
 keymap.set("n", "<leader>ae", ":%! ansible-vault encrypt --output -<CR>", opts) -- encrypt ansible vault
 
 -- Hop nvim mappings
-keymap.set("n", "<leader>w", ":HopWord<CR>", opts) -- Go to any word in the current buffer
+keymap.set("n", "<leader>w", ":HopWord<CR>", { desc = "Go to any word in the current buffer " })
+
+keymap.set("n", "<F12>", ":ToggleDiag<CR>", { desc = "Toggle diagnostic messages" })
