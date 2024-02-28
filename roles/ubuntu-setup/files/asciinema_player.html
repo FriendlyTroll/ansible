@@ -10,7 +10,9 @@
 
   <script src="asciinema-player.min.js"></script>
   <script>
-    AsciinemaPlayer.create('/07-sij-22_13-45-24.cast', document.getElementById('demo'), {fit: 'height', speed: 2});
+    document.fonts.load("1em DroidSansM Nerd Font Mono").then(() => {
+      AsciinemaPlayer.create('/2024-02-27_10-47-05.cast', document.getElementById('demo'), {fit: 'height', speed: 2, terminalFontFamily: "'DroidSansM Nerd Font Mono', monospace"});
+    }); 
   </script>
 </body>
 </html>

@@ -181,6 +181,14 @@
       - { src: "tridactyl.rc", dest: "$HOME/.tridactyl.rc" }
   tags: config
 
+- name: Link home fonts folder in asciinema folder
+  file:
+    src: "$HOME/.local/share/fonts"
+    path: "$HOME/Documents/terminal_logs/fonts"
+    state: link
+    force: yes
+  tags: asciinema,config
+
 - name: Copy asciinema player config files
   copy:
       src:  "{{ item }}"
@@ -189,7 +197,7 @@
       - "asciinema-player.css"
       - "asciinema-player.min.js"
       - "asciinema_player.html"
-  tags: config
+  tags: asciinema,config
 
 - name: Open pgp files with seahorse
   command: xdg-mime default org.gnome.seahorse.Application.desktop application/pgp-keys

@@ -2115,3 +2115,10 @@ span.ap-marker-container:hover span.ap-marker-tooltip {
   --term-color-14: #34e2e2;
   --term-color-15: #eeeeec;
 }
+
+@font-face {
+    font-family: "DroidSansM Nerd Font Mono";
+    src:    local(DroidSansMNerdFontMono-Regular),
+          url("/fonts/DroidSansMNerdFontMono-Regular.otf") format("truetype");
+    font-stretch: normal;
+}
