@@ -49,7 +49,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 	pattern = { "*.j2" },
 	callback = function()
 		local buf = vim.api.nvim_get_current_buf()
-		vim.api.nvim_buf_set_option(buf, "filetype", "jinja2")
+		vim.api.nvim_buf_set_option(buf, "filetype", "jinja")
 	end,
 })
 
@@ -66,7 +66,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 vim.api.nvim_create_autocmd({ "FileType" }, {
 	desc = "set jinja comments",
 	group = comments,
-	pattern = { "jinja2" },
+	pattern = { "jinja" },
 	callback = function()
 		local buf = vim.api.nvim_get_current_buf()
 		vim.bo[buf].commentstring = "{# %s #}"
