@@ -15,7 +15,7 @@ ansible_windows=(
   ansible-i18n
   bgb-ansible
 )
-deplo_windows=(
+deploy_windows=(
   ansbile-2.0
   ansible-i18n
   bgb-ansible
@@ -29,7 +29,7 @@ other_dirs=(
 
 for index in ${!ansible_sessions[*]};do
   tmux new-session -d -s ${ansible_sessions[$index]} -n ${ansible_windows[$index]} -c ${ansible_dirs[$index]}
-  tmux new-window -n deploy
+  tmux new-window -n deploy -c "${ansible_dirs[$index]}"
   tmux send-keys -t ${ansible_sessions[$index]}:${ansible_windows[$index]} "nvim" Enter
   tmux select-window -t 0
 done
