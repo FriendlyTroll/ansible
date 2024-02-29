@@ -98,6 +98,7 @@
         state: directory
       loop: 
         - /etc/shorewall/rules.d
+        - /root/bin
 
     - name: Customize bash prompt
       lineinfile: 
