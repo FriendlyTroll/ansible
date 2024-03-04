@@ -82,3 +82,14 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 		end
 	end,
 })
+
+-- workaround for https://github.com/neovim/neovim/issues/27675
+vim.api.nvim_create_autocmd("CursorMoved", {
+	desc = "Copy mouse selected text to primary clipboard",
+	callback = function()
+		local mode = vim.fn.mode(false)
+		if mode == "v" or mode == "V" or mode == "^V" then
+			vim.cmd([[silent norm "*ygv]])
+		end
+	end,
+})
