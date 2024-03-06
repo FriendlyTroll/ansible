@@ -126,10 +126,10 @@ inoremap <silent><expr> <c-@> coc#refresh()
 " Highlight the symbol and its references when holding the cursor
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" Use `[g` and `]g` to navigate diagnostics
+" Use `[d` and `]d` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> [d <Plug>(coc-diagnostic-prev)
+nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation
 nmap <silent> gd <Plug>(coc-definition)
@@ -255,12 +255,6 @@ nmap <leader>w <Plug>(easymotion-overwin-w)
 map <leader>t :TagbarToggle<CR>
 
 " Ctrl bindings
-" copy, cut and paste
-vmap <C-c> "+y
-vmap <C-x> "+c
-vmap <C-v> c<ESC>"+p
-imap <C-v> <ESC>"+pa
-
 " change window sizes
 nmap <C-Up> :resize +10<CR>
 nmap <C-Down> :resize -10<CR>
@@ -287,12 +281,17 @@ nnoremap <leader>fo :History<CR>
 nnoremap <leader>fb :Buffers<CR>
 " search for files
 nnoremap <leader>ff :Files<CR>
+" grep in project
+nnoremap <leader>fg :Ag<space>
 " search in open buffers for lines
 nnoremap <leader>fl :Lines<CR>
 " search word in all files with silversearcher
-nnoremap <leader>fw :Ag<CR>
+nnoremap <leader>fw :Ag <C-r>=expand("<cword>")<CR><CR>
+vmap <leader>fw y :Ag <C-r>"<CR>
 " open Commits
 nnoremap <leader>fc :Commits<CR>
+" open Buffer Commits
+nnoremap <leader>fbc :BCommits<CR>
 " / fzf plugins
 
 
@@ -301,10 +300,6 @@ nnoremap <F7> :G<CR>
 
 " switch to next buffer and close previous
 nnoremap <leader>x :bp\|bd #<CR>
-
-" search for word in entire project when selected
-" in visual mode
-vmap <leader>f y :Ag <C-r>"<CR>
 
 " show opened file in tree
 map <leader>l :NERDTreeFind<CR>
