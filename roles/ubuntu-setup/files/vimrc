@@ -107,6 +107,8 @@ set softtabstop=2
 set expandtab
 set viminfo='25,\"50,n~/.viminfo
 
+" sync vim and system clipboard
+set clipboard=unnamed,unnamedplus
 
 " ##############
 " # coc config #
