@@ -123,6 +123,10 @@ highlight CocMenuSel ctermfg=235 ctermbg=39
 " see https://stackoverflow.com/questions/23189568/control-space-vim-key-binding-in-normal-mode-does-not-work
 inoremap <silent><expr> <c-@> coc#refresh()
 
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 " Highlight the symbol and its references when holding the cursor
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
