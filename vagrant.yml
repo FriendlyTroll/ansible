@@ -2,6 +2,8 @@
 - name: Vagrant setup
   hosts: all
   become: true
+  vars:
+    docker_compose_version: "v2.25.0"
 
   #    ansible_python_interpreter: /usr/bin/python3
   tasks:
@@ -74,17 +76,32 @@
               - docker-ce-cli 
               - containerd.io
               - docker-buildx-plugin
-              - docker-compose-plugin
           state: latest
           update_cache: yes
       tags: docker
+
+    - name: Install docker-compose
+      shell: 'curl -L "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/bin/docker-compose'
+
+    - name: Make docker-compose executable
+      file:
+        path: "/usr/bin/docker-compose"
+        mode: a+x
+        state: file
+      tags: deploy_artifact
 
     - name: Create docker networks
       docker_network:
           name: "{{ item }}"
       loop:
           - frontend-services-dev
+          - frontend-services-pre
+          - frontend-services-live
           - backend-services-dev
+          - backend-services-dev-it
+          - backend-services-dev-de
+          - backend-services-pre-it
+          - backend-services-pre-de
           - backend-services-live
       tags: docker
 
