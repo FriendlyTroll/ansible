@@ -18,6 +18,13 @@
   become: true
   become_user: root
 
+- name: Install vim repo
+  apt_repository:
+      repo: ppa:jonathonf/vim 
+      state: present
+  become: true
+  become_user: root
+
 - name: Add slack apt key
   apt_key:
       url: https://packagecloud.io/slacktechnologies/slack/gpgkey
