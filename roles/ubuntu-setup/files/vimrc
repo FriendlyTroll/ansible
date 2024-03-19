@@ -112,6 +112,11 @@ set viminfo='25,\"50,n~/.viminfo
 set clipboard=unnamed,unnamedplus
 
 set iskeyword+=-
+
+" vertical selection menu on tab completion
+set wildmenu
+set wildoptions=pum
+
 " ##############
 " # coc config #
 " ##############
