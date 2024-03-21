@@ -40,20 +40,20 @@
           update_cache: yes
 
     - name: Debian 8 tasks
-      include: debian8.yml
+      include_tasks: debian8.yml
       when: ansible_distribution == 'Debian' and (ansible_distribution_major_version == '8' or ansible_distribution_major_version == '9')
     
     - name: Debian 10 tasks
-      include: debian10.yml
+      include_tasks: debian10.yml
       when: ansible_distribution == 'Debian' and ansible_distribution_major_version == '10'
 
     - name: Debian 11 tasks
-      include: debian11.yml
+      include_tasks: debian11.yml
       when: ansible_distribution == 'Debian' and ansible_distribution_major_version == '11'
       
     - name: Debian 12 tasks
       # reusing the same tasks as Debian 11
-      include: debian12.yml
+      include_tasks: debian12.yml
       when: ansible_distribution == 'Debian' and ansible_distribution_major_version == '12'
 
     - name: Add APT gpg key for Docker repo
@@ -123,5 +123,10 @@
         regexp: ^PS1= 
         line: 'PS1="\[\033[38;5;177m\]\u\[$(tput sgr0)\]@\[$(tput sgr0)\]\[\033[38;5;177m\]\h\[$(tput sgr0)\]:\[$(tput sgr0)\]\[\033[38;5;6m\][\w]\[$(tput sgr0)\]: \[$(tput sgr0)\]"'
 
+    - name: Copy LE certs
+      copy:
+        dest: /etc/letsencrypt/
+        src: /vagrant/letsencrypt_certs_de_dev/
+        remote_src: yes
 
     
