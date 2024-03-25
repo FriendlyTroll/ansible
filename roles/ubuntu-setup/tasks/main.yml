@@ -4,104 +4,91 @@
   register: ubuntu_version
   tags: docker
 
-- name: Add skype apt key
-  apt_key:
-      url: https://repo.skype.com/data/SKYPE-GPG-KEY
-      state: present
-  become: true
-  become_user: root
+- block:
+  - name: Add skype apt key
+    apt_key:
+        url: https://repo.skype.com/data/SKYPE-GPG-KEY
+        state: present
 
-- name: Install skype repo
-  apt_repository:
-      repo: deb [arch=amd64] https://repo.skype.com/deb stable main
-      state: present
-  become: true
-  become_user: root
+  - name: Install skype repo
+    apt_repository:
+        repo: deb [arch=amd64] https://repo.skype.com/deb stable main
+        state: present
 
-- name: Install vim repo
-  apt_repository:
-      repo: ppa:jonathonf/vim 
-      state: present
-  become: true
-  become_user: root
+  - name: Install vim repo
+    apt_repository:
+        repo: ppa:jonathonf/vim 
+        state: present
 
-- name: Add slack apt key
-  apt_key:
-      url: https://packagecloud.io/slacktechnologies/slack/gpgkey
-      state: present
-  become: true
-  become_user: root
+  - name: Add slack apt key
+    apt_key:
+        url: https://packagecloud.io/slacktechnologies/slack/gpgkey
+        state: present
 
-- name: Install slack repo
-  apt_repository:
-      repo: deb https://packagecloud.io/slacktechnologies/slack/debian/ jessie main
-      state: present
-  become: true
-  become_user: root
+  - name: Install slack repo
+    apt_repository:
+        repo: deb https://packagecloud.io/slacktechnologies/slack/debian/ jessie main
+        state: present
 
-# https://protonvpn.com/support/linux-ubuntu-vpn-setup/
-- name: Install protonvpn repo
-  apt:
-    deb: https://repo.protonvpn.com/debian/dists/stable/main/binary-all/protonvpn-stable-release_{{ protonvpn_version }}_all.deb
-  tags: packages
-  become: true
-  become_user: root
+  # https://protonvpn.com/support/linux-ubuntu-vpn-setup/
+  - name: Install protonvpn repo
+    apt:
+      deb: https://repo.protonvpn.com/debian/dists/stable/main/binary-all/protonvpn-stable-release_{{ protonvpn_version }}_all.deb
+    tags: packages
 
-- name: Install ubuntu packages
-  apt:
-      name:
-          - ubuntu-restricted-extras
-          - imagemagick
-          - curl
-          - git
-          - sshfs
-          - vim
-          - zenity
-          - mpv
-          - syncthing
-          - syncthing-gtk
-          - chrome-gnome-shell
-          - keepassxc
-          - vim-gtk3
-          - fzf
-          - universal-ctags
-          - mlocate
-          - filezilla
-          - bsdutils
-          - python3-pip
-          - asciinema
-          - slack-desktop
-          - skypeforlinux
-          - xclip
-          - protonvpn
-          - whois
-          - smplayer
-          - yamllint
-          - flameshot
-          - borgbackup
-          - tmux
-          - silversearcher-ag
-          - isort
-          - openjdk-19-jdk
-      update_cache: yes
-  become: true
-  become_user: root
-  tags: packages
+  - name: Install ubuntu packages
+    apt:
+        name:
+            - ubuntu-restricted-extras
+            - imagemagick
+            - curl
+            - git
+            - sshfs
+            - vim
+            - zenity
+            - mpv
+            - syncthing
+            - syncthing-gtk
+            - chrome-gnome-shell
+            - keepassxc
+            - vim-gtk3
+            - fzf
+            - universal-ctags
+            - mlocate
+            - filezilla
+            - bsdutils
+            - python3-pip
+            - asciinema
+            - slack-desktop
+            - skypeforlinux
+            - xclip
+            - protonvpn
+            - whois
+            - smplayer
+            - yamllint
+            - flameshot
+            - borgbackup
+            - tmux
+            - silversearcher-ag
+            - isort
+            - openjdk-19-jdk
+        update_cache: yes
+    tags: packages
 
-- name: Install python specific packages
-  apt:
-      name:
-          - flake8
-      update_cache: true
+  - name: Install python specific packages
+    apt:
+        name:
+            - flake8
+        update_cache: true
+    tags: python-packages
+
   become: true
   become_user: root
-  tags: python-packages
 
 - name: Install python pip packages
   pip:
     name: 
       - tldr
-      - ansible
   tags: pip-packages
 
 - name: Install desktop specific ubuntu packages

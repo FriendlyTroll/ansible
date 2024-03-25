@@ -33,33 +33,53 @@
     - community.docker
     - community.mysql
 
-- name: Install kubectl snap
-  command: snap install kubectl --classic
+- block:
+  - name: Install ansible repo
+    apt_repository:
+        repo: ppa:ansible/ansible
+        state: present
+    tags: ansible
+  
+  - name: Install ansible
+    apt:
+      name:
+        - ansible
+    tags: ansible
+
+  - name: Install kubectl snap
+    command: snap install kubectl --classic
+
+  - name: Install helm snap
+    command: snap install helm --classic
+
+  - name: Install eksctl
+    shell: |
+      # for ARM systems, set ARCH to: `arm64`, `armv6` or `armv7`
+      ARCH=amd64
+      PLATFORM=$(uname -s)_$ARCH
+
+      curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
+
+      # (Optional) Verify checksum
+      curl -sL "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_checksums.txt" | grep $PLATFORM | sha256sum --check
+
+      tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
+
+      sudo mv /tmp/eksctl /usr/local/bin
+    tags: aws, eks
+
+  - name: Install github cli
+    shell: |
+      type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
+      curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+      && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+      && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+      && sudo apt update \
+      && sudo apt install gh -y
+    tags: gh, github
+
   become: true
   become_user: root
-
-- name: Install helm snap
-  command: snap install helm --classic
-  become: true
-  become_user: root
-
-- name: Install eksctl
-  shell: |
-    # for ARM systems, set ARCH to: `arm64`, `armv6` or `armv7`
-    ARCH=amd64
-    PLATFORM=$(uname -s)_$ARCH
-
-    curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
-
-    # (Optional) Verify checksum
-    curl -sL "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_checksums.txt" | grep $PLATFORM | sha256sum --check
-
-    tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
-
-    sudo mv /tmp/eksctl /usr/local/bin
-  become: true
-  become_user: root
-  tags: aws, eks
 
 - name: Install aws config files
   template:
@@ -69,16 +89,4 @@
     - config
     - credentials
   tags: aws, config
-
-- name: Install github cli
-  shell: |
-    type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
-    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
-    && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
-    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-    && sudo apt update \
-    && sudo apt install gh -y
-  become: true
-  become_user: root
-  tags: gh, github
 
