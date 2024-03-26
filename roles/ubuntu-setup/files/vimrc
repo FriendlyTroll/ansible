@@ -49,29 +49,12 @@ let mapleader=" "
 filetype plugin indent on
 syntax on
 
-
-" ##########
-" # colors #
-" ##########
-" color scheme
-colorscheme onedark
-" this has to be applied after colorscheme
-" buftabline custom highlight
-highlight link BufTabLineCurrent WildMenu
-highlight link BufTabLineActive debugPC
-" pop menu highlighted item color
-highlight link PmenuSel WildMenu
-
-" enable 256 colors
-set t_Co=256
-set t_ut=
-
-" color the column 80
-"set colorcolumn=80
-
-" ###########
-" # /colors #
-" ###########
+" unlimited undo history
+if has('persistent_undo')      
+  set undofile                 
+  silent !mkdir -p ~/.vim/undo 
+  set undodir=$HOME/.vim/undo 
+  endif
 
 " writes swap faster and also updates gitgutter icons (miliseconds)
 set updatetime=1000
@@ -117,9 +100,79 @@ set iskeyword+=-
 set wildmenu
 set wildoptions=pum
 
-" ##############
-" # coc config #
-" ##############
+" file browser
+let NERDTreeIgnore = ['\.pyc$', '__pycache__']
+let NERDTreeMinimalUI = 1
+let g:nerdtree_open = 0
+
+function NERDTreeToggle()
+    if g:nerdtree_open == 1
+        let g:nerdtree_open = 0
+    else
+        let g:nerdtree_open = 1
+        wincmd p
+    endif
+endfunction
+
+function! StartUp()
+    if 0 == argc()
+        NERDTree
+    end
+endfunction
+
+" disable autoindent when pasting text
+" source: https://coderwall.com/p/if9mda/automatically-set-paste-mode-in-vim-when-pasting-in-insert-mode
+let &t_SI .= "\<Esc>[?2004h"
+let &t_EI .= "\<Esc>[?2004l"
+
+
+" +----------------------------------------------------------------+
+" |                                                                |
+" |                                                                |
+" |                                                                |
+" |                       Colorscheme                              |
+" |                                                                |
+" |                                                                |
+" |                                                                |
+" |                                                                |
+" +----------------------------------------------------------------+
+colorscheme onedark
+" this has to be applied after colorscheme
+" buftabline custom highlight
+highlight link BufTabLineCurrent WildMenu
+highlight link BufTabLineActive debugPC
+" pop menu highlighted item color
+highlight link PmenuSel WildMenu
+
+" enable 256 colors
+set t_Co=256
+set t_ut=
+
+" lightline
+set noshowmode
+let g:lightline = { 'colorscheme': 'onedark',
+                  \ 'active': {
+                  \ 'left': [ [ 'mode', 'paste' ],
+                  \           [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+                  \ },
+                  \ 'component_function': {
+                  \ 'gitbranch': 'FugitiveHead' },
+                  \ }
+
+" color the column 80
+"set colorcolumn=80
+
+
+" +----------------------------------------------------------------+
+" |                                                                |
+" |                                                                |
+" |                                                                |
+" |                            Coc                                 |
+" |                                                                |
+" |                                                                |
+" |                                                                |
+" |                                                                |
+" +----------------------------------------------------------------+
 " change highlight color of selected item
 " link to other group example
 " highlight link CocMenuSel TabLineSel
@@ -214,47 +267,17 @@ if has('nvim-0.4.0') || has('patch-8.2.0750')
   vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
 
-" ################
-" # / coc config #
-" ################
 
-
-" lightline
-set noshowmode
-let g:lightline = { 'colorscheme': 'onedark',
-                  \ 'active': {
-                  \ 'left': [ [ 'mode', 'paste' ],
-                  \           [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-                  \ },
-                  \ 'component_function': {
-                  \ 'gitbranch': 'FugitiveHead' },
-                  \ }
-
-
-" file browser
-let NERDTreeIgnore = ['\.pyc$', '__pycache__']
-let NERDTreeMinimalUI = 1
-let g:nerdtree_open = 0
-
-function NERDTreeToggle()
-    if g:nerdtree_open == 1
-        let g:nerdtree_open = 0
-    else
-        let g:nerdtree_open = 1
-        wincmd p
-    endif
-endfunction
-
-function! StartUp()
-    if 0 == argc()
-        NERDTree
-    end
-endfunction
-
-
-" ##################
-" # custom key map #
-" ##################
+" +----------------------------------------------------------------+
+" |                                                                |
+" |                                                                |
+" |                                                                |
+" |                      Custom keymaps                            |
+" |                                                                |
+" |                                                                |
+" |                                                                |
+" |                                                                |
+" +----------------------------------------------------------------+
 " indent/unindent with tab/shift-tab
 "nmap <Tab> >>
 nmap <S-tab> <<
@@ -315,7 +338,6 @@ nnoremap <leader>fc :Commits<CR>
 nnoremap <leader>fbc :BCommits<CR>
 " / fzf plugins
 
-
 " open vimfugitive git window
 nnoremap <F7> :G<CR>
 
@@ -354,20 +376,17 @@ nnoremap qc   :cclose<CR>
 " quit window
 nnoremap gq   :quit<CR>
 
-" ##################
-" #/custom key map #
-" ##################
 
-
-" disable autoindent when pasting text
-" source: https://coderwall.com/p/if9mda/automatically-set-paste-mode-in-vim-when-pasting-in-insert-mode
-let &t_SI .= "\<Esc>[?2004h"
-let &t_EI .= "\<Esc>[?2004l"
-
-
-" ##############
-" # F keys map #
-" ##############
+" +----------------------------------------------------------------+
+" |                                                                |
+" |                                                                |
+" |                                                                |
+" |                      F keys mapping                            |
+" |                                                                |
+" |                                                                |
+" |                                                                |
+" |                                                                |
+" +----------------------------------------------------------------+
 " fzf plugins
 " open command history
 nnoremap <F1> :History:<CR>
@@ -394,25 +413,18 @@ nnoremap <F7> :G<CR>
 
 " switch to next buffer and close previous
 nnoremap <F12> :bp\|bd #<CR>
-" ##############
-" #/F keys map #
-" ##############
 
 
-" unlimited undo history
-if has('persistent_undo')      
-  set undofile                 
-  silent !mkdir -p ~/.vim/undo 
-  set undodir=$HOME/.vim/undo 
-  endif
-
-" - down / up / left / right
-let g:fzf_layout = { 'down': '50%' }
-
-
-" ################
-" # autocommands #
-" ################
+" +----------------------------------------------------------------+
+" |                                                                |
+" |                                                                |
+" |                                                                |
+" |                         Autocommands                           |
+" |                                                                |
+" |                                                                |
+" |                                                                |
+" |                                                                |
+" +----------------------------------------------------------------+
 " automatically decrypt ansible vault when reading it
 " see above mapping to encrypt
 autocmd BufNewFile,BufRead *
@@ -448,10 +460,18 @@ augroup END
 autocmd BufRead,BufNewFile */ansible/*.yml set filetype=yaml.ansible
 
 autocmd BufEnter Jenkinsfile set filetype=groovy
-" ################
-" #/autocommands #
-" ################
 
+
+" +----------------------------------------------------------------+
+" |                                                                |
+" |                                                                |
+" |                                                                |
+" |                            Fzf                                 |
+" |                                                                |
+" |                                                                |
+" |                                                                |
+" |                                                                |
+" +----------------------------------------------------------------+
 " search for text in hidden files as well, but not in .gitignore
 " add -U to search in .gitignore as well
 command! -bang -nargs=* Ag
@@ -462,3 +482,7 @@ let g:fzf_action = {
   \ 'ctrl-x': 'split',
   \ 'ctrl-o': 'GB',
   \ 'ctrl-v': 'vsplit' }
+"
+" - down / up / left / right
+let g:fzf_layout = { 'down': '50%' }
+
