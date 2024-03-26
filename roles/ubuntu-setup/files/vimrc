@@ -456,3 +456,9 @@ autocmd BufEnter Jenkinsfile set filetype=groovy
 " add -U to search in .gitignore as well
 command! -bang -nargs=* Ag
     \ call fzf#vim#ag(<q-args>, '--hidden', call('fzf#vim#with_preview', ['right', 'ctrl-/']), <bang>0)
+
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-o': 'GB',
+  \ 'ctrl-v': 'vsplit' }
