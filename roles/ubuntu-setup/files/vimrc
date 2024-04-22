@@ -475,7 +475,7 @@ autocmd BufEnter Jenkinsfile set filetype=groovy
 " search for text in hidden files as well, but not in .gitignore
 " add -U to search in .gitignore as well
 command! -bang -nargs=* Ag
-    \ call fzf#vim#ag(<q-args>, '--hidden', call('fzf#vim#with_preview', ['right', 'ctrl-/']), <bang>0)
+    \ call fzf#vim#ag(<q-args>, '--hidden --ignore-case', call('fzf#vim#with_preview', ['right', 'ctrl-/']), <bang>0)
 
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
