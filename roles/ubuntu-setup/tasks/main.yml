@@ -72,6 +72,8 @@
             - silversearcher-ag
             - isort
             - openjdk-19-jdk
+            - autokey-common
+            - autokey-gtk
         update_cache: yes
     tags: packages
 
