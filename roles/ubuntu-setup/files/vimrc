@@ -28,8 +28,6 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'tommcdo/vim-fubitive'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'pearofducks/ansible-vim'
