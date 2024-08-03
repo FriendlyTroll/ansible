@@ -1,0 +1,2 @@
+<!-- Maps 3 dots button (left of 0 button) to contextmenu -->
+<keymap><global><keyboard><key id="50">contextmenu</key></keyboard></global></keymap>
