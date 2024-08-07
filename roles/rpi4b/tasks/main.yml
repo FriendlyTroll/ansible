@@ -28,4 +28,24 @@
   apt:
       name: 
         - vim
+        - sshfs
+        - kodi
+        - kodi-inputstream-adaptive
   tags: packages
+
+- name: Add keymap file for LG TV remote
+  file:
+    src: lgremote.xml
+    dest: "$HOME/.kodi/userdata/keymaps/lgremote.xml"
+
+- name: Mount touro disk at startup
+  mount:
+      path: /root/rpi3_touro
+      state: present
+      src: root@192.168.99.143:/media/touro
+      fstype: fuse.sshfs
+      opts: noauto,user,x-systemd.automount,defaults,_netdev,allow_other,identityfile=/root/.ssh/id_ed25519
+  become: true
+  become_user: root
+  tags: mounts
+
