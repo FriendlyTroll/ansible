@@ -164,6 +164,8 @@ alias ff="find . | fzf | xargs -r xdg-open"
 # cd to directory
 alias fd='cd $(find $HOME -type d -print | fzf)'
 
+export FZF_DEFAULT_OPTS=--cycle
+
 borgmountbackup () {
   TEMP_DIR=$(mktemp --directory --suffix _borg_backup)
   borg mount "$BORG_REPO::$@" $TEMP_DIR
