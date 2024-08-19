@@ -387,29 +387,6 @@ nnoremap gq   :quit<CR>
 " |                                                                |
 " |                                                                |
 " +----------------------------------------------------------------+
-" fzf plugins
-" open command history
-nnoremap <F1> :History:<CR>
-
-" open buffers
-nnoremap <F2> :Buffers<CR>
-
-" search for filenames with F3 key
-nnoremap <F3> :Files<CR>
-
-" search in open buffers
-nnoremap <F4> :Lines<CR>
-
-" search word in all files with silversearcher
-nnoremap <F5> :Ag<CR>
-
-" open Commits
-nnoremap <F6> :Commits<CR>
-
-" / fzf plugins
-
-" open vimfugitive git window
-nnoremap <F7> :G<CR>
 
 " switch to next buffer and close previous
 nnoremap <F12> :bp\|bd #<CR>
