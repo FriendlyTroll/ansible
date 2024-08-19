@@ -175,6 +175,7 @@
       - { src: "coc-settings.json", dest: "$HOME/.vim/coc-settings.json" }
       - { src: "gitignore", dest: "$HOME/.gitignore" }
       - { src: "tridactyl.rc", dest: "$HOME/.tridactyl.rc" }
+      - { src: "agignore", dest: "$HOME/.agignore" }
   tags: config, vimrc
 
 - name: Link home fonts folder in asciinema folder
