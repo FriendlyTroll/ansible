@@ -156,6 +156,8 @@ alias ape='source venv/bin/activate'
 alias rec='asciinema rec $HOME/Documents/terminal_logs/$(date +"%F_%H-%M-%S").cast -c "tmux"'
 alias v='nvim'
 
+alias aws-ec2-ls="aws ec2 describe-instances --output table --query 'Reservations[].Instances[*].{InstanceType: InstanceType, InstanceId: InstanceId, State: State.Name}'"
+
 # fzf aliases
 # open files
 alias ff="find . | fzf | xargs -r xdg-open"
