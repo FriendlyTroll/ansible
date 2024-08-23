@@ -15,6 +15,7 @@ Environment={{cse}}
 PIDFile={{ confluence_install_dir }}/work/catalina.pid
 ExecStart={{ confluence_install_dir }}/bin/start-confluence.sh
 ExecStop={{ confluence_install_dir }}/bin/stop-confluence.sh
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
