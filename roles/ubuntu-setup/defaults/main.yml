@@ -8,3 +8,6 @@ borg_key_export_path: /home/antisa
 
 nerd_font_version: v3.0.1
 protonvpn_version: 1.0.3-2
+  
+# https://download.virtualbox.org/virtualbox/
+virtualbox_version: 7.0.20/virtualbox-7.0_7.0.20-163906~Ubuntu~jammy_amd64.deb

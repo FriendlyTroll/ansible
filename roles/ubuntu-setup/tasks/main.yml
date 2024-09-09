@@ -425,7 +425,23 @@
   tags: docker
 
 - name: Add tmux plugin manager
-  command: git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  git:
+    repo: https://github.com/tmux-plugins/tpm
+    depth: 1
+    dest: ~/.tmux/plugins/tpm 
+    accept_hostkey: true
   tags: tmux
 
 
+- block:
+  - name: Install virtualbox {{ virtualbox_version }}
+    apt:
+      deb: https://download.virtualbox.org/virtualbox/{{ virtualbox_version }}
+
+  - name: Add user to vboxusers group
+    command: usermod -aG vboxusers antisa
+    
+
+  become: true
+  become_user: root
+  tags: vbox
