@@ -74,6 +74,7 @@
             - openjdk-19-jdk
             - autokey-common
             - autokey-gtk
+            - pipx
         update_cache: yes
     tags: packages
 
