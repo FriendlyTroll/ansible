@@ -17,6 +17,7 @@
   unarchive:
       src: /tmp/nagios-plugins.tar.gz
       dest: /tmp/
+      remote_src: yes
 
 - name: Compile and install
   command:

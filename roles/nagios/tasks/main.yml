@@ -17,6 +17,7 @@
   unarchive:
       src: /tmp/nagioscore.tar.gz
       dest: /tmp/
+      remote_src: yes
 
 - name: Configure nagios installation
   command:
@@ -72,10 +73,13 @@
       name: cgi
 
 - name: Create nagiosadmin account - pwd "admin" (CHANGE THIS AFTER!)
-  file:
-      path: htpasswd.users
-      dest: /usr/local/nagios/etc/
-  notify: Restart apache, Start nagios
+  copy:
+    src: htpasswd.users
+    dest: /usr/local/nagios/etc/htpasswd.users
+  notify: 
+    - restart apache
+    - start nagios
+  tags: user
 
 - name: Install nagios plugins
   include_tasks: install_plugins.yml
