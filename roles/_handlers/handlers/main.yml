@@ -44,7 +44,7 @@
   changed_when: false
   ignore_errors: true
 
-- name: Start nagios
+- name: start nagios
   service:
     name: nagios
     state: started
