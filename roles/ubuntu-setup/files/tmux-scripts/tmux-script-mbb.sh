@@ -24,9 +24,11 @@ deploy_windows=(
 )
 other_sessions=(
   vagrant
+  sty
 )
 other_dirs=(
   /home/antisa/vagrant_playground/
+  /home/antisa/Posal/Stylight/Code
 )
 
 for index in ${!ansible_sessions[*]};do
