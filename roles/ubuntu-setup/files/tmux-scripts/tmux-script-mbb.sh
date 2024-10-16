@@ -44,6 +44,7 @@ done
 
 tmux send-keys -t int:deploy "$SSH_CMD provisioning-i18n" Enter
 tmux send-keys -t de:deploy "$SSH_CMD provisioning" Enter
+tmux send-keys -t sty "export AWS_PROFILE=stylight" Enter
 
 # record the tmux sessions
 asciinema rec $HOME/Documents/terminal_logs/$(date +"%F_%H-%M-%S").cast -c "tmux attach -t ${ansible_sessions[0]}:${ansible_windows[0]}"
