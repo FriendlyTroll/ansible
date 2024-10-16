@@ -66,6 +66,7 @@ trap 'echo $( date ) Backup interrupted >&2; exit 2' INT TERM
     --exclude '/home/*/.gvfs'    \
     --exclude '/home/*/.steam'    \
     --exclude '/home/*/VirtualBox VMs'    \
+    --exclude '/home/*/borg_backup'    \
                                     \
     ::'{hostname}-{now}'            \
     /home/antisa                    \
@@ -92,7 +93,7 @@ prune_exit=$?
 
 # actually free repo disk space by compacting segments
 # /usr/bin/notify-send --icon=org.gnome.DejaDup "Compacting repository"
-/usr/bin/borg compact $BORG_REPO
+/usr/bin/borg compact "$BORG_REPO"
 
 compact_exit=$?
 
