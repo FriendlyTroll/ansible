@@ -162,7 +162,7 @@ alias aws-ec2-ls="aws ec2 describe-instances --output table --query 'Reservation
 # open files
 alias ff="find . | fzf | xargs -r xdg-open"
 # cd to directory
-alias fd='cd $(find $HOME -type d -print | fzf)'
+alias fd='cd $(find $HOME -type d -print | fzf --layout=reverse)'
 
 export FZF_DEFAULT_OPTS=--cycle
 
