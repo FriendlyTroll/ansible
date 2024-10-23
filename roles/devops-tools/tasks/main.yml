@@ -100,3 +100,9 @@
 - name: Print info about gcloud
   debug:
     msg: "Remember to run gcloud init after gcloud installation"
+
+- name: Install pulumi
+  shell: |
+    curl -fsSL https://get.pulumi.com | sh
+  tags: pulumi
+
