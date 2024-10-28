@@ -176,11 +176,3 @@ borgmountbackup () {
 settitle() {
   printf "\033k$1\033\\"
 }
-
-ssh() {
-     tmux rename-window "$*"
-     command ssh "$@"
-     bash
-}
-
-
