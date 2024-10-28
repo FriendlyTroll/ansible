@@ -23,7 +23,7 @@ HISTFILESIZE=10000
 export HISTTIMEFORMAT="%F %T "
 
 # Save each command right after it has been executed to prevent losing history in case of crash or when session terminates improperly
-#PROMPT_COMMAND="history -a; history -c; history -r"
+PROMPT_COMMAND="history -a; history -w; history -r"
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
