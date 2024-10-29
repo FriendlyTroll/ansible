@@ -78,6 +78,13 @@
       && sudo apt install gh -y
     tags: gh, github
 
+  - name: Install aws-cli
+    shell: |
+      curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+      unzip awscliv2.zip
+      sudo ./aws/install
+    tags: aws, aws-cli
+
   become: true
   become_user: root
 
@@ -89,6 +96,12 @@
     - config
     - credentials
   tags: aws, config
+
+- name: Add aws-cli bash-completion
+  lineinfile:
+    path: "$HOME/.bashrc"
+    line: complete -C '/usr/local/bin/aws_completer' aws
+  tags: aws
 
 # https://cloud.google.com/sdk/docs/install
 - name: Install Google cloud tool - gcloud
