@@ -124,7 +124,7 @@ endfunction
 let &t_SI .= "\<Esc>[?2004h"
 let &t_EI .= "\<Esc>[?2004l"
 
-let g:peekaboo_window = "vertical bo 30new"
+let g:peekaboo_window = "vertical bo 100new"
 
 " +----------------------------------------------------------------+
 " |                                                                |
