@@ -104,6 +104,14 @@
     line: complete -C '/usr/local/bin/aws_completer' aws
   tags: aws
 
+
+- name: Install aws-vault
+  get_url:
+    url: https://github.com/99designs/aws-vault/releases/download/v{{ aws_vault_version }}/aws-vault-linux-amd64
+    dest: /usr/local/bin/aws-vault
+    mode: '0755'
+  tags: aws
+
 # https://cloud.google.com/sdk/docs/install
 - name: Install Google cloud tool - gcloud
   shell: |
@@ -119,4 +127,3 @@
   shell: |
     curl -fsSL https://get.pulumi.com | sh
   tags: pulumi
-
