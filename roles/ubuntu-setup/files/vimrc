@@ -223,8 +223,10 @@ let g:coc_filetype_map = {
 
 
 " Add `:OR` command for organize imports of the current buffer
-command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
+command! -nargs=0 OR   :call CocActionAsync('runCommand', 'editor.action.organizeImport')
 
+" Open a list of diagnostics from all buffers
+command! -nargs=0 D :CocList diagnostics
 
 " Applying code actions to the selected code block
 " Example: `<leader>aap` for current paragraph
