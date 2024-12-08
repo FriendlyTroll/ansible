@@ -67,7 +67,7 @@ trap 'echo $( date ) Backup interrupted >&2; exit 2' INT TERM
     --exclude '/home/*/.steam'    \
     --exclude '/home/*/VirtualBox VMs'    \
     --exclude '/home/*/borg_backup'    \
-                                    \
+    --exclude '/home/*/.ansible/tmp'    \
     ::'{hostname}-{now}'            \
     /home/antisa                    \
 
