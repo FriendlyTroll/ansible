@@ -1,0 +1,39 @@
+---
+- name: Set timezone
+  community.general.timezone:
+    name: Europe/Zagreb
+
+- name: Install useful packages
+  apt:
+    update_cache: yes
+    name:
+      - ufw
+      - vim
+
+- name: Allow ssh and web in firewall
+  ufw:
+    name: "{{ item }}"
+    direction: in
+    rule: allow
+  loop:
+    - WWW Full
+    - OpenSSH
+
+- name: Set default deny in policy for incoming traffic
+  community.general.ufw:
+    direction: incoming
+    default: deny
+   
+- name: Set default allow for outgoing policy and enable firewall 
+  community.general.ufw:
+    state: enabled
+    direction: outgoing
+    default: allow
+
+- name: Disable ssh login with password
+  replace:
+    path: /etc/ssh/sshd_config
+    regexp: ^#PasswordAuthentication yes
+    replace: PasswordAuthentication no
+  notify: restart sshd
+

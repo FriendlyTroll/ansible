@@ -27,6 +27,10 @@
   service: name=netdata state=restarted
   when: (skip_handlers | default("false")) == "false"
 
+- name: restart sshd
+  service: name=sshd state=restarted
+  when: (skip_handlers | default("false")) == "false"
+
 - name: systemctl-daemon-reload
   systemd:
     daemon_reload: true
