@@ -1,12 +1,13 @@
 ---
 - name: Install apache
   apt:
-      name: apache2
-      state: present
+    name: apache2
+    state: present
+    update_cache: yes
 
 - name: Install apache modules for php-fpm
   apt:
-      name: ['libapache2-mod-fcgid', 'php7.4-fpm']
+      name: ['libapache2-mod-fcgid', 'php-fpm']
 
 - name: Install certbot stuff
   apt:
@@ -32,7 +33,7 @@
       - rewrite
 
 - name: Enable conf php-fpm
-  shell: /usr/sbin/a2enconf php7.4-fpm
+  shell: /usr/sbin/a2enconf php*
   notify: restart apache
 
 - name: Set up Apache virtual host
@@ -43,11 +44,6 @@
 - name: Enable new site
   shell: /usr/sbin/a2ensite {{ http_conf }}
   notify: reload apache
-
-- name: Install letsencrypt certificate via certbot
-  shell: /usr/bin/certbot --apache --noninteractive --agree-tos -m {{ email }} -d {{ ssl_domains }}
-  notify: restart apache
-  tags: letsencrypt, le
 
 - name: Check for netdata installation
   import_role:
