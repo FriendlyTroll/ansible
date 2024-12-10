@@ -28,7 +28,7 @@
 
 - name: Restore dokuwiki from backup
   unarchive:
-    src: /tmp/{{ dokuwiki_backup_filename }}
+    src: "{{ lookup('env', 'HOME')}}/{{ dokuwiki_backup_filename }}"
     dest: "{{ dokuwiki_web_path }}"
   when: restore_from_backup|default(false)
 
