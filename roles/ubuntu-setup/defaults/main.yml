@@ -1,6 +1,6 @@
 ---
 # https://apps.ankiweb.net/
-anki_version: 23.12.1
+anki_version: 24.11
 
 borg_repo_work: $HOME/borg_backup
 borg_repo_home: /mnt/wd4tb/borg_backup
