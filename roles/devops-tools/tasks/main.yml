@@ -96,13 +96,13 @@
   become_user: root
 
 - name: Install aws config files
-  template:
-    src: "aws/{{ item }}.j2"
+  copy:
+    src: "aws/{{ item }}.enc.j2"
     dest: "$HOME/.aws/{{ item }}"
   loop:
     - config
     - credentials
-  tags: aws, config
+  tags: aws, config, aws-config
 
 - name: Generate kubectl bash-completion
   shell: kubectl completion bash > ~/.kube/completion.bash.inc

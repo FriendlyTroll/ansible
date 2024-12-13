@@ -1,0 +1,89 @@
+[default]
+region = eu-central-1
+output = text
+
+[profile mojaws]
+region = eu-central-1
+output = text
+
+[profile caelor-confluence]
+region = ap-southeast-2
+output = text
+
+[profile icg]
+mfa_serial=arn:aws:iam::866425116084:mfa/ante
+mfa_process=op item get "AWS mfa" --otp
+region=eu-central-1
+output=json
+
+[profile stylight]
+mfa_serial=arn:aws:iam::866425116084:mfa/ante
+mfa_process=op item get "AWS mfa" --otp
+region=eu-central-1
+output=json
+
+[profile sty-pde]
+role_arn=arn:aws:iam::709895280842:role/pp-rolemops-production-AdminRole-23U4KFXHHWT2
+source_profile=stylight
+include_profile=stylight
+
+[profile sty-bmcx]
+role_arn=arn:aws:iam::636100542311:role/bcm-roles-production-AdminRole-19KNF9EDYOHPH
+source_profile=stylight
+include_profile=stylight
+
+[profile sty-shared]
+role_arn=arn:aws:iam::665411513658:role/ops-cloud-roles-production-OpsAdminStsRole-9S2GVL8M82CO
+source_profile=stylight
+include_profile=stylight
+
+[profile sty-data]
+role_arn=arn:aws:iam::780526473878:role/data-roles-production-AdminRole-QYWA7J9U0G5T
+source_profile=stylight
+include_profile=stylight
+
+[profile sty-office]
+role_arn=arn:aws:iam::705160688959:role/ops-infra-roles-production-OpsAdminStsRole-N6OF3D0JXNAS
+source_profile=stylight
+include_profile=stylight
+
+[profile sty-pgs]
+role_arn=arn:aws:iam::352172323354:role/pam-aws-roles-production-PAMAdminStsRole-18WGP1P4AW6Q
+source_profile=stylight
+include_profile=stylight
+
+[profile sty-pm]
+role_arn=arn:aws:iam::786316456560:role/cs-arches-production-CsAdminStsRole-1O86D0BWUWOUK
+source_profile=stylight
+include_profile=stylight
+
+[profile sty-product]
+role_arn=arn:aws:iam::337528212999:role/product-roles-production-AdminRole-90E0OR7C8WZ1
+source_profile=stylight
+include_profile=stylight
+
+[profile sty-qtm]
+role_arn=arn:aws:iam::227019662127:role/ps-roles-production-PsAdminStsRole-1FK5FXVW5YIYE
+source_profile=stylight
+include_profile=stylight
+
+[profile sty-root]
+role_arn=arn:aws:iam::866425116084:role/ops-root-roles-production-AdminRole-F4YYMKTUGHCP
+source_profile=stylight
+include_profile=stylight
+
+[profile sty-testlab]
+role_arn=arn:aws:iam::600407640591:role/testlab-roles-production-AdminRole-UTZOG2QOC3W
+source_profile=stylight
+include_profile=stylight
+
+[profile sty-org]
+role_arn=arn:aws:iam::767397805552:role/org-roles-production-AdminRole-qjFmfvfK9DUi
+source_profile=stylight
+include_profile=stylight
+
+[profile icg-services-staging]
+role_arn=arn:aws:iam::571600839146:role/wk-services-staging-admin
+source_profile=icg
+include_profile=icg
+
