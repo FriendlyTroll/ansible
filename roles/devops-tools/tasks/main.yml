@@ -86,6 +86,12 @@
       sudo ./aws/install
     tags: aws, aws-cli
 
+  - name: Install minikube
+    shell: |
+      curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+      sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
+    tags: minikube, k8s
+
   become: true
   become_user: root
 
@@ -104,6 +110,17 @@
     line: complete -C '/usr/local/bin/aws_completer' aws
   tags: aws
 
+- name: Generate kubectl bash-completion
+  shell: kubectl completion bash > ~/.kube/completion.bash.inc
+  tags: kubectl
+
+- name: Add kubectl bash-completion
+  blockinfile:
+    path: "$HOME/.bashrc"
+    block: |
+      # kubectl bash-completion
+      source "$HOME/.kube/completion.bash.inc"
+  tags: kubectl
 
 - name: Install aws-vault
   get_url:
@@ -118,10 +135,12 @@
     curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
     echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
     sudo apt-get update && sudo apt-get -y install google-cloud-cli
+  tags: google, gcloud
 
 - name: Print info about gcloud
   debug:
     msg: "Remember to run gcloud init after gcloud installation"
+  tags: google, gcloud
 
 - name: Install pulumi
   shell: |
