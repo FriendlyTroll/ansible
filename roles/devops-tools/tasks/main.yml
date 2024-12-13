@@ -104,22 +104,8 @@
     - credentials
   tags: aws, config
 
-- name: Add aws-cli bash-completion
-  lineinfile:
-    path: "$HOME/.bashrc"
-    line: complete -C '/usr/local/bin/aws_completer' aws
-  tags: aws
-
 - name: Generate kubectl bash-completion
   shell: kubectl completion bash > ~/.kube/completion.bash.inc
-  tags: kubectl
-
-- name: Add kubectl bash-completion
-  blockinfile:
-    path: "$HOME/.bashrc"
-    block: |
-      # kubectl bash-completion
-      source "$HOME/.kube/completion.bash.inc"
   tags: kubectl
 
 - name: Install aws-vault

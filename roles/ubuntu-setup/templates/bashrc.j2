@@ -176,3 +176,9 @@ borgmountbackup () {
 settitle() {
   printf "\033k$1\033\\"
 }
+
+# aws bash completion
+complete -C '/usr/local/bin/aws_completer' aws
+
+# kubectl bash-completion
+source "$HOME/.kube/completion.bash.inc"
