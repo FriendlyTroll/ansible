@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Pre-commit hook that verifies if all files containing 'vault' in the name
+# Pre-commit hook that verifies if all files containing FILES_PATTERN in the name
 # are encrypted.
 # If not, commit will fail with an error message
 #
@@ -8,7 +8,7 @@
 # https://www.reinteractive.net/posts/167-ansible-real-life-good-practices
 #
 # File should be .git/hooks/pre-commit and executable
-FILES_PATTERN='.*vault.*\.*$|cr[ei]dential'
+FILES_PATTERN='.*vault.*\.*$|cr[ei]dential|.*\.enc.*'
 REQUIRED='ANSIBLE_VAULT'
 
 EXIT_STATUS=0
