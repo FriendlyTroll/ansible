@@ -341,7 +341,7 @@ nnoremap <leader>fbc :BCommits<CR>
 " / fzf plugins
 
 " open vimfugitive git window
-nnoremap <leader>v :G<CR>
+nnoremap <leader>v :vertical G<CR>
 
 " switch to next buffer and close previous
 nnoremap <leader>x :bp\|bd #<CR>
