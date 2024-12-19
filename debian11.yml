@@ -1,9 +1,10 @@
 ---
-  - name: Install 11 specific packages
-    apt:
-        name:
-            - python3-pip
-            - python3-apt
-            - python3-docker
-            - python-is-python3
-        update_cache: yes
+- name: Install 11 specific packages
+  apt:
+    allow_unauthenticated: true
+    name:
+        - python3-pip
+        - python3-apt
+        - python3-docker
+        - python-is-python3
+    update_cache: yes
