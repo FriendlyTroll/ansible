@@ -1,0 +1,27 @@
+---
+- name: Set global git hooks directory
+  shell: git config --global core.hooksPath $HOME/.local/my_global_githooks
+  tags: git
+
+- name: Set global git ignore file
+  shell: git config --global core.excludesfile $HOME/.gitignore
+  tags: git
+
+- name: Set git to auto push to same upstream branch
+  shell: git config --global push.default current
+  tags: git
+
+- name: Copy git precommit script
+  copy:
+      src: "{{ item }}"
+      dest: "$HOME/.local/my_global_githooks/pre-commit"
+      mode: 0755
+  loop:
+    - "ansible-check-vault-encrypted.sh"
+  tags: scripts,git
+
+- name: Add global gitignore patterns
+  file:
+    src: gitignore
+    dest: "$HOME/.gitignore"
+  tags: git
