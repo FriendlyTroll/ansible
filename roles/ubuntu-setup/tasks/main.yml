@@ -427,10 +427,13 @@
 - block:
   - name: Install virtualbox {{ virtualbox_version }}
     apt:
-      deb: https://download.virtualbox.org/virtualbox/{{ virtualbox_version }}
+      deb: "{{ virtualbox_version }}"
 
   - name: Add user to vboxusers group
-    command: usermod -aG vboxusers antisa
+    user:
+      name: antisa
+      groups: vboxusers
+      append: yes
     
 
   become: true
