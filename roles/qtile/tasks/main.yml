@@ -1,0 +1,38 @@
+- name: Install qtile dependecies
+  apt:
+      name:
+          - python3-xcffib
+          - python3-cffi
+          - python3-cairocffi
+          - libpangocairo-1.0-0
+      update_cache: true
+  become: true
+  become_user: root
+  tags: python-packages
+
+- name: Install qtile pip packages
+  pip:
+    name: 
+      - qtile
+  tags: pip-packages
+
+- name: Add qtile desktop file
+  copy:
+    content: |
+      [Desktop Entry]
+      Name=Qtile
+      Comment=Qtile Session
+      Exec=qtile start
+      Type=Application
+      Keywords=wm;tiling
+    dest: /usr/share/xsessions/qtile.desktop
+
+- name: Add gnome-keyring to startup
+  blockinfile:
+      path: $HOME/.bashrc
+      block: |
+          if [ -n "$DESKTOP_SESSION" ];then
+              eval $(gnome-keyring-daemon --start)
+              export SSH_AUTH_SOCK
+          fi
+
