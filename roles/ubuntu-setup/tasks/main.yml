@@ -183,10 +183,15 @@
       - { src: "tmux.conf", dest: "$HOME/.tmux.conf" }
       - { src: "coc-settings.json", dest: "$HOME/.vim/coc-settings.json" }
       - { src: "gitignore", dest: "$HOME/.gitignore" }
-      - { src: "tridactyl.rc", dest: "$HOME/.tridactyl.rc" }
+      - { src: "tridactyl.rc", dest: "$HOME/.tridactylrc" }
       - { src: "agignore", dest: "$HOME/.agignore" }
       - { src: "profile", dest: "$HOME/.profile" }
   tags: config, vimrc
+
+- name: Install messenger for tridactylrc to work
+  shell:
+    cmd: curl -fsSl https://raw.githubusercontent.com/tridactyl/native_messenger/master/installers/install.sh -o /tmp/trinativeinstall.sh && sh /tmp/trinativeinstall.sh 1.24.2
+  tags: tridactyl
 
 - name: Link home fonts folder in asciinema folder
   file:

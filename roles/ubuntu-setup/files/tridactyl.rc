@@ -1,5 +1,7 @@
 " to import/export see
 " https://github.com/tridactyl/tridactyl/wiki/import-export-tridactylrc-with-clipboard
+" you also need to install native messenger for this rc file to work, in terminal run
+" curl -fsSl https://raw.githubusercontent.com/tridactyl/native_messenger/master/installers/install.sh -o /tmp/trinativeinstall.sh && sh /tmp/trinativeinstall.sh 1.24.2
 
 " General Settings
 set configversion 2.0
@@ -162,7 +164,6 @@ bind zO zoom 0.3
 bind . repeat
 bind <AS-ArrowUp><AS-ArrowUp><AS-ArrowDown><AS-ArrowDown><AS-ArrowLeft><AS-ArrowRight><AS-ArrowLeft><AS-ArrowRight>ba open https://www.youtube.com/watch?v=M3iOROuTuMA
 bind m gobble 1 markadd
-bind ` gobble 1 markjump
 bind gny tabopen https://www.youtube.com/watch?v=nV2J--VCG7Q
 bind goy open https://www.youtube.com/watch?v=nV2J--VCG7Q
 bind gwy winopen https://www.youtube.com/watch?v=nV2J--VCG7Q
