@@ -169,7 +169,7 @@
   template:
       src: bashrc.j2
       dest: $HOME/.bashrc
-  tags: config, scripts
+  tags: config, scripts, bashrc
 
 - name: Copy HOME .config files
   copy:
