@@ -32,6 +32,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ryanoasis/vim-devicons'
 Plug 'pearofducks/ansible-vim'
 Plug 'easymotion/vim-easymotion'
+Plug 'puremourning/vimspector'
+
 call plug#end()
 
 if need_to_install_plugins == 1
@@ -125,6 +127,8 @@ let &t_SI .= "\<Esc>[?2004h"
 let &t_EI .= "\<Esc>[?2004l"
 
 let g:peekaboo_window = "vertical bo 100new"
+
+let g:vimspector_enable_mappings = 'HUMAN'
 
 " +----------------------------------------------------------------+
 " |                                                                |
