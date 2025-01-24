@@ -121,11 +121,6 @@ function! StartUp()
     end
 endfunction
 
-" disable autoindent when pasting text
-" source: https://coderwall.com/p/if9mda/automatically-set-paste-mode-in-vim-when-pasting-in-insert-mode
-let &t_SI .= "\<Esc>[?2004h"
-let &t_EI .= "\<Esc>[?2004l"
-
 let g:peekaboo_window = "vertical bo 100new"
 
 let g:vimspector_enable_mappings = 'HUMAN'
