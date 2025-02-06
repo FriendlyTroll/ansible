@@ -439,6 +439,21 @@ autocmd BufRead,BufNewFile */ansible/*.yml set filetype=yaml.ansible
 
 autocmd BufEnter Jenkinsfile set filetype=groovy
 
+" Define an autocommand to move the Vimspector variables window to the top of the screen
+function! s:CustomiseVimspectorUI()
+  call win_gotoid( g:vimspector_session_windows.code )
+  execute "wincmd H"
+  execute "vertical resize 85"
+  call win_gotoid( g:vimspector_session_windows.variables )
+  execute "wincmd K"
+  execute "resize 30"
+endfunction
+
+augroup MyVimspectorUICustomisation
+  autocmd!
+  autocmd User VimspectorUICreated call s:CustomiseVimspectorUI()
+augroup END
+
 
 " +----------------------------------------------------------------+
 " |                                                                |
