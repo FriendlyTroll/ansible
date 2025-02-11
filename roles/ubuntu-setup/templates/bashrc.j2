@@ -182,4 +182,4 @@ settitle() {
 [ -x '/usr/local/bin/aws_completer' ] && complete -C '/usr/local/bin/aws_completer' aws
 
 # kubectl bash-completion
-[ -x "$HOME/.kube/completion.bash.inc" ] && source "$HOME/.kube/completion.bash.inc"
+[ -e "$HOME/.kube/completion.bash.inc" ] && source "$HOME/.kube/completion.bash.inc"
