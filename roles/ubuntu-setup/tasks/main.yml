@@ -269,6 +269,7 @@
   become: true
   become_user: root
   tags: mounts
+  when: '"XPS" not in ansible_hostname'
 
 - name: Mount Western digital disk at startup
   mount:
