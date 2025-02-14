@@ -2,6 +2,12 @@
 # called by alias from .bashrc
 SSH_CMD=/usr/bin/ssh
 
+# If an argument is given, VIM_CMD is set to vim +colorscheme $1
+VIM_CMD="vim"
+if [ -n "$1" ]; then
+      VIM_CMD="vim +'colorscheme $1'"
+fi
+
 ansible_sessions=(
   int
   de
@@ -30,7 +36,7 @@ other_dirs=(
 for index in ${!ansible_sessions[*]};do
   tmux new-session -d -s ${ansible_sessions[$index]} -n ${ansible_windows[$index]} -c ${ansible_dirs[$index]}
   tmux new-window -n deploy -c "${ansible_dirs[$index]}"
-  tmux send-keys -t ${ansible_sessions[$index]}:${ansible_windows[$index]} "vim" Enter
+  tmux send-keys -t ${ansible_sessions[$index]}:${ansible_windows[$index]} "$VIM_CMD" Enter
   tmux select-window -t 0
 done
 
@@ -42,7 +48,7 @@ tmux send-keys -t int:deploy "$SSH_CMD provisioning-i18n" Enter
 tmux send-keys -t de:deploy "$SSH_CMD provisioning" Enter
 
 tmux new-window -t icg: -n icg-infra-k8s-apps -c "/home/antisa/Posal/icg/icg-infra-k8s-apps"
-tmux send-keys -t icg:icg-infra-k8s-apps "vim" Enter
+tmux send-keys -t icg:icg-infra-k8s-apps "$VIM_CMD" Enter
 tmux set-environment -t icg AWS_PROFILE icg
 
 # record the tmux sessions
