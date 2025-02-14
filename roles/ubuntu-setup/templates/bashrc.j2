@@ -162,8 +162,12 @@ alias aws-ec2-ls="aws ec2 describe-instances --output table --query 'Reservation
 # fzf aliases
 # open files
 alias ff="find . | fzf | xargs -r xdg-open"
-# cd to directory
-alias fd='cd $(find $HOME -type d -print | fzf --layout=reverse)'
+# cd to directory and exclude some dirs
+alias fd='cd $(find $HOME -type d \
+  -not \( -path *cache* -prune \) \
+  -not \( -path *Cache* -prune \) \
+  -not \( -path *.git* -prune \) \
+  -print | fzf --layout=reverse)'
 
 export FZF_DEFAULT_OPTS=--cycle
 
