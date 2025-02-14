@@ -361,13 +361,6 @@
       mode: 0700
   tags: config, backup, scripts
 
-- name: Copy jira task script
-  template:
-      src: create_jira_task.sh.j2
-      dest: $HOME/.local/bin/cjt.sh
-      mode: 0700
-  tags: scripts
-
 - name: Copy user anacrontab file
   copy:
     src: user_anacrontab
