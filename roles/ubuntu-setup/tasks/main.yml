@@ -387,11 +387,13 @@
     apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
         state: present
+    tags: docker
     
   - name: Add docker repo
     apt_repository:
         repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ubuntu_version.stdout }} stable"
         state: present
+    tags: docker
     
   - name: Install docker
     apt:
@@ -403,16 +405,60 @@
             - docker-compose-plugin
         state: latest
         update_cache: yes
+    tags: docker
 
   - name: Add user to additional groups
     user:
       name: antisa
       groups: docker,vboxusers
       append: yes
+    tags: docker
+
+  - name: Install virtualbox {{ virtualbox_version }}
+    apt:
+      deb: "{{ virtualbox_version }}"
+    tags: vbox
+
+  - name: Add user to vboxusers group
+    user:
+      name: antisa
+      groups: vboxusers
+      append: yes
+    tags: vbox
+    
+  - name: Download Mikrotik winbox GUI
+    get_url:
+      url: https://download.mikrotik.com/routeros/winbox/{{ mikrotik_winbox_version }}/WinBox_Linux.zip
+      dest: /tmp/
+      mode: 0755
+    tags: mikrotik
+
+  - name: Unarchive Mikrotik
+    unarchive:
+      src: /tmp/WinBox_Linux.zip
+      dest: /usr/local/bin/
+      owner: antisa
+    tags: mikrotik
+
+  - name: Add .desktop file for Mikrotik GUI app
+    copy:
+      dest: /usr/share/applications/winbox-linux.desktop
+      content: |
+        [Desktop Entry]
+        Name=WinBox-Linux
+        Type=Application
+        Terminal=false
+        Exec=/usr/local/bin/WinBox
+        Icon=/usr/local/bin/assets/img/winbox.png
+        Comment=WinBox to Manage Mikrotik Routers
+        Encoding=UTF-8
+        Categories=Network;RemoteAccess;
+        X-Desktop-File-Install-Version=0.30
+        Name[en_US]=WinBox-Linux
+    tags: mikrotik
 
   become: true
   become_user: root
-  tags: docker
 
 - name: Add tmux plugin manager
   git:
@@ -421,20 +467,3 @@
     dest: ~/.tmux/plugins/tpm 
     accept_hostkey: true
   tags: tmux
-
-
-- block:
-  - name: Install virtualbox {{ virtualbox_version }}
-    apt:
-      deb: "{{ virtualbox_version }}"
-
-  - name: Add user to vboxusers group
-    user:
-      name: antisa
-      groups: vboxusers
-      append: yes
-    
-
-  become: true
-  become_user: root
-  tags: vbox
