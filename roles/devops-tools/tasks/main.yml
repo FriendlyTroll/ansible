@@ -1,12 +1,13 @@
 - name: Run specific installation on Ubuntu
   include_tasks: ubuntu.yml
   when: ansible_distribution == "Ubuntu"
-  tags: always, ubuntu
 
 - name: Run specific installation on Debian
   include_tasks: debian.yml
   when: ansible_distribution == "Debian"
-  tags: always, debian
+
+- name: Docker install
+  import_role: docker
 
 - name: Install Terraform binary
   get_url:

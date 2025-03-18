@@ -5,6 +5,8 @@
     # https://developer.hashicorp.com/terraform/downloads
     terraform_version: 1.10.0
     aws_vault_version: 7.2.0
+    # https://docs.docker.com/compose/releases/release-notes/
+    docker_compose_version: "v2.34.0"
 
   roles:
       - role: devops-tools

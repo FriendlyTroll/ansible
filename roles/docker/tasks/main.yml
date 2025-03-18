@@ -1,0 +1,8 @@
+---
+- name: Run specific installation on Ubuntu
+  include_tasks: ubuntu.yml
+  when: ansible_distribution == "Ubuntu"
+
+- name: Run specific installation on Debian
+  include_tasks: debian.yml
+  when: ansible_distribution == "Debian"
