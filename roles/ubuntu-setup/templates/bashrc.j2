@@ -174,8 +174,12 @@ alias v='nvim'
 alias aws-ec2-ls="aws ec2 describe-instances --output table --query 'Reservations[].Instances[*].{InstanceType: InstanceType, InstanceId: InstanceId, State: State.Name}'"
 
 # fzf aliases
-# open files
-alias ff="find . | fzf | xargs -r xdg-open"
+# open file on enter in vim
+alias ff='find $HOME -type f \
+  -not \( -path *cache* -prune \) \
+  -not \( -path *Cache* -prune \) \
+  -not \( -path *.git* -prune \) \
+  -print | fzf --layout=reverse --bind "enter:execute(vim {})+abort"'
 # cd to directory and exclude some dirs
 alias fd='cd $(find $HOME -type d \
   -not \( -path *cache* -prune \) \
