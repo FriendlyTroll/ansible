@@ -1,4 +1,15 @@
 ---
+- name: Install pip3
+  apt:
+    name:
+      - python3-pip
+
+- name: Install pip docker package
+  pip:
+    extra_args: --break-system-packages
+    name:
+      - docker
+
 - name: Run specific installation on Ubuntu
   include_tasks: ubuntu.yml
   when: ansible_distribution == "Ubuntu"

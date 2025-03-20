@@ -1,0 +1,8 @@
+- name: Self-hosted apps
+  hosts: dokuwiki
+  gather_facts: True
+  roles:
+    - self-hosted-server
+  vars:
+    enclosed_domain_name: fileshare.exitstatus0.com
+    enclosed_local_port: 8787

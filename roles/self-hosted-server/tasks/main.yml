@@ -1,0 +1,21 @@
+---
+- name: Install file share service - Enclosed
+  docker_container:
+    name: file-sharing-Enclosed
+    image: corentinth/enclosed
+    ports: 127.0.0.1:{{ enclosed_local_port }}:{{ enclosed_local_port }}
+    restart_policy: unless-stopped
+    # https://docs.enclosed.cc/self-hosting/configuration#environment-variables
+    env:
+      # don't break connection on longer lasting uploads
+      SERVER_API_ROUTES_TIMEOUT_MS: "500000"
+
+- name: Install apache conf file
+  template:
+    src: apache-enclosed.conf.j2
+    dest: /etc/apache2/sites-available/fileshare-enclosed-app.conf
+  tags: apache
+
+- name: Enable Enclosed apache site
+  shell: a2enmod proxy proxy_http && a2ensite fileshare-enclosed-app.conf && systemctl restart apache2
+  tags: apache

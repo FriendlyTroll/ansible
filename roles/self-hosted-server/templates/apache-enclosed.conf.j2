@@ -1,0 +1,14 @@
+<VirtualHost *:80>
+    ServerName {{ enclosed_domain_name }}
+
+    ProxyPreserveHost On
+    ProxyPass "/" "http://127.0.0.1:{{ enclosed_local_port }}/"
+    ProxyPassReverse "/" "http://127.0.0.1:{{ enclosed_local_port }}/"
+
+    <Proxy *>
+        Require all granted
+    </Proxy>
+
+    ErrorLog ${APACHE_LOG_DIR}/{{ enclosed_domain_name }}_error.log
+    CustomLog ${APACHE_LOG_DIR}/{{ enclosed_domain_name }}_access.log combined
+</VirtualHost>
