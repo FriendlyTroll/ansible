@@ -67,10 +67,10 @@ fi
 if [ "$color_prompt" = yes ]; then
   if [ "$AWS_VAULT" = "icg-services-staging" ]; then
     PS1='${debian_chroot:+($debian_chroot)}(\[\e[48;5;134m\]aws\[\e[0m\]->${AWS_VAULT}) \[\e[32;1m\]\u@\h\[\e[0m\]:\[\e[34;1m\]\w\[\e[0m\]\$ '
-    kubectl config use-context {{ vault_icg_k8s_stg_cluster }}
+    export KUBECONFIG=~/.kube/configs.d/icg-staging-cluster
   elif [ "$AWS_VAULT" = "icg-services-production" ]; then
     PS1='${debian_chroot:+($debian_chroot)}(\[\e[48;5;134m\]aws\[\e[0m\]->${AWS_VAULT}) \[\e[32;1m\]\u@\h\[\e[0m\]:\[\e[34;1m\]\w\[\e[0m\]\$ '
-    kubectl config use-context {{ vault_icg_k8s_prod_cluster }}
+    export KUBECONFIG=~/.kube/configs.d/icg-production-cluster
   else
     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
   fi
