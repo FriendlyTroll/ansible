@@ -7,7 +7,8 @@
   when: ansible_distribution == "Debian"
 
 - name: Docker install
-  import_role: docker
+  import_role: 
+    name: docker
 
 - name: Install Terraform binary
   get_url:
@@ -104,6 +105,10 @@
     - config
     - credentials
   tags: aws, config, aws-config
+
+- name: Generate minikube bash-completion
+  shell: minikube completion bash > ~/.minikube/completion.bash.inc
+  tags: minikube
 
 - name: Generate kubectl bash-completion
   shell: kubectl completion bash > ~/.kube/completion.bash.inc
