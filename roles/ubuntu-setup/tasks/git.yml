@@ -8,7 +8,7 @@
   tags: git
 
 - name: Set git to auto push to same upstream branch
-  shell: git config --global push.default current
+  shell: git config --global push.default current && git config --global push.autoSetupRemote true
   tags: git
 
 - name: Copy git precommit script
