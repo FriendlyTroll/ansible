@@ -464,3 +464,10 @@
     dest: ~/.tmux/plugins/tpm 
     accept_hostkey: true
   tags: tmux
+
+- name: Download yt-dlp
+  get_url:
+    url: https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux
+    dest: /usr/local/bin/yt-dlp
+    mode: '755'
+  tags: yt
