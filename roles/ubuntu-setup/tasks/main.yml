@@ -161,6 +161,13 @@
       cmd: wget -c https://github.com/$(wget -q https://github.com/probonopd/go-appimage/releases/expanded_assets/continuous -O - | grep "appimaged-.*-x86_64.AppImage" | head -n 1 | cut -d '"' -f 2) -P ~/Applications/ && chmod --recursive +x ~/Applications/
   tags: appimage
 
+- name: Install FUSE package for appimages
+  apt:
+    name:
+      - libfuse2t64
+  when: ubuntu_version.stdout == "noble"
+  tags: appimage
+
 - name: Copy bashrc
   template:
       src: bashrc.j2
