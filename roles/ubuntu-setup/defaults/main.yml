@@ -15,3 +15,6 @@ virtualbox_version: https://download.virtualbox.org/virtualbox/7.0.20/virtualbox
 vagrant_version: 2.4.2
 # https://mikrotik.com/download
 mikrotik_winbox_version: 4.0beta17
+
+# https://github.com/LizardByte/Sunshine/releases/latest
+sunshine_version: v2025.122.141614
