@@ -134,11 +134,6 @@
   become_user: root
   when: '"XPS" in ansible_hostname'
 
-- name: Install snap packages
-  snap:
-    name:
-      - skype
-
 - name: Create custom directories
   file:
       path: "{{ item }}"
