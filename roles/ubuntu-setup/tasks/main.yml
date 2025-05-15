@@ -116,10 +116,10 @@
 
 - name: Install zoom
   apt:
-      deb: https://zoom.us/client/latest/zoom_amd64.deb
-  tags: packages
+    deb: https://zoom.us/client/{{ zoom_version }}/zoom_amd64.deb
   become: true
   become_user: root
+  tags: packages, zoom
 
 - name: Update snap packager
   command: snap refresh

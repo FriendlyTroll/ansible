@@ -1,6 +1,6 @@
 ---
 # https://apps.ankiweb.net/
-anki_version: 25.02.1
+anki_version: 25.02.4
 
 borg_repo_work: $HOME/borg_backup
 borg_repo_home: /mnt/wd4tb/borg_backup
@@ -11,10 +11,15 @@ protonvpn_version: 1.0.6
   
 # https://download.virtualbox.org/virtualbox/
 virtualbox_version: https://download.virtualbox.org/virtualbox/7.0.20/virtualbox-7.0_7.0.20-163906~Ubuntu~jammy_amd64.deb
+
 # https://developer.hashicorp.com/vagrant/install#linux
 vagrant_version: 2.4.2
+
 # https://mikrotik.com/download
 mikrotik_winbox_version: 4.0beta17
 
 # https://github.com/LizardByte/Sunshine/releases/latest
 sunshine_version: v2025.122.141614
+
+# https://zoom.us/download?os=linux
+zoom_version: 6.4.6.1370
