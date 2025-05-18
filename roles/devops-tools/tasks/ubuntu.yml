@@ -20,3 +20,7 @@
 
   become: true
   become_user: root
+
+- name: Add vagrant autocomplete
+  command: vagrant autocomplete install
+  tags: vagrant
