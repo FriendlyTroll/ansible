@@ -53,6 +53,7 @@
 
   - name: Install helm snap
     command: snap install helm --classic
+    tags: helm
 
   - name: Install eksctl
     shell: |
@@ -113,6 +114,10 @@
 - name: Generate kubectl bash-completion
   shell: kubectl completion bash > ~/.kube/completion.bash.inc
   tags: kubectl
+
+- name: Generate helm bash-completion
+  shell: helm completion bash > ~/.kube/helm_completion.bash.inc
+  tags: helm
 
 - name: Install aws-vault
   get_url:
