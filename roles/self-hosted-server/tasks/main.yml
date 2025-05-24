@@ -9,13 +9,14 @@
     env:
       # don't break connection on longer lasting uploads
       SERVER_API_ROUTES_TIMEOUT_MS: "500000"
+    tags: enclosed
 
 - name: Install apache conf file
   template:
     src: apache-enclosed.conf.j2
-    dest: /etc/apache2/sites-available/fileshare-enclosed-app.conf
+    dest: /etc/apache2/sites-available/sharenotes-enclosed-app.conf
   tags: apache
 
 - name: Enable Enclosed apache site
-  shell: a2enmod proxy proxy_http && a2ensite fileshare-enclosed-app.conf && systemctl restart apache2
+  shell: a2enmod proxy proxy_http && a2ensite sharenotes-enclosed-app.conf && systemctl restart apache2
   tags: apache

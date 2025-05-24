@@ -4,5 +4,5 @@
   roles:
     - self-hosted-server
   vars:
-    enclosed_domain_name: fileshare.exitstatus0.com
-    enclosed_local_port: 8787
+    enclosed_domain_name: sharenotes.exitstatus0.com
+    enclosed_local_port: 8181
