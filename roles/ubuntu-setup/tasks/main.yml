@@ -454,6 +454,7 @@
         X-Desktop-File-Install-Version=0.30
         Keywords=mikrotik;
         Name[en_US]=WinBox-Linux
+        StartupWMClass=WinBox
     tags: mikrotik
 
   become: true
