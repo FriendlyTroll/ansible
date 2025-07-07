@@ -1,7 +1,7 @@
 ---
-- name: Install file share service - Enclosed
+- name: Install notes share service - Enclosed
   docker_container:
-    name: file-sharing-Enclosed
+    name: notes-sharing-Enclosed
     image: corentinth/enclosed
     ports: 127.0.0.1:{{ enclosed_local_port }}:{{ enclosed_local_port }}
     restart_policy: unless-stopped
@@ -9,14 +9,37 @@
     env:
       # don't break connection on longer lasting uploads
       SERVER_API_ROUTES_TIMEOUT_MS: "500000"
-    tags: enclosed
+      PORT: "{{ enclosed_local_port }}"
+  tags: enclosed
 
 - name: Install apache conf file
   template:
-    src: apache-enclosed.conf.j2
-    dest: /etc/apache2/sites-available/sharenotes-enclosed-app.conf
+    src: "{{ item }}.j2" 
+    dest: /etc/apache2/sites-available/{{ item }}
+  loop:
+    - notes-sharing-enclosed.conf
+    - file-sharing-pingvin.conf
+  notify: reload apache
   tags: apache
 
 - name: Enable Enclosed apache site
-  shell: a2enmod proxy proxy_http && a2ensite sharenotes-enclosed-app.conf && systemctl restart apache2
+  shell: a2enmod proxy proxy_http && a2ensite {{ item }}
+  loop:
+    - notes-sharing-enclosed.conf
+    - file-sharing-pingvin.conf
   tags: apache
+
+- name: Template Pingvin file share app
+  template:
+    src: pingvin-docker-compose.yml.j2
+    dest: /root/pingvin-docker-compose.yml
+  tags: pingvin
+
+- name: Install file share service - Pingvin
+  community.docker.docker_compose_v2:
+    project_src: /root
+    files:
+      - pingvin-docker-compose.yml
+    pull: always
+  tags: pingvin
+

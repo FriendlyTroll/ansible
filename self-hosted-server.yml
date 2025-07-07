@@ -5,4 +5,6 @@
     - self-hosted-server
   vars:
     enclosed_domain_name: sharenotes.exitstatus0.com
-    enclosed_local_port: 8181
+    enclosed_local_port: "8181"
+    pingvin_domain_name: fileshare.exitstatus0.com
+    pingvin_local_port: 8787
