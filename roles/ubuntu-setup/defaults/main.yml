@@ -7,10 +7,10 @@ borg_repo_home: /mnt/wd4tb/borg_backup
 borg_key_export_path: /home/antisa
 
 nerd_font_version: v3.0.1
-protonvpn_version: 1.0.6
+protonvpn_version: 1.0.8
   
 # https://download.virtualbox.org/virtualbox/
-virtualbox_version: https://download.virtualbox.org/virtualbox/7.0.20/virtualbox-7.0_7.0.20-163906~Ubuntu~jammy_amd64.deb
+virtualbox_version: https://download.virtualbox.org/virtualbox/7.0.20/virtualbox-7.0_7.0.20-163906~Ubuntu~{{ ubuntu_version.stdout }}_amd64.deb
 
 # https://mikrotik.com/download
 mikrotik_winbox_version: 4.0beta17

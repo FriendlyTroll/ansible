@@ -2,6 +2,7 @@
 - name: Configure Ubuntu install
   hosts: localhost
   gather_facts: True
+  ignore_errors: True
 
   roles:
       - role: ubuntu-setup

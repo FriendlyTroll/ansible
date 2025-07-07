@@ -11,13 +11,13 @@
 
 - name: Download latest nvim appimage
   get_url:
-    url: https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
-    dest: $HOME/Applications/
+    url: "{{ neovim_version }}"
+    dest: $HOME/Applications/neovim.appimage
     mode: 0755
 
 - name: Create nvim symlink
   file:
-    src: $HOME/Applications/nvim.appimage
+    src: $HOME/Applications/neovim.appimage
     dest: /usr/local/bin/nvim
     mode: 0775
     state: link
