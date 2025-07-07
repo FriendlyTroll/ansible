@@ -1,0 +1,75 @@
+---
+- block:
+  - name: Install vim repo
+    apt_repository:
+      repo: ppa:jonathonf/vim 
+    tags: vim
+
+   # https://protonvpn.com/support/linux-ubuntu-vpn-setup/
+  - name: Install protonvpn repo
+    apt:
+      deb: https://repo.protonvpn.com/debian/dists/stable/main/binary-all/protonvpn-stable-release_{{ protonvpn_version }}_all.deb
+    tags: packages
+
+  # https://community.openvpn.net/openvpn/wiki/OpenVPN3Linux
+  - name: Install openvpn3
+    deb822_repository:
+      name: openvpn3
+      types: deb
+      suites: "{{ ubuntu_version.stdout }}"
+      uris: https://packages.openvpn.net/openvpn3/debian
+      components: main
+      signed_by: https://packages.openvpn.net/packages-repo.gpg
+    tags: openvpn3
+
+  - name: Install ubuntu packages
+    apt:
+        name:
+            - ubuntu-restricted-extras
+            - imagemagick
+            - curl
+            - git
+            - sshfs
+            - vim
+            - zenity
+            - mpv
+            - syncthing
+            - syncthing-gtk
+            - chrome-gnome-shell
+            - keepassxc
+            - vim-gtk3
+            - fzf
+            - universal-ctags
+            - mlocate
+            - filezilla
+            - bsdutils
+            - python3-pip
+            - asciinema
+            - slack-desktop
+            - xclip
+            - protonvpn
+            - whois
+            - smplayer
+            - yamllint
+            - flameshot
+            - borgbackup
+            - tmux
+            - silversearcher-ag
+            - isort
+            - openjdk-19-jdk
+            - autokey-common
+            - autokey-gtk
+            - pipx
+            - openvpn3
+        update_cache: yes
+    tags: packages
+
+  become: true
+  become_user: root
+
+- name: Install python pip packages
+  pip:
+    name: 
+      - tldr
+  tags: pip-packages
+

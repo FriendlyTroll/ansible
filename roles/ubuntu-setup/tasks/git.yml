@@ -17,11 +17,11 @@
       dest: "$HOME/.local/my_global_githooks/pre-commit"
       mode: 0755
   loop:
-    - "ansible-check-vault-encrypted.sh"
+    - "ansible-check-file-encrypted.sh"
   tags: scripts,git
 
 - name: Add global gitignore patterns
-  file:
+  copy:
     src: gitignore
     dest: "$HOME/.gitignore"
   tags: git

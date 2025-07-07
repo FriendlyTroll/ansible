@@ -4,12 +4,29 @@
   register: ubuntu_version
   tags: docker
 
-- block:
-  - name: Install vim repo
-    apt_repository:
-      repo: ppa:jonathonf/vim 
-    tags: vim
+- debug:
+    msg: Ubuntu version is {{ ubuntu_version.stdout }}
+    
+- name: Create custom directories
+  file:
+      path: "{{ item }}"
+      state: directory
+      mode: 0755
+  loop:
+      - $HOME/Documents/terminal_logs
+      - $HOME/.config/mpv
+      - $HOME/.config/asciinema
+      - $HOME/.local/share/nautilus/scripts
+      - $HOME/Applications  # for AppImages
+      - $HOME/.local/share/fonts
+      - $HOME/.local/my_global_githooks
+      - $HOME/.anacron/etc
+      - $HOME/.anacron/spool
+      - $HOME/.vim
+  tags: config, git, dirs
 
+
+- block:
   - name: Add slack apt key
     apt_key:
       url: https://packagecloud.io/slacktechnologies/slack/gpgkey
@@ -29,53 +46,11 @@
     deb822_repository:
       name: openvpn3
       types: deb
-      suites: jammy
+      suites: "{{ ubuntu_version.stdout }}"
       uris: https://packages.openvpn.net/openvpn3/debian
       components: main
       signed_by: https://packages.openvpn.net/packages-repo.gpg
     tags: openvpn3
-
-  - name: Install ubuntu packages
-    apt:
-        name:
-            - ubuntu-restricted-extras
-            - imagemagick
-            - curl
-            - git
-            - sshfs
-            - vim
-            - zenity
-            - mpv
-            - syncthing
-            - syncthing-gtk
-            - chrome-gnome-shell
-            - keepassxc
-            - vim-gtk3
-            - fzf
-            - universal-ctags
-            - mlocate
-            - filezilla
-            - bsdutils
-            - python3-pip
-            - asciinema
-            - slack-desktop
-            - xclip
-            - protonvpn
-            - whois
-            - smplayer
-            - yamllint
-            - flameshot
-            - borgbackup
-            - tmux
-            - silversearcher-ag
-            - isort
-            - openjdk-19-jdk
-            - autokey-common
-            - autokey-gtk
-            - pipx
-            - openvpn3
-        update_cache: yes
-    tags: packages
 
   - name: Install python specific packages
     apt:
@@ -87,11 +62,12 @@
   become: true
   become_user: root
 
-- name: Install python pip packages
-  pip:
-    name: 
-      - tldr
-  tags: pip-packages
+- name: Include tasks for Ubuntu version
+  include_tasks: 2204.yml
+  when: ubuntu_version.stdout == "jammy"
+
+- include_tasks: 2404.yml
+  when: ubuntu_version.stdout == "noble"
 
 - name: Install desktop specific ubuntu packages
   apt:
@@ -134,33 +110,9 @@
   become_user: root
   when: '"XPS" in ansible_hostname'
 
-- name: Create custom directories
-  file:
-      path: "{{ item }}"
-      state: directory
-      mode: 0755
-  loop:
-      - $HOME/Documents/terminal_logs
-      - $HOME/.config/mpv
-      - $HOME/.config/asciinema
-      - $HOME/.local/share/nautilus/scripts
-      - $HOME/Applications  # for AppImages
-      - $HOME/.local/share/fonts
-      - $HOME/.local/my_global_githooks
-      - $HOME/.anacron/etc
-      - $HOME/.anacron/spool
-  tags: config, git, dirs
-
 - name: Install AppImages appimage daemon for integration
   shell:
       cmd: wget -c https://github.com/$(wget -q https://github.com/probonopd/go-appimage/releases/expanded_assets/continuous -O - | grep "appimaged-.*-x86_64.AppImage" | head -n 1 | cut -d '"' -f 2) -P ~/Applications/ && chmod --recursive +x ~/Applications/
-  tags: appimage
-
-- name: Install FUSE package for appimages
-  apt:
-    name:
-      - libfuse2t64
-  when: ubuntu_version.stdout == "noble"
   tags: appimage
 
 - name: Copy bashrc
@@ -405,6 +357,11 @@
         update_cache: yes
     tags: docker
 
+  - name: Install virtualbox {{ virtualbox_version }}
+    apt:
+      deb: "{{ virtualbox_version }}"
+    tags: vbox
+
   - name: Add user to additional groups
     user:
       name: antisa
@@ -412,18 +369,6 @@
       append: yes
     tags: docker
 
-  - name: Install virtualbox {{ virtualbox_version }}
-    apt:
-      deb: "{{ virtualbox_version }}"
-    tags: vbox
-
-  - name: Add user to vboxusers group
-    user:
-      name: antisa
-      groups: vboxusers
-      append: yes
-    tags: vbox
-    
   - name: Download Mikrotik winbox GUI
     get_url:
       url: https://download.mikrotik.com/routeros/winbox/{{ mikrotik_winbox_version }}/WinBox_Linux.zip

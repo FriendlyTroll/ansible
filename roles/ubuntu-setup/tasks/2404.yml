@@ -1,0 +1,68 @@
+---
+- block:
+  # https://protonvpn.com/support/linux-ubuntu-vpn-setup/
+  #- name: Install protonvpn repo
+  #  apt:
+  #    deb: https://repo.protonvpn.com/debian/dists/stable/main/binary-all/protonvpn-stable-release_{{ protonvpn_version }}_all.deb
+  #  tags: packages
+
+  - name: Install ubuntu packages
+    apt:
+        name:
+            - ubuntu-restricted-extras
+            - imagemagick
+            - curl
+            - git
+            - sshfs
+            - vim
+            - zenity
+            - mpv
+            - syncthing
+            - syncthing-gtk
+            - chrome-gnome-shell
+            - keepassxc
+            - vim-gtk3
+            - fzf
+            - universal-ctags
+            - plocate
+            - filezilla
+            - bsdutils
+            - python3-pip
+            - asciinema
+            - slack-desktop
+            - xclip
+            - proton-vpn-gnome-desktop
+            - whois
+            - smplayer
+            - yamllint
+            - flameshot
+            - borgbackup
+            - tmux
+            - silversearcher-ag
+            - isort
+            - openjdk-21-jdk
+            - autokey-common
+            - autokey-gtk
+            - pipx
+            - openvpn3
+        update_cache: yes
+    tags: packages
+
+  - name: Install FUSE package for appimages
+    apt:
+      name:
+        - libfuse2t64
+    tags: appimage
+
+  become: true
+  become_user: root
+
+- name: Install python pip packages
+  vars:
+    pipx_packages:
+      - tldr
+  community.general.pipx:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ pipx_packages }}"
+  tags: pip-packages
