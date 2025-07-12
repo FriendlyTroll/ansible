@@ -1,11 +1,5 @@
 ---
 - block:
-  # https://protonvpn.com/support/linux-ubuntu-vpn-setup/
-  #- name: Install protonvpn repo
-  #  apt:
-  #    deb: https://repo.protonvpn.com/debian/dists/stable/main/binary-all/protonvpn-stable-release_{{ protonvpn_version }}_all.deb
-  #  tags: packages
-
   - name: Install ubuntu packages
     apt:
         name:

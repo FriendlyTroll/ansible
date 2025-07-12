@@ -419,3 +419,8 @@
     dest: /usr/local/bin/yt-dlp
     mode: '755'
   tags: yt
+
+- name: Copy autostarting app .desktop files
+  copy:
+    src: autostart/
+    dest: ~/.config/autostart/
