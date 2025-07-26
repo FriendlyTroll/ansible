@@ -48,7 +48,7 @@
   template:
       src: xpsi3config.j2
       dest: $HOME/.config/i3/config
-  when: '"XPS" in ansible_hostname'
+  when: '"t14" in ansible_hostname'
 
 - name: Install polybar dependencies
   apt:

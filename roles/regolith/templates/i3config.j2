@@ -710,7 +710,7 @@ exec --no-startup-id nautilus
 {% if "antisa-desktop" in ansible_hostname %}
 exec --no-startup-id dalyinski-server
 {% endif %}
-{% if "XPS" in ansible_hostname %}
+{% if "t14" in ansible_hostname %}
 exec --no-startup-id slack
 exec --no-startup-id gnome-terminal
 {% endif %}
@@ -721,7 +721,7 @@ assign [class=^Firefox$] 2
 assign [class=^Thunderbird$] 10
 assign [class=^keepassxc$] 4
 
-{% if "XPS" in ansible_hostname %}
+{% if "t14" in ansible_hostname %}
 ## assign workspaces to specific monitors ##
 workspace 1 output eDP-1
 

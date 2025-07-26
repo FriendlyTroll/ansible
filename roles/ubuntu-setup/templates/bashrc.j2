@@ -140,7 +140,7 @@ fi
 #### MOJE #####
 
 # set borg variables
-{% if "XPS" in ansible_hostname %}
+{% if "t14" in ansible_hostname %}
 export BORG_REPO=$HOME/borg_backup
 export BORG_PASSPHRASE={{ vault_borg_passphrase_work }}
 {% else %}

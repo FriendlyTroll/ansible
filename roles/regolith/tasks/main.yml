@@ -29,7 +29,7 @@
   become: True
   become_user: root
   tags: packages
-  when: '"XPS" in ansible_hostname'
+  when: '"t14" in ansible_hostname'
 
 - name: Create the required directories for tasks
   file:
@@ -70,7 +70,7 @@
       - "85_microphone"
       - "60_battery"
       - "98_nm-vpn"
-  when: '"XPS" in ansible_hostname'
+  when: '"t14" in ansible_hostname'
 
 - name: Disable Gnome default screenshot key
   command: gsettings set org.gnome.settings-daemon.plugins.media-keys screenshot "[]"
