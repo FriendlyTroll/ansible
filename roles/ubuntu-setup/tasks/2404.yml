@@ -39,6 +39,7 @@
             - autokey-gtk
             - pipx
             - openvpn3
+            - tree
         update_cache: yes
     tags: packages
 
