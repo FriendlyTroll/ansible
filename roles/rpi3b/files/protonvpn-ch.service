@@ -3,7 +3,7 @@ Description=Connect to Switzerland ProtonVPN server
 
 [Service]
 Type=simple
-ExecStart=/usr/sbin/openvpn --config /root/ch.protonvpn.com.udp.ovpn
+ExecStart=/usr/sbin/openvpn --config /root/ch.protonvpn.udp.ovpn
 Restart=on-failure
 
 [Install]

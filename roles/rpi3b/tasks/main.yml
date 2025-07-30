@@ -5,6 +5,8 @@
         - minidlna
         - openvpn
         - transmission-cli
+        - tmux
+        - dnsutils
   tags: packages
 
 - name: Copy root user ssh keys to rpi
@@ -24,30 +26,73 @@
       dest: "/etc/minidlna.conf"
   notify: Restart minidlna
 
-- name: Copy openvpn systemd service config
+- name: Copy service files
   copy:
-      src: "protonvpn-ch.service"
-      dest: "/etc/systemd/system/protonvpn-ch.service"
+      src: "{{ item }}"
+      dest: "/etc/systemd/system/{{ item }}"
+  loop:
+    - protonvpn-ch.service
+    - vpn-nat.service
+  tags: nat, proton
+
+- name: Checkout newer natpmpc version
+  git:
+    repo: https://github.com/miniupnp/libnatpmp.git
+    dest: /root
+    depth: 1
+  tags: nat
+
+- name: Compile newer natpmpc version
+  community.general.make:
+    chdir: /root/libnatpmp
+    targets:
+      - all
+      - Install
+  tags: nat
 
 - name: Reload systemd daemon
   systemd:
       daemon_reload: yes
+  tags: nat, proton
 
 - name: Copy openvpn configs
   copy:
       src: "{{ item }}"
       dest: "/root/"
   loop:
-     - "ch.protonvpn.com.udp.ovpn"
+     - "ch.protonvpn.udp.ovpn"
+     - "vpn-nat.sh"
+  notify: 
+   - Restart openvpn
+   - Start protonvpn-ch
+   - Start vpn-nat
+  tags: nat, proton
+
+- name: Copy openvpn creds
+  template:
+      src: "{{ item }}.j2"
+      dest: "/root/{{ item }}"
+  loop:
      - "protonvpn.login"
   notify: 
    - Restart openvpn
    - Start protonvpn-ch
+   - Start vpn-nat
+  tags: nat, proton
 
-- name: Set cronjob to restart protonvpn-ch.service
+- name: Add cronjob to restart protonvpn-ch.service
   cron:
       name: "restart vpn"
       state: present
       minute: "0"
       hour: "0,6,12,18"
       job: "ping -c 1 1.1.1.1 || systemctl restart protonvpn-ch.service"
+
+- name: Add cronjob to restart vpn-nat
+  cron:
+      name: "restart vpn-nat every 3h"
+      state: present
+      minute: "15"
+      hour: "*/3"
+      job: "systemctl restart vpn-nat.service"
+

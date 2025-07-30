@@ -18,3 +18,7 @@
     name: protonvpn-ch
     state: started
 
+- name: Start vpn-nat
+  service:
+    name: vpn-nat
+    state: started

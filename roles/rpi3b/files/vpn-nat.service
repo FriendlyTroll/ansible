@@ -1,0 +1,10 @@
+[Unit]
+Description=Keep open the port for NAT over ProtonVPN
+
+[Service]
+Type=simple
+ExecStart=/root/vpn-nat.sh
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
