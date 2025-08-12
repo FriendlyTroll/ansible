@@ -143,6 +143,8 @@ fi
 {% if "t14" in ansible_hostname %}
 export BORG_REPO=$HOME/borg_backup
 export BORG_PASSPHRASE={{ vault_borg_passphrase_work }}
+# set gpg-agent ssh socket
+export SSH_AUTH_SOCK=/run/user/1000/gnupg/S.gpg-agent.ssh
 {% else %}
 export BORG_REPO=/mnt/wd4tb/borg_backup
 export BORG_PASSPHRASE={{ vault_borg_passphrase_home }}

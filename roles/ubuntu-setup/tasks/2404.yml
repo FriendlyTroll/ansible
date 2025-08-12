@@ -40,6 +40,7 @@
             - pipx
             - openvpn3
             - tree
+            - flatpak
         update_cache: yes
     tags: packages
 
@@ -61,3 +62,15 @@
     state: latest
   with_items: "{{ pipx_packages }}"
   tags: pip-packages
+
+- name: Add flathub remote repo
+  community.general.flatpak_remote:
+    name: flathub
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+
+- name: Install ExtensionManager flatpak
+  community.general.flatpak:
+    name:
+      - com.mattjakeman.ExtensionManager
+    remote: flathub
+
