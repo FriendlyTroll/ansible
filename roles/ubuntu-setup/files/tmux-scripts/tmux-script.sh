@@ -13,12 +13,12 @@ if [ -n "$1" ]; then
 fi
 
 # Define your sessions and directories here
-# Format: "session_name:dir1,dir2,..."
+# Format: "[session_name]=dir1,dir2,..."
 declare -A sessions=(
-    ["de"]="/home/antisa/Posal/ansbile-2.0/"
-    ["int"]="/home/antisa/Posal/ansible/"
-    ["icg"]="/home/antisa/Posal/icg/icg-web/,/home/antisa/Posal/icg/icg-infra-shared-ts/,/home/antisa/Posal/icg/icg-infra-global/"
-    ["vagrant"]="/home/antisa/vagrant_playground/"
+    ["ivpn"]="/home/antisa/Posal/repos/,/home/antisa/Posal/"
+    ["vagrant"]="/home/antisa/playground/puppet7"
+    ["safing"]="/home/antisa/playground/"
+    ["ante"]="/home/antisa/ansible/"
 )
 
 # Function to check if a tmux session exists
@@ -52,5 +52,5 @@ done
 # tmux set-environment -t icg AWS_PROFILE icg
 
 # record the tmux sessions
-asciinema rec $HOME/Documents/terminal_logs/$(date +"%F_%H-%M-%S").cast -c "tmux attach -t 'icg'"
+asciinema rec $HOME/Documents/terminal_logs/$(date +"%F_%H-%M-%S").cast -c "tmux attach -t 'ivpn'"
 

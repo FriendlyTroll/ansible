@@ -150,9 +150,6 @@ export BORG_REPO=/mnt/wd4tb/borg_backup
 export BORG_PASSPHRASE={{ vault_borg_passphrase_home }}
 {% endif %}
 
-# log terminal sessions in file
-#test "$(ps -ocommand= -p $PPID | awk '{print $1}')" == 'sh' || (asciinema rec $HOME/Documents/terminal_logs/$(date +"%F_%H-%M-%S").cast)
-
 # custom command for setting terminal title
 function set-title() {
   if [[ -z "$ORIG" ]]; then
@@ -166,9 +163,8 @@ function set-title() {
 # remaped to vim to save file
 stty -ixon
 
-alias mbb='$HOME/.local/bin/tmux-script-mbb.sh'
+alias ivpn='$HOME/.local/bin/tmux-script.sh'
 
-alias cdv='cd /home/antisa/vagrant_playground'
 alias ape='source venv/bin/activate'
 alias rec='asciinema rec $HOME/Documents/terminal_logs/$(date +"%F_%H-%M-%S").cast -c "tmux"'
 alias v='nvim'
