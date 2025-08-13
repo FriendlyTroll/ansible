@@ -197,41 +197,45 @@
       - "asciivideo.sh"
   tags: scripts
 
-- name: Mount backup disk at startup
-  mount:
-      path: /mnt/backup
-      state: present
-      src: UUID=f1a236ec-0809-4c61-b9c4-bee4427e728f
-      fstype: ext4
-      opts: defaults,noatime
-  become: true
-  become_user: root
-  tags: mounts
-  when: '"t14" not in ansible_hostname'
+- block:
+  - name: Mount backup disk at startup
+    mount:
+        path: /mnt/backup
+        state: present
+        src: UUID=f1a236ec-0809-4c61-b9c4-bee4427e728f
+        fstype: ext4
+        opts: defaults,noatime
+    when: '"t14" not in ansible_hostname'
 
-- name: Mount touro disk at startup
-  mount:
-      path: /mnt/touro
-      state: present
-      src: root@192.168.99.143:/media/touro
-      fstype: fuse.sshfs
-      opts: noauto,user,x-systemd.automount,defaults,_netdev,allow_other,identityfile=/root/.ssh/id_ed25519
-  become: true
-  become_user: root
-  tags: mounts
-  when: '"t14" not in ansible_hostname'
+  - name: Mount touro disk at startup
+    mount:
+        path: /mnt/touro
+        state: present
+        src: root@192.168.99.143:/media/touro
+        fstype: fuse.sshfs
+        opts: noauto,user,x-systemd.automount,defaults,_netdev,allow_other,identityfile=/root/.ssh/id_ed25519
+    when: '"t14" not in ansible_hostname'
 
-- name: Mount Western digital disk at startup
-  mount:
-      path: /mnt/wd4tb
-      state: present
-      src: UUID=033b3425-8b5c-4a58-b69a-108cfed2614b
-      fstype: ext4
-      opts: defaults,noatime
+  - name: Mount Western digital disk at startup
+    mount:
+        path: /mnt/wd4tb
+        state: present
+        src: UUID=033b3425-8b5c-4a58-b69a-108cfed2614b
+        fstype: ext4
+        opts: defaults,noatime
+    when: '"t14" not in ansible_hostname'
+
+  - name: Mount NAS NFS share
+    mount:
+        path: /mnt/nas
+        state: present
+        src: 192.168.99.135:/export/bigassnas
+        fstype: nfs
+        opts: defaults,noatime
+
   become: true
   become_user: root
   tags: mounts
-  when: '"t14" not in ansible_hostname'
 
 - name: Add raspberrypis host key to the root user
   known_hosts:
