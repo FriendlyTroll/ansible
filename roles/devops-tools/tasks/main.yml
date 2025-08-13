@@ -98,6 +98,11 @@
   become: true
   become_user: root
 
+- name: Create required directories
+  file:
+    dest: "$HOME/.aws"
+    state: directory
+
 - name: Install aws config files
   copy:
     src: "aws/{{ item }}.enc.j2"

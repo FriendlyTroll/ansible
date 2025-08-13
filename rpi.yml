@@ -2,4 +2,4 @@
 - name: Setup raspberrypi 3 B+
   hosts: rpi3b
   roles:
-      - role: rpi
+      - role: rpi3b
