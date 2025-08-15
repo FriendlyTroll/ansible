@@ -1,0 +1,29 @@
+---
+- name: Create docker dirs
+  file:
+    path: "{{ ampache_docker_root }}"
+    state: directory
+
+- name: Create config file
+  ansible.builtin.template:
+    src: ampache-docker-compose.yaml.j2
+    dest:  "{{ ampache_docker_root }}/docker-compose.yaml"
+
+- name: Run docker compose
+  community.docker.docker_compose_v2:
+    project_src:  "{{ ampache_docker_root }}"
+
+- name: Update permissions
+  file:
+    path: "{{ item }}"
+    owner: '33'
+    group: '33'
+    recurse: true
+  loop:
+    - "{{ ampache_docker_root }}/data/config"
+    - "{{ ampache_docker_root }}/data/log"
+    - "{{ ampache_docker_root }}/data/media"
+
+- name: Info
+  debug:
+    msg: "You need to finish the installation by visiting the web ui at http://ampache_ip_or_domain:{{ ampache_host_porth}}"
