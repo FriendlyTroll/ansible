@@ -43,3 +43,19 @@
     pull: always
   tags: pingvin
 
+- name: Install syncthing
+  apt:
+    name: syncthing
+  tags: syncthing
+
+- name: Create syncthing user
+  user:
+    name: syncthing
+  tags: syncthing
+
+- name: Enable and start syncthing
+  systemd:
+    name: syncthing@syncthing
+    enabled: true
+    state: started
+  tags: syncthing
