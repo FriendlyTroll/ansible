@@ -1,0 +1,39 @@
+---
+- block:
+  - name: Check on which Debian we are
+    command: lsb_release -cs
+    register: debian_version
+
+  - name: Install needed pkgs
+    apt:
+        name:
+            - gpg
+        state: latest
+        update_cache: yes
+
+  - name: Add APT gpg key for Docker repo
+    apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+        state: present
+    tags: docker
+    
+  - name: Add docker repo
+    apt_repository:
+        repo: "deb [arch=arm64] https://download.docker.com/linux/debian {{ debian_version.stdout }} stable"
+        state: present
+    tags: docker
+    
+  - name: Install docker
+    apt:
+        name:
+            - docker-ce
+            - docker-ce-cli
+            - containerd.io 
+            - docker-buildx-plugin 
+            - docker-compose-plugin
+        state: latest
+        update_cache: yes
+    tags: docker
+
+  become: true
+  become_user: root

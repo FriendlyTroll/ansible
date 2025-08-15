@@ -3,7 +3,7 @@
   apt:
     name:
       - python3-pip
-      - docker-compose-plugin
+      - vim
 
 - name: Install pip docker package
   pip:
@@ -17,4 +17,8 @@
 
 - name: Run specific installation on Debian
   include_tasks: debian.yml
-  when: ansible_distribution == "Debian"
+  when: ansible_distribution == "Debian" and ansible_architecture == "x86_64"
+
+- name: Run specific installation on Raspberry Pi Debian
+  include_tasks: rpi.yml
+  when: ansible_distribution == "Debian" and ansible_architecture == "aarch64"
