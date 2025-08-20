@@ -1,0 +1,83 @@
+---
+- block:
+    - name: Install zabbix-sender
+      apt:
+        deb: https://repo.zabbix.com/zabbix/7.4/stable/ubuntu/pool/main/z/zabbix/zabbix-sender_7.4.1-1%2Bubuntu24.04_amd64.deb
+      tags: zabbix
+
+    - name: Install needed packages
+      apt:
+        name:
+          - pass 
+          - pcscd
+          - scdaemon
+          - gnupg2
+          - pcsc-tools
+          - ykcs11
+          - libyubikey-udev
+          - hiera-eyaml
+          - network-manager-strongswan
+          - strongswan-swanctl
+          - libcharon-extra-plugins
+          - icedtea-netx
+          - socat
+          - gocryptfs
+          - nomad
+
+    - name: Install snaps
+      community.general.snap:
+        name:
+          - ykman 
+          - rocketchat-desktop
+
+    - name: Install ruby gems
+      community.general.gem:
+        name: 
+          - r10k
+
+    - name: Add polkit conf file
+      file:
+        src: 10-pcsc-custom.rules
+        dest: /etc/polkit-1/rules.d/10-pcsc-custom.rules
+
+    - name: Install portmaster
+      apt: 
+        deb: https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.0.24_amd64.deb
+      tags: portmaster
+
+  become: true
+  become_user: root
+
+- name: Create a gpg-agent.service override directory for Yubico GPG keys
+  file:
+    path: $HOME/.config/systemd/user/gpg-agent.service.d/
+    state: directory
+
+- name: Add gnupg conf file
+  file:
+    src: scdaemon.conf
+    dest: $HOME/.gnupg/scdaemon.conf
+
+- name: Set up gpg-agent.service override
+  ini_file:
+    no_extra_spaces: true
+    dest: $HOME/.config/systemd/user/gpg-agent.service.d/override.conf
+    section: Service
+    option: ExecStart
+    values: 
+      - ""
+      - /usr/bin/gpg-agent --supervised --daemon --enable-ssh-support
+
+- name: systemctl-daemon-reload
+  systemd:
+    daemon_reload: true
+    scope: user
+  changed_when: false
+  ignore_errors: true
+
+- name: Download jre8 for IPMI access over java jnpl files
+  get_url:
+    url:  https://javadl.oracle.com/webapps/download/AutoDL?BundleId=247938_0ae14417abb444ebb02b9815e2103550
+    dest: /usr/lib/jvm/jre-8u361-linux-x64.tar.gz
+    decompress: true
+
