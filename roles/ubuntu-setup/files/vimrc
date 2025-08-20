@@ -443,7 +443,8 @@ augroup END
 
 " set filetype for ansible files in ansible directory
 " for ansible vim plugin
-autocmd BufRead,BufNewFile */ansible/*.yml set filetype=yaml.ansible
+autocmd BufRead,BufNewFile */ansible*/*.yml set filetype=yaml.ansible
+autocmd BufRead,BufNewFile */playbooks/*.yml set filetype=yaml.ansible
 
 autocmd BufEnter Jenkinsfile set filetype=groovy
 
