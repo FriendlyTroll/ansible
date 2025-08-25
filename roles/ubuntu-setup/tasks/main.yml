@@ -97,18 +97,21 @@
   become_user: root
   tags: packages, zoom
 
-- name: Update snap packager
-  command: snap refresh
-  become: true
-  become_user: root
+- block:
+  - name: Update snap packager
+    command: snap refresh
 
-# need to install snaps one by one because of this bug
-# https://forum.snapcraft.io/t/trying-to-re-install-multiple-packages-with-snap-install-fails-with-install-refresh-information-results-from-the-store/24859
-- name: Install ubuntu snap packages - acestreamplayer
-  command: snap install acestreamplayer
+  # need to install snaps one by one because of this bug
+  # https://forum.snapcraft.io/t/trying-to-re-install-multiple-packages-with-snap-install-fails-with-install-refresh-information-results-from-the-store/24859
+  - name: Install ubuntu snap packages - acestreamplayer
+    command: snap install acestreamplayer
+    when: '"t14" in ansible_hostname'
+
+  - name: Install ubuntu snap packages - pinta
+    command: snap install pinta
+
   become: true
   become_user: root
-  when: '"t14" in ansible_hostname'
 
 - name: Install AppImages appimage daemon for integration
   shell:
@@ -349,7 +352,7 @@
         state: present
     tags: docker
     
-  - name: Install docker
+  - name: Install docker and other packages
     apt:
         name:
             - docker-ce
@@ -357,6 +360,7 @@
             - containerd.io
             - docker-buildx-plugin
             - docker-compose-plugin
+            - nmap
         state: latest
         update_cache: yes
     tags: docker

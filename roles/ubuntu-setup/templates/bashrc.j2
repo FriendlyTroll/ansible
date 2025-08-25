@@ -183,6 +183,7 @@ alias fd='cd $(find $HOME -type d \
   -not \( -path *cache* -prune \) \
   -not \( -path *Cache* -prune \) \
   -not \( -path *.git* -prune \) \
+  -not \( -path *.local/share/containers* -prune \) \
   -print | fzf --layout=reverse)'
 
 export FZF_DEFAULT_OPTS=--cycle
