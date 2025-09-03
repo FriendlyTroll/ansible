@@ -189,15 +189,24 @@
       dest: $HOME/.local/share/nautilus/scripts/OpenSubtitlesDownload.py
   tags: scripts
 
-- name: Copy other useful nautilus scripts
+- name: Copy nautilus scripts
   copy:
       src: "{{ item }}"
       dest: "$HOME/.local/share/nautilus/scripts"
       mode: 0755
   loop:
-      - "nautilus-renamer.py"
+      - "scripts/nautilus-renamer.py"
+      - "scripts/asciivideo.sh"
       - "nautilus-resize-image"
-      - "asciivideo.sh"
+  tags: scripts
+
+- name: Copy other useful scripts
+  copy:
+      src: "{{ item }}"
+      dest: "$HOME/.local/bin"
+      mode: 0755
+  loop:
+      - "what_hostname.sh"
   tags: scripts
 
 - block:
@@ -361,6 +370,7 @@
             - docker-buildx-plugin
             - docker-compose-plugin
             - nmap
+            - meld
         state: latest
         update_cache: yes
     tags: docker
