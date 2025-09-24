@@ -15,7 +15,7 @@ fi
 # Define your sessions and directories here
 # Format: "[session_name]=dir1,dir2,..."
 declare -A sessions=(
-    ["ivpn"]="/home/antisa/Posal/repos/,/home/antisa/Posal/"
+    ["ivpn"]="/home/antisa/Posal/repos/puppet-ivpn/,/home/antisa/Posal/repos/puppet_repository"
     ["vagrant"]="/home/antisa/playground/puppet7"
     ["safing"]="/home/antisa/playground/"
     ["ante"]="/home/antisa/ansible/"

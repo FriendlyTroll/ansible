@@ -443,7 +443,8 @@ augroup END
 
 " set filetype for ansible files in ansible directory
 " for ansible vim plugin
-autocmd BufRead,BufNewFile */ansible/*.yml set filetype=yaml.ansible
+autocmd BufRead,BufNewFile */ansible*/*.y[a]ml set filetype=yaml.ansible
+autocmd BufRead,BufNewFile */playbooks/*.y[a]ml set filetype=yaml.ansible
 
 autocmd BufEnter Jenkinsfile set filetype=groovy
 
@@ -514,4 +515,16 @@ function! s:yankshift(event)
     elseif a:event.regname == '0'
         let s:regzero = [a:event.regcontents, a:event.regtype]
     endif
+endfunction
+
+" paste without using :set nopaste
+let &t_SI .= "\<Esc>[?2004h"
+let &t_EI .= "\<Esc>[?2004l"
+
+inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+
+function! XTermPasteBegin()
+  set pastetoggle=<Esc>[201~
+  set paste
+  return ""
 endfunction
