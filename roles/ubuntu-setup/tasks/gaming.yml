@@ -26,12 +26,15 @@
       owner: antisa
       group: antisa
 
-- name: Install sunshine game streaming server
-  apt:
-    deb: https://github.com/LizardByte/Sunshine/releases/download/{{ sunshine_version }}/sunshine-ubuntu-24.04-amd64.deb
-  tags: sunshine
+- block:
+  - name: Install sunshine game streaming server
+    apt:
+      deb: https://github.com/LizardByte/Sunshine/releases/download/{{ sunshine_version }}/sunshine-ubuntu-24.04-amd64.deb
+    tags: sunshine
 
-- name: Set necessary capabilities for sunshine
-  shell: sudo setcap cap_sys_admin+p $(readlink -f $(which sunshine))
-  tags: sunshine
+  - name: Set necessary capabilities for sunshine
+    shell: sudo setcap cap_sys_admin+p $(readlink -f $(which sunshine))
+    tags: sunshine
 
+  become: true
+  become_user: root

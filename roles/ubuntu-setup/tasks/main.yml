@@ -266,6 +266,7 @@
 - name: Include gaming.yml tasks
   include_tasks: gaming.yml
   when: gaming is defined
+  tags: sunshine
 
 - name: Download Anki flashcards
   get_url:
