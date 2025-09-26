@@ -24,6 +24,7 @@
           - gocryptfs
           - nomad
           - libarchive-tools
+          - apache2-utils
 
     - name: Install snaps
       community.general.snap:
@@ -37,7 +38,7 @@
           - r10k
 
     - name: Add polkit conf file
-      file:
+      copy:
         src: 10-pcsc-custom.rules
         dest: /etc/polkit-1/rules.d/10-pcsc-custom.rules
 
@@ -46,20 +47,26 @@
         deb: https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.0.24_amd64.deb
       tags: portmaster
 
+    - name: Download jre8 for IPMI access over java jnpl files
+      get_url:
+        url:  https://javadl.oracle.com/webapps/download/AutoDL?BundleId=247938_0ae14417abb444ebb02b9815e2103550
+        dest: /usr/lib/jvm/jre-8u361-linux-x64.tar.gz
+        decompress: true
+
+    - name: Install Mongod Compass
+      apt:
+        deb: https://downloads.mongodb.com/compass/mongodb-compass_1.46.11_amd64.deb
+      tags: mongo
+
   become: true
   become_user: root
 
-- name: Create a gpg-agent.service override directory for Yubico GPG keys
-  file:
-    path: $HOME/.config/systemd/user/gpg-agent.service.d/
-    state: directory
-
 - name: Add gnupg conf file
-  file:
+  copy:
     src: scdaemon.conf
     dest: $HOME/.gnupg/scdaemon.conf
 
-- name: Set up gpg-agent.service override
+- name: Create a gpg-agent.service override directory for Yubico GPG keys
   ini_file:
     no_extra_spaces: true
     dest: $HOME/.config/systemd/user/gpg-agent.service.d/override.conf
@@ -76,14 +83,10 @@
   changed_when: false
   ignore_errors: true
 
-- name: Download jre8 for IPMI access over java jnpl files
-  get_url:
-    url:  https://javadl.oracle.com/webapps/download/AutoDL?BundleId=247938_0ae14417abb444ebb02b9815e2103550
-    dest: /usr/lib/jvm/jre-8u361-linux-x64.tar.gz
-    decompress: true
 
 - name: Update vimrc ansible yml handling
   lineinfile:
     path: "$HOME/.vimrc"
     line: "autocmd BufRead,BufNewFile */spn-admin/*.y[a]ml set filetype=yaml.ansible"
+
 

@@ -69,6 +69,15 @@
 - include_tasks: 2404.yml
   when: ubuntu_version.stdout == "noble"
 
+- name: Include ivpn tasks
+  include_tasks:
+    file: ivpn.yml
+    apply:
+      tags:
+        - ivpn
+  when: ivpn is defined
+  tags: ivpn
+
 - name: Install desktop specific ubuntu packages
   apt:
       name:
