@@ -72,9 +72,6 @@
 - name: Include ivpn tasks
   include_tasks:
     file: ivpn.yml
-    apply:
-      tags:
-        - ivpn
   when: ivpn is defined
   tags: ivpn
 
