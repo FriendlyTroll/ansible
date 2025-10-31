@@ -187,6 +187,8 @@ alias fd='cd $(find $HOME -type d \
   -print | fzf --layout=reverse)'
 
 export FZF_DEFAULT_OPTS=--cycle
+# search for files using silver searcher (ag)
+export FZF_DEFAULT_COMMAND='ag -l --path-to-ignore ~/.agignore --nocolor --hidden -g ""'
 
 borgmountbackup () {
   TEMP_DIR=$(mktemp --directory --suffix _borg_backup)

@@ -477,7 +477,7 @@ augroup END
 " search for text in hidden files as well, but not in .gitignore
 " add -U to search in .gitignore as well
 command! -bang -nargs=* Ag
-    \ call fzf#vim#ag(<q-args>, '--hidden --ignore-case', call('fzf#vim#with_preview', ['right', 'ctrl-/']), <bang>0)
+    \ call fzf#vim#ag(<q-args>, '-U --ignore-case', call('fzf#vim#with_preview', ['right', 'ctrl-/']), <bang>0)
 
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
@@ -486,7 +486,7 @@ let g:fzf_action = {
   \ 'ctrl-v': 'vsplit' }
 "
 " - down / up / left / right
-let g:fzf_layout = { 'down': '50%' }
+let g:fzf_layout = { 'up': '50%' }
 
  
 " +----------------------------------------------------------------+
