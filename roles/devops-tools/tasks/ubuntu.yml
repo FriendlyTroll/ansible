@@ -11,7 +11,7 @@
             - ca-certificates
             - curl
             - lsb-release
-            - ipcalc
+            - ipcalc-ng
             - vagrant
         state: latest
         update_cache: yes

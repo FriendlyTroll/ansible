@@ -72,9 +72,6 @@
 - name: Include ivpn tasks
   include_tasks:
     file: ivpn.yml
-    apply:
-      tags:
-        - ivpn
   when: ivpn is defined
   tags: ivpn
 
@@ -356,6 +353,7 @@
     src: tmux-scripts/
     dest: "$HOME/.local/bin/"
     mode: 0755
+    force: no
   tags: tmux
 
 - block:

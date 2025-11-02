@@ -37,6 +37,10 @@ for session_name in "${!sessions[@]}"; do
 
     # echo "Creating session: $session_name"
     tmux new-session -d -s "$session_name" -c "${dirs[0]}"
+    # set environment variables in session
+    # tmux new-session -d -s "$session_name" -c "${dirs[0]}" \
+    #   -e "ANSIBLE_REMOTE_USER=user" \
+    #   -e "ANSIBLE_BECOME_PASSWORD=pwd"
     tmux rename-window -t "$session_name":0 "$(basename "${dirs[0]}")"
 
     # Create additional windows for multiple directories
@@ -49,6 +53,8 @@ done
 
 # tmux new-window -t icg: -n icg-infra-k8s-apps -c "/home/antisa/Posal/icg/icg-infra-k8s-apps"
 # tmux send-keys -t icg:icg-infra-k8s-apps "$VIM_CMD" Enter
+
+# this only sets environment variable for newly created windows
 # tmux set-environment -t icg AWS_PROFILE icg
 
 # record the tmux sessions

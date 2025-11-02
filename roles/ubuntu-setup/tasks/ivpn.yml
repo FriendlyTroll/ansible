@@ -44,7 +44,7 @@
 
     - name: Install portmaster
       apt: 
-        deb: https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.0.24_amd64.deb
+        deb: https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.0.25_amd64.deb
       tags: portmaster
 
     - name: Download jre8 for IPMI access over java jnpl files
