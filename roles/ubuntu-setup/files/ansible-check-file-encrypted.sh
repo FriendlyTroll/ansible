@@ -8,7 +8,7 @@
 # https://www.reinteractive.net/posts/167-ansible-real-life-good-practices
 #
 # File should be .git/hooks/pre-commit and executable
-FILES_PATTERN='.*vault.*\.*$|cr[ei]dential|.*\.enc.*'
+FILES_PATTERN='.*vault.*|cr[ei]dential|.*\.enc.*'
 REQUIRED='ANSIBLE_VAULT'
 
 EXIT_STATUS=0

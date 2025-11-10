@@ -325,6 +325,7 @@
 
 
 - include_tasks: git.yml
+  tags: git
 
 
 - name: Copy borgbackup script
