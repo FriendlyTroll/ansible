@@ -1,24 +1,44 @@
 ---
+- name: Create directories
+  file:
+    state: directory
+    path: "{{ item }}"
+  loop:
+    - /etc/transmission-daemon
+    - /root/libnatpmp
+
 - name: Install packages
   apt:
       name: 
         - minidlna
         - openvpn
         - transmission-cli
+        - transmission-daemon
         - tmux
         - dnsutils
+        - git
+        - nfs-common
   tags: packages
 
 - name: Copy root user ssh keys to rpi
   authorized_key:
-      key: "{{ lookup('file', '/root/.ssh/id_ed25519.pub') }}" 
+      key: "{{ lookup('file', '/home/antisa/.ssh/id_ed25519.pub') }}" 
       user: root
+
+- name: Mount NAS NFS share
+  mount:
+      path: /mnt/nas
+      state: present
+      src: 192.168.99.135:/export/bigassnas
+      fstype: nfs
+      opts: defaults,noatime
 
 - name: Copy transmission config
   copy:
       src: "transmission.json"
       dest: "/etc/transmission-daemon/settings.json"
   notify: Restart transmission
+  tags: transmission
 
 - name: Copy minidlna config
   copy:
@@ -38,16 +58,20 @@
 - name: Checkout newer natpmpc version
   git:
     repo: https://github.com/miniupnp/libnatpmp.git
-    dest: /root
+    dest: /root/libnatpmp
     depth: 1
   tags: nat
 
-- name: Compile newer natpmpc version
+- name: Compile newer natpmpc version - make all
   community.general.make:
     chdir: /root/libnatpmp
-    targets:
-      - all
-      - Install
+    target: all
+  tags: nat
+
+- name: Compile newer natpmpc version - make install
+  community.general.make:
+    chdir: /root/libnatpmp
+    target: install
   tags: nat
 
 - name: Reload systemd daemon
@@ -59,6 +83,7 @@
   copy:
       src: "{{ item }}"
       dest: "/root/"
+      mode: '0755'
   loop:
      - "ch.protonvpn.udp.ovpn"
      - "vpn-nat.sh"
@@ -95,4 +120,3 @@
       minute: "15"
       hour: "*/3"
       job: "systemctl restart vpn-nat.service"
-

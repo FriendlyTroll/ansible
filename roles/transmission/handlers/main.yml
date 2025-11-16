@@ -1,7 +1,7 @@
-- name: Restart transmission
+- name: Reload transmission
   service:
     name: transmission-daemon
-    state: restarted
+    state: reloaded
 
 - name: Restart minidlna
   service:
