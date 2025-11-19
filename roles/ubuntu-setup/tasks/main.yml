@@ -204,6 +204,7 @@
       - "scripts/nautilus-renamer.py"
       - "scripts/asciivideo.sh"
       - "nautilus-resize-image"
+      - "png2jpeg.sh"
   tags: scripts
 
 - name: Copy other useful scripts
