@@ -58,6 +58,49 @@
         deb: https://downloads.mongodb.com/compass/mongodb-compass_1.46.11_amd64.deb
       tags: mongo
 
+
+    - name: Install IVPN app
+      shell:
+        creates: /etc/apt/sources.list.d/ivpn.list
+        cmd: |
+          # Add IVPN's GPG key
+          curl -fsSL https://repo.ivpn.net/stable/ubuntu/generic.gpg | gpg --dearmor > ~/ivpn-archive-keyring.gpg
+
+          sudo mv ~/ivpn-archive-keyring.gpg /usr/share/keyrings/ivpn-archive-keyring.gpg
+
+          # Set Appropriate Permissions for GPG key
+          sudo chown root:root /usr/share/keyrings/ivpn-archive-keyring.gpg && sudo chmod 644 /usr/share/keyrings/ivpn-archive-keyring.gpg
+
+          # Add the IVPN repository
+          curl -fsSL https://repo.ivpn.net/stable/ubuntu/generic.list | sudo tee /etc/apt/sources.list.d/ivpn.list
+
+          # Set Appropriate Permissions for Repository
+          sudo chown root:root /etc/apt/sources.list.d/ivpn.list && sudo chmod 644 /etc/apt/sources.list.d/ivpn.list
+
+          # Update APT repo info
+          sudo apt update
+
+          # To install IVPN software (CLI and UI)
+          sudo apt install ivpn-ui
+      tags: app
+
+
+    - name: Install Signal desktop app
+      shell:
+        creates: /etc/apt/sources.list.d/signal-desktop.sources
+        cmd: |
+          # 1. Install our official public software signing key:
+          wget -O- https://updates.signal.org/desktop/apt/keys.asc | gpg --dearmor > signal-desktop-keyring.gpg;
+          cat signal-desktop-keyring.gpg | sudo tee /usr/share/keyrings/signal-desktop-keyring.gpg > /dev/null
+
+          # 2. Add our repository to your list of repositories:
+          wget -O signal-desktop.sources https://updates.signal.org/static/desktop/apt/signal-desktop.sources;
+          cat signal-desktop.sources | sudo tee /etc/apt/sources.list.d/signal-desktop.sources > /dev/null
+
+          # 3. Update your package database and install Signal:
+          sudo apt update && sudo apt install signal-desktop
+      tags: signal
+
   become: true
   become_user: root
 
@@ -88,5 +131,3 @@
   lineinfile:
     path: "$HOME/.vimrc"
     line: "autocmd BufRead,BufNewFile */spn-admin/*.y[a]ml set filetype=yaml.ansible"
-
-

@@ -72,7 +72,6 @@
 - name: Include ivpn tasks
   include_tasks:
     file: ivpn.yml
-  when: ivpn is defined
   tags: ivpn
 
 - name: Install desktop specific ubuntu packages
