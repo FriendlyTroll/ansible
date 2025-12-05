@@ -25,6 +25,8 @@
           - nomad
           - libarchive-tools
           - apache2-utils
+          - qemu-system-x86
+          - ovmf
 
     - name: Install snaps
       community.general.snap:
