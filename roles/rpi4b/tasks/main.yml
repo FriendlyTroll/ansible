@@ -40,11 +40,11 @@
 
 - name: Mount touro disk at startup
   mount:
-      path: /root/rpi3_touro
+      path: /mnt/touro
       state: present
-      src: root@192.168.99.143:/media/touro
+      src: root@192.168.99.143:/mnt/touro
       fstype: fuse.sshfs
-      opts: noauto,user,x-systemd.automount,defaults,_netdev,allow_other,identityfile=/root/.ssh/id_ed25519
+      opts: user,x-systemd.automount,defaults,_netdev,allow_other,identityfile=/root/.ssh/id_ed25519
   become: true
   become_user: root
   tags: mounts
