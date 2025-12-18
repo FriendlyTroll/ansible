@@ -41,6 +41,7 @@
             - openvpn3
             - tree
             - flatpak
+            - python3-pyfuse3
         update_cache: yes
     tags: packages
 
