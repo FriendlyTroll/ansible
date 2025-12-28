@@ -1,5 +1,8 @@
 ---
 - name: Setup raspberrypi 3 B+
   hosts: rpi3b
+  become: yes
+  become_user: root
+
   roles:
-      - role: rpi3b
+      - role: transmission

@@ -37,7 +37,7 @@
   copy:
       src: "transmission.json"
       dest: "/etc/transmission-daemon/settings.json"
-  notify: Restart transmission
+  notify: Reload transmission
   tags: transmission
 
 - name: Copy minidlna config
