@@ -177,14 +177,17 @@ alias ff='find $HOME -type f \
   -not \( -path *cache* -prune \) \
   -not \( -path *Cache* -prune \) \
   -not \( -path *.git* -prune \) \
+  -not \( -path *.local/share/containers* -prune \) \
+  -not \( -path *.local/lib/python* -prune \) \
   -print | fzf --layout=reverse --bind "enter:execute(vim {})+abort"'
 # cd to directory and exclude some dirs
-alias fd='cd $(find $HOME -type d \
+alias fd='cd "$(find $HOME -type d \
   -not \( -path *cache* -prune \) \
   -not \( -path *Cache* -prune \) \
   -not \( -path *.git* -prune \) \
   -not \( -path *.local/share/containers* -prune \) \
-  -print | fzf --layout=reverse)'
+  -not \( -path *.local/lib/python* -prune \) \
+  -print | fzf --layout=reverse)"'
 
 export FZF_DEFAULT_OPTS=--cycle
 # search for files using silver searcher (ag)
