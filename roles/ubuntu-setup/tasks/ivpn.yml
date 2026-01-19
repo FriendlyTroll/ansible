@@ -27,6 +27,8 @@
           - apache2-utils
           - qemu-system-x86
           - ovmf
+          - network-manager-l2tp
+          - network-manager-l2tp-gnome
 
     - name: Install snaps
       community.general.snap:
