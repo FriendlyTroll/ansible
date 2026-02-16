@@ -29,6 +29,7 @@
           - ovmf
           - network-manager-l2tp
           - network-manager-l2tp-gnome
+          - knot-dnsutils
 
     - name: Install snaps
       community.general.snap:
