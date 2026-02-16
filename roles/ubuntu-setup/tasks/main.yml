@@ -389,6 +389,11 @@
       deb: "{{ virtualbox_version }}"
     tags: vbox
 
+  - name: Install virtualbox extension pack {{ virtualbox_extension_version }}
+    apt:
+      deb: "{{ virtualbox_extension_version }}"
+    tags: vbox
+
   - name: Add user to additional groups
     user:
       name: antisa
