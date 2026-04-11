@@ -13,10 +13,10 @@ protonvpn_version: 1.0.8
 virtualbox_version: https://download.virtualbox.org/virtualbox/7.0.20/virtualbox-7.0_7.0.20-163906~Ubuntu~{{ ubuntu_version.stdout }}_amd64.deb
 
 # https://mikrotik.com/download
-mikrotik_winbox_version: 4.0beta29
+mikrotik_winbox_version: 4.0.1
 
 # https://github.com/LizardByte/Sunshine/releases/latest
 sunshine_version: v2025.924.154138
 
 # https://zoom.us/download?os=linux
-zoom_version: 6.5.9.3723
+zoom_version: 6.4.6
