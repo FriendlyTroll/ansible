@@ -451,3 +451,10 @@
   copy:
     src: autostart/
     dest: ~/.config/autostart/
+
+- name: Download LG tv webos dev manager
+  get_url:
+    url: "https://github.com/webosbrew/dev-manager-desktop/releases/download/v1.99.16/webos-dev-manager_1.99.16_amd64.AppImage"
+    dest: $HOME/Applications/webos-dev-manager.appimage
+    mode: 0755
+
