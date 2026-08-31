@@ -3,7 +3,7 @@
   gather_facts: True
   vars:
     # https://developer.hashicorp.com/terraform/downloads
-    terraform_version: 1.10.0
+    terraform_version: 1.14.8
     # https://github.com/99designs/aws-vault/releases
     aws_vault_version: 7.2.0
     # https://docs.docker.com/compose/releases/release-notes/
