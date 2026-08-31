@@ -389,9 +389,15 @@
       deb: "{{ virtualbox_version }}"
     tags: vbox
 
+  - name: Download virtualbox extension pack
+    get_url:
+      url: "{{ virtualbox_extension_version }}"
+      dest: /tmp/
+      mode: '0755'
+    tags: vbox
+
   - name: Install virtualbox extension pack {{ virtualbox_extension_version }}
-    apt:
-      deb: "{{ virtualbox_extension_version }}"
+    shell: yes | VBoxManage extpack install --replace /tmp/{{ virtualbox_extension_version | basename }}
     tags: vbox
 
   - name: Add user to additional groups
@@ -405,7 +411,7 @@
     get_url:
       url: https://download.mikrotik.com/routeros/winbox/{{ mikrotik_winbox_version }}/WinBox_Linux.zip
       dest: /tmp/
-      mode: 0755
+      mode: '0755'
     tags: mikrotik
 
   - name: Unarchive Mikrotik
