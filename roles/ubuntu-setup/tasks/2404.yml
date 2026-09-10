@@ -42,6 +42,7 @@
             - tree
             - flatpak
             - python3-pyfuse3
+            - torbrowser-launcher
         update_cache: yes
     tags: packages
 
