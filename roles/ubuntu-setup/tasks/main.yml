@@ -288,14 +288,14 @@
 
 - name: Download Anki flashcards
   get_url:
-      url: https://github.com/ankitects/anki/releases/download/{{ anki_version }}/anki-{{ anki_version }}-linux-qt6.tar.zst
+      url: "{{ anki_url }}"
       dest: /tmp/
       mode: 0755
   tags: anki
 
 - name: Unarchive Anki flashcards
   unarchive:
-    src: /tmp/anki-{{ anki_version }}-linux-qt6.tar.zst
+    src: "/tmp/{{ anki_url | basename }}"
     dest: /tmp/
     extra_opts:
       - --use-compress-program=unzstd
@@ -303,7 +303,7 @@
 
 - name: Install Anki flashcards
   command:
-    chdir: /tmp/anki-{{ anki_version }}-linux-qt6
+    chdir: "/tmp/{{ anki_url | basename | regex_replace('\\.tar\\.zst$', '') }}/anki-linux"
     cmd: sudo bash install.sh
   become: true
   become_user: root

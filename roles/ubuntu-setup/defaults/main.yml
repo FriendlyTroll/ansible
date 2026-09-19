@@ -1,6 +1,7 @@
 ---
 # https://apps.ankiweb.net/
-anki_version: 25.02.5
+anki_version: 26.09.2
+anki_url: https://github.com/ankitects/anki/releases/download/{{ anki_version }}/anki-{{ anki_version }}-linux-x86_64.tar.zst
 
 borg_repo_work: $HOME/borg_backup
 borg_repo_home: /mnt/wd4tb/borg_backup
