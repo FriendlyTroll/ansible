@@ -43,6 +43,7 @@
             - flatpak
             - python3-pyfuse3
             - torbrowser-launcher
+            - mkvtoolnix
         update_cache: yes
     tags: packages
 
@@ -55,13 +56,13 @@
   become: true
   become_user: root
 
-- name: Install python pip packages
+- name: Install python pipx packages
   vars:
     pipx_packages:
       - tldr
+      - pgsrip[rapidocr]
   community.general.pipx:
     name: "{{ item }}"
-    state: latest
   with_items: "{{ pipx_packages }}"
   tags: pip-packages
 

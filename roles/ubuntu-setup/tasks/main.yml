@@ -2,7 +2,7 @@
 - name: Check on which Ubuntu we are
   command: lsb_release -cs
   register: ubuntu_version
-  tags: docker
+  tags: always
 
 - debug:
     msg: Ubuntu version is {{ ubuntu_version.stdout }}
@@ -68,6 +68,7 @@
 
 - include_tasks: 2404.yml
   when: ubuntu_version.stdout == "noble"
+  tags: pip-packages
 
 - name: Include ivpn tasks
   include_tasks:
