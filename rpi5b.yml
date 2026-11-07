@@ -1,0 +1,6 @@
+---
+- name: Setup raspberrypi 5b
+  hosts: rpi5b
+  roles:
+      - role: docker
+      - role: torrents
