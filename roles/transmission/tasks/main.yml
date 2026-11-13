@@ -36,7 +36,9 @@
 - name: Copy transmission config
   copy:
       src: "transmission.json"
-      dest: "/etc/transmission-daemon/settings.json"
+      dest: "/var/lib/transmission-daemon/.config/transmission-daemon/settings.json"
+      owner: debian-transmission
+      group: debian-transmission
   notify: Reload transmission
   tags: transmission
 

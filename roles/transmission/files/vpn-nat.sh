@@ -8,7 +8,7 @@
 # Adapted from here https://dataswamp.org/~solene/2024-08-31-protonvpn-port-forwarding.html
 
 PORT=$(natpmpc -a 1 0 udp 60 -g 10.2.0.1 | awk '/Mapped public/ { print $4 }')
-FILE=/etc/transmission-daemon/settings.json
+FILE=/var/lib/transmission-daemon/.config/transmission-daemon/settings.json
 
 grep "$PORT" $FILE || { echo "Stopping transmission-daemon"; systemctl stop transmission-daemon.service; }
 
