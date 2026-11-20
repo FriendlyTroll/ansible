@@ -335,7 +335,7 @@ nnoremap <leader>fb :Buffers<CR>
 " search for files
 nnoremap <leader>ff :Files<CR>
 " grep in project
-nnoremap <leader>fg :Ag<space>
+nnoremap <leader>fg :Ag<CR>
 " search in open buffers for lines
 nnoremap <leader>fl :Lines<CR>
 " search word in all files with silversearcher
