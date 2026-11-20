@@ -476,8 +476,11 @@ augroup END
 " +----------------------------------------------------------------+
 " search for text in hidden files as well, but not in .gitignore
 " add -U to search in .gitignore as well
+" tell fzf to only search the text column using --delimiter : and --nth 4.. (the 4th field onward, because ag runs with --column, making the format path:line:col:text) otherwise it will highlight the filenames
 command! -bang -nargs=* Ag
-    \ call fzf#vim#ag(<q-args>, '-U --ignore-case', call('fzf#vim#with_preview', ['right', 'ctrl-/']), <bang>0)
+    \ call fzf#vim#ag(<q-args>, '-U --ignore-case',
+    \     fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right', 'ctrl-/'),
+    \     <bang>0)
 
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
